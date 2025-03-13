@@ -44,6 +44,16 @@ a {
     color: #2E2E2E !important;
 }
 
+.container-main {
+    padding-top: 87px!important;
+    padding-bottom: 20px!important;
+    margin-top: 87px !important;
+}
+
+.promo-h1 {
+    font-size: 60px;
+}
+
 .promo-end-desc p {
     font-size: 28px !important;
 }
@@ -72,6 +82,11 @@ a {
     border-radius: 35px;
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
+}
+
+.container-about {
+    border: 1px solid white;
+    background-color: white;
 }
 
 .popular-card-brand {
@@ -197,6 +212,8 @@ a {
 
 .calculation-block-h1 {
     font-size: 45px;
+    text-align: center;
+    padding-top: 50px;
 }
 
 .calculation-block-div-btn {
@@ -281,4 +298,75 @@ a {
 
 .price-delivery {
     font-size: 20px!important;
+}
+
+.container-contact {
+    color: white!important;
+}
+
+.contact-form {
+    border-radius: 24px;
+    border: 1px solid #2E2E2E;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white !important;
+    padding: 40px;
+}
+
+.form-check-input {
+    width: 27px;
+    height: 27px;
+    border-radius: 18px;
+}
+
+.form-check-label {
+    font-size: 14px;
+    width: 280px;
+}
+
+.contact-from-bnt {
+    border: 1px solid #2E2E2E;
+    background-color: #2E2E2E;
+    border-radius: 16px;
+    color: white;
+    padding: 12px;
+}
+
+.contact-from-bnt:hover {
+    background-color: #D91033;
+    border-color: #D91033;
+}
+
+.form-control:focus {
+    border: 1px solid red;
+    border-color: red;
+    box-shadow: none;
+}
+
+.form-check-input:checked[type=checkbox] {
+    background-color: red;
+    border-color: red;
+}
+
+footer {
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    margin-top: -20px;
+}
+
+@media only screen and (min-width:1200px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 1600px;
+    }
+}
+
+@media only screen and (min-width:1400px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 1600px;
+    }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1400px) {
+    .container-main {
+        background-size: 1090px 511px!important;
+    }
 }
