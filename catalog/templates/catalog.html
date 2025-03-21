@@ -1,0 +1,836 @@
+{% load static %}
+{% load custom_filters %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sewa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+<header class="container-fluid py-3 bg-light">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="{% url 'home' %}">
+            <div>
+                <img src="{% static 'img/Logo.png' %}" alt="Логотип" height="69" width="70">
+            </div>
+            </a>
+
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item"><a class="nav-link" href="#">Японские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Корейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Китайские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Европейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <div class="d-flex align-items-center">
+                <div class="me-5">
+                    <a href="#" class="me-2"><img src="{% static 'img/tg.png' %}" alt="Telegram" width="28"></a>
+                    <a href="#" class="me-2"><img src="{% static 'img/Youtube.png' %}" alt="Youtube" width="28"></a>
+                    <a href="#" class="me-2"><img src="{% static 'img/instagram.png' %}" alt="instagram" width="28"></a>
+                    <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
+                </div>
+                <div class="text-end">
+                    <a href="#" class="mb-0 fw-bold header-phone">+7 (999) 123-45-67</a>
+                    <a href="https://t.me/your_username" class="header-write-ws">Написать в Telegram</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<section class="container text-white text-start mt-5 container-main container-main-catalog" style="background: url('/static/img/Images-car-catalog-effect.png') right/cover no-repeat; background-size: 942px 245px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="mt-0"><a href="/" style="color: #757575!important; font-size: 13px;">Главная</a> <svg xmlns="http://www.w3.org/2000/svg" width="10" height="13" viewBox="0 0 7 10" fill="none" class="ms-1 me-1">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.982384 0.359337C1.17765 0.164075 1.49423 0.164075 1.68949 0.359337L5.97616 4.646C6.06993 4.73977 6.1226 4.86695 6.1226 4.99956C6.1226 5.13217 6.06993 5.25934 5.97616 5.35311L1.68949 9.63978C1.49423 9.83504 1.17765 9.83504 0.982384 9.63978C0.787122 9.44452 0.787122 9.12793 0.982384 8.93267L4.9155 4.99956L0.982384 1.06644C0.787122 0.871182 0.787122 0.554599 0.982384 0.359337Z" fill="#D5D5D5" fill-opacity="0.5"/>
+                    </svg> <a href="{{ request.path }}" style="color: white!important; font-size: 13px;">Авто из Кореи</a>
+                    </span>
+                    <h1 class="promo-h1 mt-5" style="font-weight: 800;">Авто из Кореи</h1>
+                    <p class="mt-1" style="font-size: 15px;">Хорошие машины покупаются здесь</p>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section class="container popular-cars py-5 px-5">
+    <div class="container mt-3">
+        <form method="get">
+        <div class="row block-filter py-3 px-3 g-3">
+            <div class="col-md-3">
+                <div class="custom-dropdown">
+                    <div class="dropdown-button">
+                        {% if request.GET.brand %}
+                        <span style="color: #757575!important;" class="fw-bold">{{ brand_map|get_item:request.GET.brand }}</span>
+                        {% else %}
+                        Марка авто
+                        {% endif %}
+                    </div>
+                    <ul class="dropdown-list" id="brand-dropdown-list">
+                        {% for keys, value in result.items %}
+                        <li data-value="{{ keys|join:',' }}">{{ value }}</li>
+                        {% endfor %}
+                    </ul>
+                    <input type="hidden" name="brand" value="{% if request.GET.brand %}{{ request.GET.brand }}{% endif %}">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="custom-dropdown">
+                    <div class="dropdown-button">
+                        {% if request.GET.drive %}
+                        <span style="color: #757575!important;" class="fw-bold">{{ drive_map|get_item:request.GET.drive }}</span>
+                        {% else %}
+                        Привод
+                        {% endif %}
+                    </div>
+                    <ul class="dropdown-list">
+                        {% for keys, value in drive.items %}
+                        <li data-value="{{ keys|join:',' }}">{{ value }}</li>
+                        {% endfor %}
+                    </ul>
+                    <input type="hidden" name="drive" value="{% if request.GET.drive %}{{ request.GET.drive }}{% endif %}">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="custom-dropdown">
+                    <div class="dropdown-button">
+                        {% if request.GET.transmission %}
+                        <span style="color: #757575!important;" class="fw-bold">{{ transmission_map|get_item:request.GET.transmission }}</span>
+                        {% else %}
+                        Тип КПП
+                        {% endif %}
+                    </div>
+                    <ul class="dropdown-list">
+                        {% for keys, value in transmission.items %}
+                        <li data-value="{{ keys|join:',' }}">{{ value }}</li>
+                        {% endfor %}
+                    </ul>
+                    <input type="hidden" name="transmission" value="{% if request.GET.transmission %}{{ request.GET.transmission }}{% endif %}">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="custom-dropdown d-flex">
+                    <div class="dropdown-button" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
+                        {% if request.GET.engine_volume_from %}
+                        <span style="color: #757575!important;" class="fw-bold">{{ engine_volume|get_item_int:request.GET.engine_volume_from }}</span>
+                        {% else %}
+                        Объем от
+                        {% endif %}
+                    </div>
+                    <ul class="dropdown-list">
+                        {% for keys, value in engine_volume.items %}
+                        <li data-value="{{ keys }}">{{ value }}</li>
+                        {% endfor %}
+                    </ul>
+                    <input type="hidden" name="engine_volume_from" value="{% if request.GET.engine_volume_from %}{{ request.GET.engine_volume_from }}{% endif %}">
+
+                    <div class="dropdown-button dropdown-button-to-engine_volume" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
+                        <span style="margin-left: -15px; color: #D9D9D9;" class="me-2">|</span>
+                        {% if request.GET.engine_volume_to %}
+                        <span style="color: #757575!important;" class="fw-bold">{{ engine_volume|get_item_int:request.GET.engine_volume_to }}</span>
+                        {% else %}
+                        до
+                        {% endif %}
+                    </div>
+                    <ul class="dropdown-list dropdown-list-to-engine_volume">
+                        {% for keys, value in engine_volume.items %}
+                        <li data-value="{{ keys }}">{{ value }}</li>
+                        {% endfor %}
+                    </ul>
+                    <input type="hidden" name="engine_volume_to" class="input-engine_volume_to" value="{% if request.GET.engine_volume_to %}{{ request.GET.engine_volume_to }}{% endif %}">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="custom-dropdown">
+                    <div class="dropdown-button" id="dropdown-button-model">
+                        {% if request.GET.model %}
+                        <span style="color: #757575!important;" class="fw-bold">{{ model_map|translate_model:request.GET.model }}</span>
+                        {% else %}
+                        Модель авто
+                        {% endif %}
+                    </div>
+                    <ul class="dropdown-list dropdown-list-models" id="model-dropdown-list">
+
+                    </ul>
+                    <input type="hidden" name="model" value="{% if request.GET.model %}{{ request.GET.model }}{% endif %}">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="custom-dropdown d-flex">
+                    <div class="dropdown-button" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
+                        {% if request.GET.year_from %}
+                        <span style="color: #757575!important;" class="fw-bold">{{ request.GET.year_from }}</span>
+                        {% else %}
+                        Год от
+                        {% endif %}
+                    </div>
+                    <ul class="dropdown-list">
+                        {% for keys, value in year.items %}
+                        <li data-value="{{ keys }}">{{ value }}</li>
+                        {% endfor %}
+                    </ul>
+                    <input type="hidden" name="year_from" value="{% if request.GET.year_from %}{{ request.GET.year_from }}{% endif %}">
+
+                    <div class="dropdown-button dropdown-button-to-year" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
+                        <span style="margin-left: -15px; color: #D9D9D9;" class="me-2">|</span>
+                        {% if request.GET.year_to %}
+                        <span style="color: #757575!important;" class="fw-bold">{{ request.GET.year_to }}</span>
+                        {% else %}
+                        до
+                        {% endif %}
+                    </div>
+                    <ul class="dropdown-list dropdown-list-to-year">
+                        {% for keys, value in year.items %}
+                        <li data-value="{{ keys }}">{{ value }}</li>
+                        {% endfor %}
+                    </ul>
+                    <input type="hidden" name="year_to" class="input-year_to" value="{% if request.GET.year_to %}{{ request.GET.year_to }}{% endif %}">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="custom-dropdown">
+                    <div class="dropdown-button">
+                        {% if request.GET.car_fuel %}
+                        <span style="color: #757575!important;" class="fw-bold">{{ car_fuel_map|get_item:request.GET.car_fuel }}</span>
+                        {% else %}
+                        Тип топлива
+                        {% endif %}
+                    </div>
+                    <ul class="dropdown-list">
+                        {% for keys, value in car_fuel.items %}
+                        <li data-value="{{ keys|join:',' }}">{{ value }}</li>
+                        {% endfor %}
+                    </ul>
+                    <input type="hidden" name="car_fuel" value="{% if request.GET.car_fuel %}{{ request.GET.car_fuel }}{% endif %}">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="custom-dropdown">
+                    <div class="dropdown-button">
+                        {% if request.GET.car_type %}
+                        <span style="color: #757575!important;" class="fw-bold">{{ car_type_map|get_item:request.GET.car_type }}</span>
+                        {% else %}
+                        Кузов
+                        {% endif %}
+                    </div>
+                    <ul class="dropdown-list">
+                        {% for keys, value in car_type.items %}
+                        <li data-value="{{ keys|join:',' }}">{{ value }}</li>
+                        {% endfor %}
+                    </ul>
+                    <input type="hidden" name="car_type" value="{% if request.GET.car_type %}{{ request.GET.car_type }}{% endif %}">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div style="display: flex; position: relative; width: fit-content; height: 46px;">
+                        <input class="form-control input-price" name="price_from" value="{% if request.GET.price_from %}{{ request.GET.price_from }}{% endif %}" placeholder="Цена от, ₽" style="border-top-right-radius: 0px!important; border-bottom-right-radius: 0px!important;">
+
+<!--                    <div class="dropdown-button" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">-->
+<!--                        {% if request.GET.price_from %}-->
+<!--                        <span style="color: #757575!important;" class="fw-bold">{{ request.GET.price_from }}</span>-->
+<!--                        {% else %}-->
+<!--                        Цена от-->
+<!--                        {% endif %}-->
+<!--                    </div>-->
+<!--                    <ul class="dropdown-list">-->
+<!--                        <li data-value="700000">700 000 ₽</li>-->
+<!--                        <li data-value="1200000">1 200 000 ₽</li>-->
+<!--                    </ul>-->
+<!--                    <input type="hidden" name="price_from" value="{% if request.GET.price_from %}{{ request.GET.price_from }}{% endif %}">-->
+
+
+
+                            <input name="price_to" class="form-control input-price" value="{% if request.GET.price_to %}{{ request.GET.price_to }}{% endif %}" placeholder="до" style="border-top-left-radius: 0px!important; border-bottom-left-radius: 0px!important;">
+
+                            <div class="divider"></div>
+
+
+
+<!--                    <div class="dropdown-button dropdown-button-to" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;">-->
+<!--                        <span style="margin-left: -15px; color: #D9D9D9;" class="me-2">|</span>-->
+<!--                        {% if request.GET.price_to %}-->
+<!--                        <span style="color: #757575!important;" class="fw-bold">{{ request.GET.price_to }}</span>-->
+<!--                        {% else %}-->
+<!--                        до-->
+<!--                        {% endif %}-->
+<!--                    </div>-->
+<!--                    <ul class="dropdown-list dropdown-list-to">-->
+<!--                        <li data-value="700000">800 000 ₽</li>-->
+<!--                        <li data-value="1200000">1 200 000 ₽</li>-->
+<!--                    </ul>-->
+<!--                    <input type="hidden" name="price_to" class="input-price_to" value="{% if request.GET.price_to %}{{ request.GET.price_to }}{% endif %}">-->
+
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="custom-dropdown d-flex">
+                    <div class="dropdown-button" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
+                        {% if request.GET.mileage_from %}
+                        <span style="color: #757575!important;" class="fw-bold">{{ mileage|get_item_int:request.GET.mileage_from }}</span>
+                        {% else %}
+                        Пробег от
+                        {% endif %}
+                    </div>
+                    <ul class="dropdown-list">
+                        {% for keys, value in mileage.items %}
+                        <li data-value="{{ keys }}">{{ value }}</li>
+                        {% endfor %}
+                    </ul>
+                    <input type="hidden" name="mileage_from" value="{% if request.GET.mileage_from %}{{ request.GET.mileage_from }}{% endif %}">
+
+                    <div class="dropdown-button dropdown-button-to-mileage" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
+                        <span style="margin-left: -15px; color: #D9D9D9;" class="me-2">|</span>
+                        {% if request.GET.mileage_to %}
+                        <span style="color: #757575!important;" class="fw-bold">{{ mileage|get_item_int:request.GET.mileage_to }}</span>
+                        {% else %}
+                        до
+                        {% endif %}
+                    </div>
+                    <ul class="dropdown-list dropdown-list-to-mileage">
+                        {% for keys, value in mileage.items %}
+                        <li data-value="{{ keys }}">{{ value }}</li>
+                        {% endfor %}
+                    </ul>
+                    <input type="hidden" name="mileage_to" class="input-mileage_to" value="{% if request.GET.mileage_to %}{{ request.GET.mileage_to }}{% endif %}">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="custom-dropdown">
+                    <div class="dropdown-button">
+                        {% if request.GET.auction %}
+                        <span style="color: #757575!important;" class="fw-bold">{{ request.GET.auction }}</span>
+                        {% else %}
+                         Аукцион
+                        {% endif %}
+                    </div>
+                    <ul class="dropdown-list">
+                        <li data-value="encar">Encar</li>
+                        <li data-value="kcar">Kcar</li>
+                        <li data-value="charancha">Charancha</li>
+                        <li data-value="mpark">Mpark</li>
+                        <li data-value="bobaedream">Bobaedream</li>
+                    </ul>
+                    <input type="hidden" name="auction" value="{% if request.GET.auction %}{{ request.GET.auction }}{% endif %}">
+                </div>
+            </div>
+
+            <div class="col-md-3" style="display: flex;">
+                <div class="d-flex" style="align-items: center;">
+                    <div class="color-circle me-3" data-value="red" style="background-color: red;"></div>
+                    <div class="color-circle me-3" data-value="green" style="background-color: green;"></div>
+                    <div class="color-circle me-3" data-value="black" style="background-color: black;"></div>
+                    <div class="color-circle me-3" data-value="blue" style="background-color: blue;"></div>
+                    <div class="color-circle me-3" data-value="pink" style="background-color: pink;"></div>
+                    <div class="dropdown-button-color" style="border: 1px solid black; background-color: white;">⋮</div>
+                    <div style="display: inline-block; position: absolute; margin-top: 25px;">
+                        <ul class="dropdown-list dropdown-list-color">
+                            <li data-value="red">Красный</li>
+                            <li data-value="green">Зеленый</li>
+                            <li data-value="blue">Синий</li>
+                            <li data-value="yellow">Желтый</li>
+                        </ul>
+                    </div>
+
+                    <input type="hidden" name="color" id="selectedColor">
+                </div>
+
+
+            </div>
+
+            <div class="d-flex align-items-center mt-4 ">
+                <button class="me-4 btn-filter-catalog">Смотреть все</button>
+                <a href="{{ request.path }}" style="color: #333333;">Сбросить</a>
+            </div>
+
+        </div>
+        </form>
+
+        <div class="row mt-4 mb-4">
+            <div class="col-3">
+                <div class="custom-dropdown-order">
+                    <div class="dropdown-button-order">
+                        {% if request.GET.order %}
+                        {% if request.GET.order == 'price_increase' %}
+                        <span style="color: #757575!important;" class="fw-bold">По возрастанию цены</span>
+                        {% else %}
+                        <span style="color: #757575!important;" class="fw-bold">По убыванию цены</span>
+                        {% endif %}
+                        {% else %}
+                        Сортировка
+                        {% endif %}
+                    </div>
+                    <ul class="dropdown-list" style="width: 312px!important;">
+                        <li><a href="?{% for key, val in request.GET.items %}{% if key != 'order' %}{{ key }}={{ val }}&{% endif %}{% endfor %}order=price_increase">По возрастанию цены</a></li>
+                        <li><a href="?{% for key, val in request.GET.items %}{% if key != 'order' %}{{ key }}={{ val }}&{% endif %}{% endfor %}order=price_decreasing">По убыванию цены</a></li>
+                    </ul>
+                    <input type="hidden" name="order">
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="row mt-3">
+        {% for car in cars %}
+        <div class="col-12 col-md-3">
+            <div class="card card-car">
+                    <div class="position-relative">
+                        <a href="{% url 'catalog:car' car.id %}">
+                        <img src="{% if car.auction == 'encar' %} {{ car.photo|filter_photo }} {% else %} {{ car.photo }} {% endif %}" class="card-img-top" alt="Авто">
+                        </a>
+                        <div class="position-absolute bottom-0 px-3 py-3">
+                            {% if car.rule %}
+                            <small class="me-2 rule-img-car">{{ car.rule }}</small>
+                            {% endif %}
+                            <small class="me-2 param-img-car">{{ car.mileage|format_number }} км</small>
+                            {% if car.rate %}
+                            <small class="param-img-car">{{ car.rate }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">
+                            {% if car.brand != 'Не определено' %} {{ brand_map|translate_brand:car.brand }} {% endif %} {% if car.model != 'Не определено' %} {{ model_map|translate_model:car.model }} {% endif %}
+                        </h5>
+                        <p class="card-text text-muted">
+                            {% if car.year %}
+                            {{ car.year }} &bull;
+                            {% endif %}
+                            {% if car.engine_volume != 'Не определено' and car.engine_volume != '0' %}
+                            {{ car.engine_volume|cc_to_liters }} л &bull;
+                            {% endif %}
+                            {% if car.drive and car.drive != 'Не определено' %}
+                            {{ car.drive|translate_drive }} &bull;
+                            {% endif %}
+                            {% if car.car_fuel and car.car_fuel != 'Не определено' %}
+                            {{ car.car_fuel|translate_engine }} &bull;
+                            {% endif %}
+                            {% if car.transmission and car.transmission != 'Не определено' %}
+                            {{ car.transmission|translate_transmission }}
+                            {% endif %}
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="fw-bold price-car-card">
+                                {% if car.price and car.price != 'Не определено' %}
+                                {{ car.price|format_price }}
+                                {% else %}
+                                Уточнить
+                                {% endif %}
+                            </span>
+                            <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        {% endfor %}
+
+
+
+
+
+    </div>
+
+    <div class="mt-2 pagination">
+    {% if current_page > 1 %}
+        <a href="?{% for key, val in request.GET.items %}{% if key != 'page' %}{{ key }}={{ val }}&{% endif %}{% endfor %}page={{ current_page|add:-1 }}" class="pagination-page">Предыдущая</a>
+    {% endif %}
+
+    <a href="?{% for key, val in request.GET.items %}{% if key != 'page' %}{{ key }}={{ val }}&{% endif %}{% endfor %}page=1" class="pagination-page {% if current_page == 1 %}active{% endif %}">1</a>
+
+    {% if current_page > 4 %}
+        <span class="pagination-page">...</span>
+    {% endif %}
+
+    {% for page in page_range %}
+        {% if page > 1 and page < total_pages %}
+            <a href="?{% for key, val in request.GET.items %}{% if key != 'page' %}{{ key }}={{ val }}&{% endif %}{% endfor %}page={{ page }}" class="pagination-page {% if page == current_page %}active{% endif %}">{{ page }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if current_page < total_pages|add:-3 %}
+        <span class="pagination-page">...</span>
+    {% endif %}
+
+    {% if total_pages > 1 %}
+        <a href="?{% for key, val in request.GET.items %}{% if key != 'page' %}{{ key }}={{ val }}&{% endif %}{% endfor %}page={{ total_pages }}" class="pagination-page {% if current_page == total_pages %}active{% endif %}">{{ total_pages }}</a>
+    {% endif %}
+
+    {% if current_page < total_pages %}
+        <a href="?{% for key, val in request.GET.items %}{% if key != 'page' %}{{ key }}={{ val }}&{% endif %}{% endfor %}page={{ current_page|add:1 }}" class="pagination-page">Следующая</a>
+    {% endif %}
+</div>
+
+
+
+</section>
+
+
+
+
+<section class="container py-5 px-5 container-contact" style="background: url('/static/img/Контакты.png') right/cover no-repeat;">
+    <div class="row">
+        <div class="col-md-6 mb-5">
+            <h1 style="font-size: 48px; font-weight: 800;">Контакты</h1>
+            <p style="font-size: 14px;">Оставьте свою заявку и наш менеджер свяжется с Вами для уточнения деталей.</p>
+            <div class="mt-5">
+                <div>
+                    <span style="color: #dddddd; font-size: 14px">Позвонить</span>
+                    <p style="font-size: 14px;">878-88-01899</p>
+                </div>
+                <div class="mt-5">
+                    <span style="color: #dddddd; font-size: 14px">Написать</span>
+                    <p style="font-size: 14px;">sewa2020@daum.net</p>
+                </div>
+                <div class="mt-5">
+                    <span style="color: #dddddd; font-size: 14px">Адрес</span>
+                    <p style="font-size: 14px;">2603-3, Sewa Motors, 32, Songdogwahak-ro,<br>Yeonsu-gu, Incheon, Republic of Korea.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-5">
+            <div class="contact-form">
+                <h3 style="font-weight: 800; font-size: 24px;">Оставить заявку</h3>
+                <form method="post">
+                    <div class="row mb-3 mt-4">
+                        <div class="col-md-6">
+                            <label for="name" class="form-label" style="font-size: 14px;">Имя</label>
+                            <input type="text" id="name" class="form-control" placeholder="Введите имя" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phone" class="form-label" style="font-size: 14px;">Телефон</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="+7 (___) ___-__-__" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label" style="font-size: 14px;">Уточните свой вопрос</label>
+                        <textarea id="message" class="form-control" rows="4" placeholder="Введите текст сообщения"></textarea>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-5">
+                        <div class="form-check d-flex justify-content-between align-items-center">
+                            <input class="form-check-input" type="checkbox" id="agree" required>
+                            <label class="form-check-label ms-3" for="agree" style="font-size: 13px;">
+                                С правилами политики конфиденциальности ознакомлен
+                            </label>
+                        </div>
+
+                        <button type="submit" class="contact-from-bnt">Отправить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="container py-3 bg-light px-5">
+    <div class="container d-flex justify-content-between align-items-center">
+            <a href="{% url 'home' %}">
+            <div>
+                <img src="{% static 'img/Logo.png' %}" alt="Логотип" height="69" width="70">
+            </div>
+            </a>
+
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item"><a class="nav-link" href="#">Японские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Корейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Китайские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Европейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <div class="d-flex align-items-center">
+                <div>
+                    <a href="#" class="me-2"><img src="{% static 'img/tg.png' %}" alt="Telegram" width="28"></a>
+                    <a href="#" class="me-2"><img src="{% static 'img/Youtube.png' %}" alt="Youtube" width="28"></a>
+                    <a href="#" class="me-2"><img src="{% static 'img/instagram.png' %}" alt="instagram" width="28"></a>
+                    <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
+                </div>
+            </div>
+        </div>
+    <hr>
+    <div class="d-flex justify-content-between align-items-center">
+        <span style="color: #555252; font-size: 13px;"> Все права зарегистрированы.</span>
+        <span style="color: #555252; font-size: 13px;">© 2021 Sewa Motors</span>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdowns = document.querySelectorAll(".custom-dropdown");
+
+        const dropdown_order = document.querySelector(".custom-dropdown-order");
+
+        const button_order = dropdown_order.querySelector(".dropdown-button-order");
+        const list_order = dropdown_order.querySelector(".dropdown-list");
+        const hiddenInput_order = dropdown_order.querySelector("input");
+
+        button_order.addEventListener("click", function () {
+            list_order.classList.toggle("show");
+        });
+
+        list_order.querySelectorAll("li").forEach(item => {
+            item.addEventListener("click", function () {
+                button_order.textContent = this.textContent;
+                hiddenInput_order.value = this.dataset.value;
+                list_order.classList.remove("show");
+                button_order.classList.remove("error");
+            });
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!dropdown_order.contains(event.target)) {
+                list_order.classList.remove("show");
+            }
+        });
+
+        dropdowns.forEach(dropdown => {
+            const button = dropdown.querySelector(".dropdown-button");
+            const list = dropdown.querySelector(".dropdown-list");
+            const hiddenInput = dropdown.querySelector("input");
+
+            button.addEventListener("click", function () {
+                list.classList.toggle("show");
+            });
+
+            list.querySelectorAll("li").forEach(item => {
+                item.addEventListener("click", function () {
+                    button.textContent = this.textContent;
+                    hiddenInput.value = this.dataset.value;
+                    list.classList.remove("show");
+                    button.classList.remove("error");
+                });
+            });
+
+            document.addEventListener("click", function (event) {
+                if (!dropdown.contains(event.target)) {
+                    list.classList.remove("show");
+                }
+            });
+        });
+
+        const button_to_year = document.querySelector(".dropdown-button-to-year");
+        const list_to_year = document.querySelector(".dropdown-list-to-year");
+        const hiddenInputYearTo = document.querySelector(".input-year_to");
+
+        button_to_year.addEventListener("click", function () {
+            list_to_year.classList.toggle("show");
+        });
+
+        list_to_year.querySelectorAll("li").forEach(item => {
+            item.addEventListener("click", function () {
+                button_to_year.textContent = this.textContent + ' ';
+                const newSpan = document.createElement('span');
+                newSpan.style.marginLeft = '-15px';
+                newSpan.style.color = '#D9D9D9';
+                newSpan.classList.add('me-2');
+                newSpan.textContent = '|';
+                button_to_year.prepend(newSpan);
+                hiddenInputYearTo.value = this.dataset.value;
+                list_to_year.classList.remove("show");
+                button_to_year.classList.remove("error");
+            });
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!button_to_year.contains(event.target)) {
+                list_to_year.classList.remove("show");
+            }
+        });
+
+        const button_to_mileage = document.querySelector(".dropdown-button-to-mileage");
+        const list_to_mileage = document.querySelector(".dropdown-list-to-mileage");
+        const hiddenInputMileageTo = document.querySelector(".input-mileage_to");
+
+        button_to_mileage.addEventListener("click", function () {
+            list_to_mileage.classList.toggle("show");
+        });
+
+        list_to_mileage.querySelectorAll("li").forEach(item => {
+            item.addEventListener("click", function () {
+                button_to_mileage.textContent = this.textContent + ' ';
+                const newSpan = document.createElement('span');
+                newSpan.style.marginLeft = '-15px';
+                newSpan.style.color = '#D9D9D9';
+                newSpan.classList.add('me-2');
+                newSpan.textContent = '|';
+                button_to_mileage.prepend(newSpan);
+                hiddenInputMileageTo.value = this.dataset.value;
+                list_to_mileage.classList.remove("show");
+                button_to_mileage.classList.remove("error");
+            });
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!button_to_mileage.contains(event.target)) {
+                list_to_mileage.classList.remove("show");
+            }
+        });
+
+        const button_to_engine_volume = document.querySelector(".dropdown-button-to-engine_volume");
+        const list_to_engine_volume = document.querySelector(".dropdown-list-to-engine_volume");
+        const hiddenInputEngineVolumeTo = document.querySelector(".input-engine_volume_to");
+
+        button_to_engine_volume.addEventListener("click", function () {
+            list_to_engine_volume.classList.toggle("show");
+        });
+
+        list_to_engine_volume.querySelectorAll("li").forEach(item => {
+            item.addEventListener("click", function () {
+                button_to_engine_volume.textContent = this.textContent + ' ';
+                const newSpan = document.createElement('span');
+                newSpan.style.marginLeft = '-15px';
+                newSpan.style.color = '#D9D9D9';
+                newSpan.classList.add('me-2');
+                newSpan.textContent = '|';
+                button_to_engine_volume.prepend(newSpan);
+                hiddenInputEngineVolumeTo.value = this.dataset.value;
+                list_to_engine_volume.classList.remove("show");
+                button_to_engine_volume.classList.remove("error");
+            });
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!button_to_engine_volume.contains(event.target)) {
+                list_to_engine_volume.classList.remove("show");
+            }
+        });
+
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const brandDropdown = document.querySelector("#brand-dropdown-list");
+    const hiddenBrandInput = document.querySelector("input[name='brand']");
+    const modelDropdown = document.querySelector("#model-dropdown-list");
+    const hiddenModelInput = document.querySelector("input[name='model']");
+    const buttonModel = document.querySelector("#dropdown-button-model");
+
+    if (brandDropdown) {
+        brandDropdown.addEventListener("click", function (event) {
+            const selectedItem = event.target;
+            if (selectedItem.tagName === "LI") {
+                const brandValue = selectedItem.getAttribute("data-value");
+
+                fetchModels(brandValue);
+            }
+        });
+    }
+
+    function fetchModels(brandValue) {
+        fetch(`http://127.0.0.1:8000/catalog/get-models/?brand=${brandValue}&ip=94.241.142.204`)
+            .then(response => response.json())
+            .then(data => {
+                updateModelDropdown(data);
+            })
+            .catch(error => console.error("Ошибка загрузки моделей:", error));
+    }
+
+    function updateModelDropdown(data) {
+        if (!modelDropdown) return;
+        modelDropdown.innerHTML = "";
+
+        Object.entries(data).forEach(([key, value]) => {
+            const li = document.createElement("li");
+            li.textContent = value;
+            li.setAttribute("data-value", key);
+            li.addEventListener("click", function () {
+                hiddenModelInput.value = key;
+                buttonModel.textContent = value;
+            });
+            modelDropdown.appendChild(li);
+        });
+    }
+});
+
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const colorCircles = document.querySelectorAll(".color-circle");
+        const dropdownButton = document.querySelector(".dropdown-button-color");
+        const dropdownList = document.querySelector(".dropdown-list-color");
+        const hiddenInput = document.getElementById("selectedColor");
+
+        colorCircles.forEach(circle => {
+            circle.addEventListener("click", function () {
+                hiddenInput.value = this.dataset.value;
+
+                dropdownButton.style.backgroundColor = 'white';
+                dropdownButton.innerHTML = '⋮';
+                dropdownButton.style.color = 'black';
+
+                colorCircles.forEach(c => {
+                    c.innerHTML = '';
+                    c.style.color = '';
+                    c.style.justifyContent = '';
+                    c.style.display = '';
+                });
+
+                circle.innerHTML = "&#10003;";
+                circle.style.color = "white";
+                circle.style.justifyContent = 'center';
+                circle.style.display = 'flex';
+            });
+        });
+
+        dropdownButton.addEventListener("click", function () {
+            colorCircles.forEach(c => c.classList.remove("selected"));
+            dropdownList.style.display = dropdownList.style.display === "block" ? "none" : "block";
+        });
+
+        dropdownList.addEventListener("click", function (event) {
+            if (event.target.tagName === "LI") {
+                const selectedColor = event.target.dataset.value;
+                hiddenInput.value = event.target.dataset.value;
+                dropdownList.style.display = "none";
+
+                colorCircles.forEach(c => {
+                    c.innerHTML = '';
+                    c.style.color = '';
+                    c.style.justifyContent = '';
+                    c.style.display = '';
+                });
+
+                dropdownButton.style.backgroundColor = selectedColor;
+                dropdownButton.innerHTML = "&#10003;";
+                dropdownButton.style.color = 'white';
+            }
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!dropdownButton.contains(event.target) && !dropdownList.contains(event.target)) {
+                dropdownList.style.display = "none";
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
