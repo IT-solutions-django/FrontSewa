@@ -375,4 +375,7 @@ def car(request, id_car):
 
     model_map = get_all_models_from_api('94.241.142.204')
 
-    return render(request, 'card.html', {'car': data_car, 'ru_brand': ru_brand, 'ru_model': ru_model, 'popular_cars': data_cars[:8], 'brand_map': brand_map, 'model_map': model_map})
+    city_delivery = City.objects.all()
+    body_delivery = DeliveryBody.objects.all()
+
+    return render(request, 'card.html', {'car': data_car, 'ru_brand': ru_brand, 'ru_model': ru_model, 'popular_cars': data_cars[:8], 'brand_map': brand_map, 'model_map': model_map, 'city_delivery': city_delivery, 'body_delivery': body_delivery})

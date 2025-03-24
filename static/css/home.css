@@ -406,6 +406,68 @@ a {
     display: block;
 }
 
+.custom-dropdown-modal {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.dropdown-button-modal {
+    background-color: white;
+    border: 1px solid #FFFFFF;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dropdown-button-modal::after {
+    content: "";
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M3.03998 6.25483C3.33288 5.96193 3.80775 5.96193 4.10064 6.25483L10.0003 12.1545L15.8989 6.25487C16.1918 5.96195 16.6667 5.96191 16.9596 6.25478C17.2525 6.54766 17.2526 7.02253 16.9597 7.31545L10.5307 13.7454C10.39 13.8861 10.1993 13.9651 10.0003 13.9652C9.80142 13.9652 9.61064 13.8861 9.46998 13.7455L3.03998 7.31549C2.74709 7.02259 2.74709 6.54772 3.03998 6.25483Z' fill='%23B4B4B4'/%3E%3C/svg%3E");
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    margin-left: auto;
+    transition: transform 0.3s ease;
+}
+
+.dropdown-list-modal {
+    position: absolute;
+    background: white;
+    border: 1px solid #FFFFFF;
+    border-radius: 8px;
+    margin-top: 5px;
+    width: 100%;
+    display: none;
+    list-style: none;
+    padding: 10px;
+    z-index: 1000;
+    max-height: 250px;
+    overflow-y: auto;
+
+}
+
+.dropdown-list-modal li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.dropdown-list-modal li:hover {
+    background: #B4B4B4;
+    color: white;
+    border-radius: 16px;
+}
+
+.dropdown-list-modal.show {
+    display: block;
+}
+
 .dropdown-list-color {
     width: 242px!important;
 }
@@ -445,12 +507,27 @@ a {
     padding: 12px;
 }
 
+.modal-body-feedback input {
+    border-radius: 16px;
+    padding: 12px;
+}
+
+.modal-body-feedback textarea {
+    border-radius: 16px;
+    padding: 12px;
+}
+
 .form-check-input {
     width: 27px;
     height: 27px;
     border-radius: 8px!important;
     background-color: rgba(0, 10, 30, 0.2);
     border-color: #7A7A7A;
+}
+
+.form-check-input-modal {
+    background-color: white;
+    border-color: #DDDDDD;
 }
 
 .form-check-label {
@@ -688,6 +765,27 @@ footer {
 
 .slick-next:before {
     content: none!important;
+}
+
+.modal-body-feedback {
+    justify-content: left;
+    padding: 28px;
+    margin-top: -25px;
+}
+
+.modal-content-feedback {
+    width: 508px;
+    border-radius: 16px;
+}
+
+.modal-dialog-feedback {
+    justify-content: center;
+    display: flex;
+}
+
+.modal-header-feedback {
+    border-bottom: none;
+    padding: 28px;
 }
 
 @media only screen and (min-width:1200px) {
