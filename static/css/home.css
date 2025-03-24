@@ -57,6 +57,15 @@ a {
      padding-bottom: 0px!important;
 }
 
+.container-main-about {
+    padding-top: 35px!important;
+    padding-bottom: 75px!important;
+}
+
+.user-command-img {
+    border-top-right: 2px solid red;
+}
+
 .promo-h1 {
     font-size: 60px;
     font-weight: 800;
@@ -410,7 +419,7 @@ a {
 }
 
 .logo-rub {
-    font-size: 22px!important;
+    font-size: 20px!important;
 }
 
 .container-contact {
@@ -651,6 +660,34 @@ footer {
     justify-content: center;
     cursor: pointer;
     position: relative;
+}
+
+.slick-prev, .slick-next {
+    width: 36px;
+    height: 36px;
+    z-index: 10;
+    background-color: #2E2E2E!important;
+    border-radius: 12px;
+}
+
+.slick-prev {
+    display: none!important;
+}
+
+.slick-next {
+    background-image: url('/static/img/chevron-right.png');
+    background-size: cover;
+    right: -15px!important;
+    top: 60%!important;
+}
+
+.slick-next:focus, .slick-next:hover, .slick-prev:focus, .slick-prev:hover {
+    background-image: url('/static/img/chevron-right.png');
+    background-size: cover;
+}
+
+.slick-next:before {
+    content: none!important;
 }
 
 @media only screen and (min-width:1200px) {

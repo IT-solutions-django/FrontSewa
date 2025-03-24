@@ -90,6 +90,42 @@
 
             <div class="col-md-3">
                 <div class="custom-dropdown">
+                    <div class="dropdown-button" id="dropdown-button-model">
+                        {% if request.GET.model %}
+                        <span style="color: #757575!important;" class="fw-bold">{{ model_map|translate_model:request.GET.model }}</span>
+                        {% else %}
+                        Модель авто
+                        {% endif %}
+                    </div>
+                    <ul class="dropdown-list dropdown-list-models" id="model-dropdown-list">
+
+                    </ul>
+                    <input type="hidden" name="model" value="{% if request.GET.model %}{{ request.GET.model }}{% endif %}">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="custom-dropdown">
+                    <div class="dropdown-button">
+                        {% if request.GET.auction %}
+                        <span style="color: #757575!important;" class="fw-bold">{{ request.GET.auction }}</span>
+                        {% else %}
+                         Аукцион
+                        {% endif %}
+                    </div>
+                    <ul class="dropdown-list">
+                        <li data-value="encar">Encar</li>
+                        <li data-value="kcar">Kcar</li>
+                        <li data-value="charancha">Charancha</li>
+                        <li data-value="mpark">Mpark</li>
+                        <li data-value="bobaedream">Bobaedream</li>
+                    </ul>
+                    <input type="hidden" name="auction" value="{% if request.GET.auction %}{{ request.GET.auction }}{% endif %}">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="custom-dropdown">
                     <div class="dropdown-button">
                         {% if request.GET.drive %}
                         <span style="color: #757575!important;" class="fw-bold">{{ drive_map|get_item:request.GET.drive }}</span>
@@ -157,21 +193,7 @@
                 </div>
             </div>
 
-            <div class="col-md-3">
-                <div class="custom-dropdown">
-                    <div class="dropdown-button" id="dropdown-button-model">
-                        {% if request.GET.model %}
-                        <span style="color: #757575!important;" class="fw-bold">{{ model_map|translate_model:request.GET.model }}</span>
-                        {% else %}
-                        Модель авто
-                        {% endif %}
-                    </div>
-                    <ul class="dropdown-list dropdown-list-models" id="model-dropdown-list">
 
-                    </ul>
-                    <input type="hidden" name="model" value="{% if request.GET.model %}{{ request.GET.model }}{% endif %}">
-                </div>
-            </div>
 
             <div class="col-md-3">
                 <div class="custom-dropdown d-flex">
@@ -224,23 +246,7 @@
                 </div>
             </div>
 
-            <div class="col-md-3">
-                <div class="custom-dropdown">
-                    <div class="dropdown-button">
-                        {% if request.GET.car_type %}
-                        <span style="color: #757575!important;" class="fw-bold">{{ car_type_map|get_item:request.GET.car_type }}</span>
-                        {% else %}
-                        Кузов
-                        {% endif %}
-                    </div>
-                    <ul class="dropdown-list">
-                        {% for keys, value in car_type.items %}
-                        <li data-value="{{ keys|join:',' }}">{{ value }}</li>
-                        {% endfor %}
-                    </ul>
-                    <input type="hidden" name="car_type" value="{% if request.GET.car_type %}{{ request.GET.car_type }}{% endif %}">
-                </div>
-            </div>
+
 
             <div class="col-md-3">
                 <div style="display: flex; position: relative; width: fit-content; height: 46px;">
@@ -317,25 +323,6 @@
                 </div>
             </div>
 
-            <div class="col-md-3">
-                <div class="custom-dropdown">
-                    <div class="dropdown-button">
-                        {% if request.GET.auction %}
-                        <span style="color: #757575!important;" class="fw-bold">{{ request.GET.auction }}</span>
-                        {% else %}
-                         Аукцион
-                        {% endif %}
-                    </div>
-                    <ul class="dropdown-list">
-                        <li data-value="encar">Encar</li>
-                        <li data-value="kcar">Kcar</li>
-                        <li data-value="charancha">Charancha</li>
-                        <li data-value="mpark">Mpark</li>
-                        <li data-value="bobaedream">Bobaedream</li>
-                    </ul>
-                    <input type="hidden" name="auction" value="{% if request.GET.auction %}{{ request.GET.auction }}{% endif %}">
-                </div>
-            </div>
 
             <div class="col-md-3" style="display: flex;">
                 <div class="d-flex" style="align-items: center;">
@@ -621,6 +608,8 @@
             list.querySelectorAll("li").forEach(item => {
                 item.addEventListener("click", function () {
                     button.textContent = this.textContent;
+                    button.style.color = "#757575";
+                    button.style.fontWeight = "bold";
                     hiddenInput.value = this.dataset.value;
                     list.classList.remove("show");
                     button.classList.remove("error");
@@ -654,6 +643,8 @@
                 hiddenInputYearTo.value = this.dataset.value;
                 list_to_year.classList.remove("show");
                 button_to_year.classList.remove("error");
+                button_to_year.style.color = "#757575";
+                button_to_year.style.fontWeight = "bold";
             });
         });
 
@@ -683,6 +674,8 @@
                 hiddenInputMileageTo.value = this.dataset.value;
                 list_to_mileage.classList.remove("show");
                 button_to_mileage.classList.remove("error");
+                button_to_mileage.style.color = "#757575";
+                button_to_mileage.style.fontWeight = "bold";
             });
         });
 
@@ -712,6 +705,8 @@
                 hiddenInputEngineVolumeTo.value = this.dataset.value;
                 list_to_engine_volume.classList.remove("show");
                 button_to_engine_volume.classList.remove("error");
+                button_to_engine_volume.style.color = "#757575";
+                button_to_engine_volume.style.fontWeight = "bold";
             });
         });
 
@@ -744,7 +739,7 @@
     }
 
     function fetchModels(brandValue) {
-        fetch(`http://127.0.0.1:8000/catalog/get-models/?brand=${brandValue}&ip=94.241.142.204`)
+        fetch(`http://94.241.142.204/catalog/get-models/?brand=${brandValue}&ip=94.241.142.204`)
             .then(response => response.json())
             .then(data => {
                 updateModelDropdown(data);

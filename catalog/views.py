@@ -2,10 +2,43 @@ from django.shortcuts import render
 from collections import defaultdict
 import requests
 from django.http import JsonResponse
+import json
+from youtube.models import Video
+from delivery.models import City, DeliveryBody, Delivery
+
+
+def send_order(request):
+    body_param = json.loads(request.body)
+
+    city_name = body_param.get('city')
+    car_type_name = body_param.get('carType')
+
+    car_type_delivery = DeliveryBody.objects.filter(name=car_type_name).first()
+    if not car_type_delivery:
+        return JsonResponse({"error": "Такой тип кузова не найден"}, status=400)
+
+    city_delivery = City.objects.filter(name=city_name).first()
+    if not city_delivery:
+        return JsonResponse({"error": "Такой город не найден"}, status=400)
+
+    delivery_data = Delivery.objects.filter(city=city_delivery, body_type=car_type_delivery).first()
+
+    if not delivery_data:
+        return JsonResponse({"error": "Доставка не найдена"}, status=404)
+
+    return JsonResponse({"price_delivery": delivery_data.price}, status=200)
 
 
 def home(request):
-    return render(request, 'home.html')
+    videos = Video.objects.all()
+    city_delivery = City.objects.all()
+    body_delivery = DeliveryBody.objects.all()
+    return render(request, 'home.html', {'videos': videos, 'city_delivery': city_delivery, 'body_delivery': body_delivery})
+
+
+def about(request):
+    videos = Video.objects.all()
+    return render(request, 'about.html', {'videos': videos})
 
 
 def get_brands_from_api(params):

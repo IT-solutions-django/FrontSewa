@@ -1,0 +1,633 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sewa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Slick CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+
+    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+<header class="container-fluid py-3 bg-light">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="{% url 'home' %}">
+            <div>
+                <img src="{% static 'img/Logo.png' %}" alt="Логотип" width="71" height="69">
+            </div>
+            </a>
+
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item"><a class="nav-link" href="#">Японские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Корейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Китайские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Европейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <div class="d-flex align-items-center">
+                <div class="me-5">
+                    <a href="#" class="me-2"><img src="{% static 'img/tg.png' %}" alt="Telegram" width="28"></a>
+                    <a href="#" class="me-2"><img src="{% static 'img/Youtube.png' %}" alt="Youtube" width="28"></a>
+                    <a href="#" class="me-2"><img src="{% static 'img/instagram.png' %}" alt="instagram" width="28"></a>
+                    <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
+                </div>
+                <div class="text-end">
+                    <a href="#" class="mb-0 fw-bold header-phone">+7 (999) 123-45-67</a>
+                    <a href="https://t.me/your_username" class="header-write-ws">Написать в Telegram</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<section class="container text-white text-start mt-5 container-main container-main-about" style="background: url('/static/img/Image.png') right/cover no-repeat; background-size: 1012px 343px; background-position-y: -5%;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="mt-0"><a href="/" style="color: #757575!important; font-size: 13px;">Главная</a> <svg xmlns="http://www.w3.org/2000/svg" width="10" height="13" viewBox="0 0 7 10" fill="none" class="ms-1 me-1">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.982384 0.359337C1.17765 0.164075 1.49423 0.164075 1.68949 0.359337L5.97616 4.646C6.06993 4.73977 6.1226 4.86695 6.1226 4.99956C6.1226 5.13217 6.06993 5.25934 5.97616 5.35311L1.68949 9.63978C1.49423 9.83504 1.17765 9.83504 0.982384 9.63978C0.787122 9.44452 0.787122 9.12793 0.982384 8.93267L4.9155 4.99956L0.982384 1.06644C0.787122 0.871182 0.787122 0.554599 0.982384 0.359337Z" fill="#D5D5D5" fill-opacity="0.5"/>
+                    </svg> <a href="{{ request.path }}" style="color: white!important; font-size: 13px;">О компании</a>
+                    </span>
+                    <h1 class="promo-h1 mt-5" style="font-weight: 800; padding-top: 20px;">О нас</h1>
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+<section class="container py-5 px-5 container-about" style="border-top-left-radius: 32px; border-top-right-radius: 32px;">
+    <h1 style="font-size: 48px; font-weight: 800;">О компании SEWA</h1>
+    <div class="row">
+        <div class="col-md-7">
+            <p class="mt-3" style="font-size: 15px;">Мы — ведущая экспортная компания из Южной Кореи, специализирующаяся на поставке автомобилей в страны по всему миру. Наша компания предлагает выгодные условия сотрудничества с возможностью с возможностью приобрести авто выгоднее на 30%. Мы гордимся тем, что предоставляем нашим клиентам не только высококачественные автомобили, но и первоклассный сервис. С нами вы получите надежные решения и максимальную выгоду  от каждой сделки.</p>
+            <h4 class="mt-5" style="font-weight: 700; font-size: 18px;">Почему мы - это лучший выбор</h4>
+            <p style="font-size: 14px;">Работаем напрямую, поэтому не берем никаких комиссий за наши услуги</p>
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <img src="{% static 'img/Icon Container.png' %}" class="img-fluid" alt="Авто">
+                    <h4 style="font-size: 16px; font-weight: 700;" class="mt-3">Таможенное оформление</h4>
+                    <p style="font-size: 14px;">Поможем растоможить автомобиль  и оформить все необходимые документы. </p>
+                </div>
+                <div class="col-md-4">
+                    <img src="{% static 'img/Icon Container2.png' %}" class="img-fluid" alt="Авто">
+                    <h4 style="font-size: 16px; font-weight: 700;" class="mt-3">Экономия времени</h4>
+                    <p style="font-size: 14px;">Мы работаем быстро и эффективно,  осмотр авто за 24 часа с момента подачи заявки клиентом.</p>
+                </div>
+                <div class="col-md-4">
+                    <img src="{% static 'img/Icon Container3.png' %}" class="img-fluid" alt="Авто">
+                    <h4 style="font-size: 16px; font-weight: 700;" class="mt-3">Персональный менеджер</h4>
+                    <p style="font-size: 14px;">Каждому клиенту назначается персональный менеджер-ассистент, который окажет профессиональную помощь в выборе автомобиля.</p>
+                </div>
+                <div class="col-md-4">
+                    <img src="{% static 'img/Icon Container4.png' %}" class="img-fluid" alt="Авто">
+                    <h4 style="font-size: 16px; font-weight: 700;" class="mt-3">Тщательный отбор</h4>
+                    <p style="font-size: 14px;">Наши профессионалы тщательно отбирают автомобили, обеспечивая  их отличное состояние и соответствие самым высоким стандартам.</p>
+                </div>
+                <div class="col-md-4">
+                    <img src="{% static 'img/Icon Container5.png' %}" class="img-fluid" alt="Авто">
+                    <h4 style="font-size: 16px; font-weight: 700;" class="mt-3">Проверенные аукционы</h4>
+                    <p style="font-size: 14px;">Мы работаем со всеми крупными торговыми площадками и аукционами Кореи.</p>
+                </div>
+                <div class="col-md-4">
+                    <img src="{% static 'img/Icon Container6.png' %}" class="img-fluid" alt="Авто">
+                    <h4 style="font-size: 16px; font-weight: 700;" class="mt-3">Экспорт санкционных авто</h4>
+                    <p style="font-size: 14px;">Наша команда успешно отработала схемы перевозок санкционных авто и оперативно решает поступающие проблемы</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <img src="{% static 'img/Image-about.png' %}" class="img-fluid" alt="Авто">
+            <div class="row mt-3 promo-end-desc">
+                        <div class="col-auto align-items-center me-4">
+                            <div class="d-flex align-items-center" style="justify-content: center;">
+                                <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="20" height="19">
+                                <p class="fw-bold mb-0 ms-2">4.9</p>
+                            </div>
+                            <div>
+                                <small>рейтинг клиентов</small>
+                            </div>
+
+                        </div>
+
+                        <div class="col-auto text-center me-4">
+                            <p class="fw-bold mb-0">8</p>
+                            <small>лет на рынке</small>
+                        </div>
+
+                        <div class="col-auto text-center me-4">
+                            <p class="fw-bold mb-0">5000 +</p>
+                            <small>авто привезли</small>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <h1 class="mt-3" style="font-size: 48px; font-weight: 800; margin-top: 100px!important;">Наша команда</h1>
+    <div class="row mt-5">
+        <div class="col-md-2 me-3">
+            <img src="{% static 'img/red-fone.png' %}" class="img-fluid" alt="Авто" style="position: absolute; height: 205px; width: 200px; margin-left: 10px;">
+            <img src="{% static 'img/user-command-1.png' %}" class="img-fluid mb-3 user-command-img" alt="Авто" style="position: relative; margin-top: 5px;">
+            <span style="font-weight: 700; font-size: 18px;">Абрамов Кирилл</span>
+            <p style="color: #757575; font-size: 15px;">Отдел экспедиторов</p>
+        </div>
+        <div class="col-md-2 me-3">
+            <img src="{% static 'img/red-fone.png' %}" class="img-fluid" alt="Авто" style="position: absolute; height: 205px; width: 200px; margin-left: 10px;">
+            <img src="{% static 'img/user-command-1.png' %}" class="img-fluid mb-3 user-command-img" alt="Авто" style="position: relative; margin-top: 5px;">
+            <span style="font-weight: 700; font-size: 18px;">Абрамов Кирилл</span>
+            <p style="color: #757575; font-size: 15px;">Отдел экспедиторов</p>
+        </div>
+        <div class="col-md-2 me-3">
+            <img src="{% static 'img/red-fone.png' %}" class="img-fluid" alt="Авто" style="position: absolute; height: 205px; width: 200px; margin-left: 10px;">
+            <img src="{% static 'img/user-command-1.png' %}" class="img-fluid mb-3 user-command-img" alt="Авто" style="position: relative; margin-top: 5px;">
+            <span style="font-weight: 700; font-size: 18px;">Абрамов Кирилл</span>
+            <p style="color: #757575; font-size: 15px;">Отдел экспедиторов</p>
+        </div>
+        <div class="col-md-2 me-3">
+            <img src="{% static 'img/red-fone.png' %}" class="img-fluid" alt="Авто" style="position: absolute; height: 205px; width: 200px; margin-left: 10px;">
+            <img src="{% static 'img/user-command-1.png' %}" class="img-fluid mb-3 user-command-img" alt="Авто" style="position: relative; margin-top: 5px;">
+            <span style="font-weight: 700; font-size: 18px;">Абрамов Кирилл</span>
+            <p style="color: #757575; font-size: 15px;">Отдел экспедиторов</p>
+        </div>
+        <div class="col-md-2 me-3">
+            <img src="{% static 'img/red-fone.png' %}" class="img-fluid" alt="Авто" style="position: absolute; height: 205px; width: 200px; margin-left: 10px;">
+            <img src="{% static 'img/user-command-1.png' %}" class="img-fluid mb-3 user-command-img" alt="Авто" style="position: relative; margin-top: 5px;">
+            <span style="font-weight: 700; font-size: 18px;">Абрамов Кирилл</span>
+            <p style="color: #757575; font-size: 15px;">Отдел экспедиторов</p>
+        </div>
+    </div>
+
+    <h1 class="mt-4" style="font-size: 48px; font-weight: 800; margin-top: 120px!important;">Что говорят наши клиенты</h1>
+    <div class="row mt-5">
+        <div class="col-md-3">
+            <img src="{% static 'img/Шаг.png' %}" class="img-fluid" alt="Авто">
+            <div class="one-step-card" style="position: relative">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4 style="font-size: 36px; font-weight: 700;">4.0</h4>
+                    </div>
+                    <div class="col-md-5 mt-2">
+                        <div class="d-flex mb-1">
+                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13">
+                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-3">
+                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-3">
+                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-3">
+                        </div>
+                        <p style="font-size: 13px;">20 оценок</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <a href="#" style="color: #007DE3!important;">Мы на vl.ru справочник</a>
+                    </div>
+                    <div class="col-md-2">
+                        <img src="{% static 'img/Vector (Stroke).png' %}" alt="Рейтинг" height="13" width="14">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'img/Шаг2.png' %}" class="img-fluid" alt="Авто">
+            <div class="one-step-card" style="position: relative">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4 style="font-size: 36px; font-weight: 700;">4.9</h4>
+                    </div>
+                    <div class="col-md-5 mt-2">
+                        <div class="d-flex mb-1">
+                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13">
+                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-3">
+                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-3">
+                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-3">
+                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-3">
+                        </div>
+                        <p style="font-size: 13px;">51 оценок</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <a href="#" style="color: #007DE3!important;">Мы в 2ГИС</a>
+                    </div>
+                    <div class="col-md-2">
+                        <img src="{% static 'img/Vector (Stroke).png' %}" alt="Рейтинг" height="13" width="14">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'img/Шаг3.png' %}" class="img-fluid" alt="Авто">
+            <div class="one-step-card" style="position: relative">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4 style="font-size: 36px; font-weight: 700;">4.9</h4>
+                    </div>
+                    <div class="col-md-5 mt-2">
+                        <div class="d-flex mb-1">
+                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13">
+                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-3">
+                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-3">
+                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-3">
+                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-3">
+                        </div>
+                        <p style="font-size: 13px;">37 оценок</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <a href="#" style="color: #007DE3!important;">Мы в Яндекс</a>
+                    </div>
+                    <div class="col-md-2">
+                        <img src="{% static 'img/Vector (Stroke).png' %}" alt="Рейтинг" height="13" width="14">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex align-items-center justify-content-between mt-5">
+        <h3 style="font-weight: 800; font-size: 26px;">Отзывы</h3>
+    </div>
+    <div class="row mt-3 review-slider">
+        <div class="col-md-3">
+            <div class="card card-car me-3" style="height: fit-content!important;">
+                    <img src="{% static 'img/Image-review.png' %}" class="card-img-top" alt="Авто">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h5 style="font-weight: 700; font-size: 16px;">Сергей Б.</h5>
+                                <div class="d-flex">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <img src="{% static 'img/Logo-review.png' %}" class="img-fluid" alt="Авто">
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <p style="font-size: 14px;">Хочу оставить большущую благодарность компании батарейка! Начали работу с ними в июле месяце. До Владивостока машину из Кореи доставили за месяц. Все четко на каждом из этапов. Дольше ждал транспортную компанию с доставкой авто.</p>
+                        </div>
+                        <div class="mt-2">
+                            <span style="color: #555252; font-size: 13px;">20.02.2025</span>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-car me-3" style="height: fit-content!important;">
+                    <img src="{% static 'img/Image-review.png' %}" class="card-img-top" alt="Авто">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h5 style="font-weight: 700; font-size: 16px;">Сергей Б.</h5>
+                                <div class="d-flex">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <img src="{% static 'img/Logo-review.png' %}" class="img-fluid" alt="Авто">
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <p style="font-size: 14px;">Хочу оставить большущую благодарность компании батарейка! Начали работу с ними в июле месяце. До Владивостока машину из Кореи доставили за месяц. Все четко на каждом из этапов. Дольше ждал транспортную компанию с доставкой авто.</p>
+                        </div>
+                        <div class="mt-2">
+                            <span style="color: #555252; font-size: 13px;">20.02.2025</span>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-car me-3" style="height: fit-content!important;">
+                    <img src="{% static 'img/Image-review.png' %}" class="card-img-top" alt="Авто">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h5 style="font-weight: 700; font-size: 16px;">Сергей Б.</h5>
+                                <div class="d-flex">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <img src="{% static 'img/Logo-review.png' %}" class="img-fluid" alt="Авто">
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <p style="font-size: 14px;">Хочу оставить большущую благодарность компании батарейка! Начали работу с ними в июле месяце. До Владивостока машину из Кореи доставили за месяц. Все четко на каждом из этапов. Дольше ждал транспортную компанию с доставкой авто.</p>
+                        </div>
+                        <div class="mt-2">
+                            <span style="color: #555252; font-size: 13px;">20.02.2025</span>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-car me-3" style="height: fit-content!important;">
+                    <img src="{% static 'img/Image-review.png' %}" class="card-img-top" alt="Авто">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h5 style="font-weight: 700; font-size: 16px;">Сергей Б.</h5>
+                                <div class="d-flex">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <img src="{% static 'img/Logo-review.png' %}" class="img-fluid" alt="Авто">
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <p style="font-size: 14px;">Хочу оставить большущую благодарность компании батарейка! Начали работу с ними в июле месяце. До Владивостока машину из Кореи доставили за месяц. Все четко на каждом из этапов. Дольше ждал транспортную компанию с доставкой авто.</p>
+                        </div>
+                        <div class="mt-2">
+                            <span style="color: #555252; font-size: 13px;">20.02.2025</span>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card card-car me-3" style="height: fit-content!important;">
+                    <img src="{% static 'img/Image-review.png' %}" class="card-img-top" alt="Авто">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h5 style="font-weight: 700; font-size: 16px;">Сергей Б.</h5>
+                                <div class="d-flex">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <img src="{% static 'img/Logo-review.png' %}" class="img-fluid" alt="Авто">
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <p style="font-size: 14px;">Хочу оставить большущую благодарность компании батарейка! Начали работу с ними в июле месяце. До Владивостока машину из Кореи доставили за месяц. Все четко на каждом из этапов. Дольше ждал транспортную компанию с доставкой авто.</p>
+                        </div>
+                        <div class="mt-2">
+                            <span style="color: #555252; font-size: 13px;">20.02.2025</span>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+    </div>
+    <div class="d-flex align-items-center justify-content-between mt-5">
+        <div class="d-flex align-items-center">
+            <img src="{% static 'img/YouTube Icon.png' %}" class="img-fluid" alt="Авто">
+            <h3 class="mt-2 ms-2" style="font-weight: 800; font-size: 26px;">Обзоры</h3>
+        </div>
+        <a href="https://www.youtube.com/@SewaMotors-SouthKorea/videos" class="ms-auto text-primary" target="_blank">Смотреть все</a>
+    </div>
+
+    <div class="row mt-3 video-slider">
+        {% for video in videos %}
+        <div class="col-md-3 me-3">
+            <a href="{{ video.link }}" target="_blank">
+            <img src="{{ video.preview }}" class="img-fluid" alt="Авто" style="border-radius: 12px;">
+            </a>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <div class="d-flex align-items-center justify-content-between mt-5">
+        <div class="d-flex align-items-center">
+            <img src="{% static 'img/logo-short.png' %}" class="img-fluid" alt="Авто">
+            <h3 class="mt-2 ms-2" style="font-weight: 800; font-size: 26px;">Shorts</h3>
+        </div>
+        <a href="#" class="ms-auto text-primary">Смотреть все</a>
+    </div>
+    <div class="row mt-3 shorts-slider">
+        <div class="col-md-3">
+            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+        </div>
+    </div>
+
+</section>
+
+<section class="container py-5 px-5 container-contact" style="background: url('/static/img/Контакты.png') right/cover no-repeat;">
+    <div class="row">
+        <div class="col-md-6 mb-5">
+            <h1 style="font-size: 48px; font-weight: 800;">Контакты</h1>
+            <p style="font-size: 14px;">Оставьте свою заявку и наш менеджер свяжется с Вами для уточнения деталей.</p>
+            <div class="mt-5">
+                <div>
+                    <span style="color: #dddddd; font-size: 14px;">Позвонить</span>
+                    <p style="font-size: 14px;">878-88-01899</p>
+                </div>
+                <div class="mt-5">
+                    <span style="color: #dddddd; font-size: 14px">Написать</span>
+                    <p style="font-size: 14px;">sewa2020@daum.net</p>
+                </div>
+                <div class="mt-5">
+                    <span style="color: #dddddd; font-size: 14px">Адрес</span>
+                    <p style="font-size: 14px;">2603-3, Sewa Motors, 32, Songdogwahak-ro,<br>Yeonsu-gu, Incheon, Republic of Korea.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-5">
+            <div class="contact-form">
+                <h3 style="font-weight: 800; font-size: 24px;">Оставить заявку</h3>
+                <form method="post">
+                    <div class="row mb-3 mt-4">
+                        <div class="col-md-6">
+                            <label for="name" class="form-label" style="font-size: 14px;">Имя</label>
+                            <input type="text" id="name" class="form-control" placeholder="Введите имя" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phone" class="form-label" style="font-size: 14px;">Телефон</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="+7 (___) ___-__-__" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label" style="font-size: 14px;">Уточните свой вопрос</label>
+                        <textarea id="message" class="form-control" rows="4" placeholder="Введите текст сообщения"></textarea>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-5">
+                        <div class="form-check d-flex justify-content-between align-items-center">
+                            <input class="form-check-input" type="checkbox" id="agree" required>
+                            <label class="form-check-label ms-3" for="agree" style="font-size: 13px;">
+                                С правилами политики конфиденциальности ознакомлен
+                            </label>
+                        </div>
+
+                        <button type="submit" class="contact-from-bnt">Отправить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="container py-3 bg-light px-5">
+    <div class="container d-flex justify-content-between align-items-center">
+            <a href="{% url 'home' %}">
+            <div>
+                <img src="{% static 'img/Logo.png' %}" alt="Логотип" height="69" width="70">
+            </div>
+            </a>
+
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item"><a class="nav-link" href="#">Японские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Корейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Китайские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Европейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <div class="d-flex align-items-center">
+                <div>
+                    <a href="#" class="me-2"><img src="{% static 'img/tg.png' %}" alt="Telegram" width="28"></a>
+                    <a href="#" class="me-2"><img src="{% static 'img/Youtube.png' %}" alt="Youtube" width="28"></a>
+                    <a href="#" class="me-2"><img src="{% static 'img/instagram.png' %}" alt="instagram" width="28"></a>
+                    <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
+                </div>
+            </div>
+        </div>
+    <hr>
+    <div class="d-flex justify-content-between align-items-center">
+        <span style="color: #555252; font-size: 13px;"> Все права зарегистрированы.</span>
+        <span style="color: #555252; font-size: 13px;">© 2021 Sewa Motors</span>
+    </div>
+</footer>
+
+<!-- Slick JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('.review-slider').slick({
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            dots: false,
+            infinite: true,
+            arrows: true,
+            responsive: [
+                {
+                    breakpoint: 992,
+                    settings: { slidesToShow: 2 }
+                },
+                {
+                    breakpoint: 768,
+                    settings: { slidesToShow: 1 }
+                }
+            ]
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('.shorts-slider').slick({
+            slidesToShow: 8.1,
+            slidesToScroll: 1,
+            dots: false,
+            infinite: true,
+            arrows: false,
+            responsive: [
+                {
+                    breakpoint: 992,
+                    settings: { slidesToShow: 2 }
+                },
+                {
+                    breakpoint: 768,
+                    settings: { slidesToShow: 1 }
+                }
+            ]
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('.video-slider').slick({
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            dots: false,
+            infinite: true,
+            arrows: false,
+            responsive: [
+                {
+                    breakpoint: 992,
+                    settings: { slidesToShow: 2 }
+                },
+                {
+                    breakpoint: 768,
+                    settings: { slidesToShow: 1 }
+                }
+            ]
+        });
+    });
+</script>
+
+</body>
+</html>
