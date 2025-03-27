@@ -80,6 +80,7 @@
                         {% endif %}
                     </div>
                     <ul class="dropdown-list" id="brand-dropdown-list">
+                        <li data-value="">Любая</li>
                         {% for keys, value in result.items %}
                         <li data-value="{{ keys|join:',' }}">{{ value }}</li>
                         {% endfor %}
@@ -114,6 +115,7 @@
                         {% endif %}
                     </div>
                     <ul class="dropdown-list">
+                        <li data-value="">Любой</li>
                         <li data-value="encar">Encar</li>
                         <li data-value="kcar">Kcar</li>
                         <li data-value="charancha">Charancha</li>
@@ -134,6 +136,7 @@
                         {% endif %}
                     </div>
                     <ul class="dropdown-list">
+                        <li data-value="">Любой</li>
                         {% for keys, value in drive.items %}
                         <li data-value="{{ keys|join:',' }}">{{ value }}</li>
                         {% endfor %}
@@ -152,6 +155,7 @@
                         {% endif %}
                     </div>
                     <ul class="dropdown-list">
+                        <li data-value="">Любой</li>
                         {% for keys, value in transmission.items %}
                         <li data-value="{{ keys|join:',' }}">{{ value }}</li>
                         {% endfor %}
@@ -170,6 +174,7 @@
                         {% endif %}
                     </div>
                     <ul class="dropdown-list">
+                        <li data-value="">Объем от</li>
                         {% for keys, value in engine_volume.items %}
                         <li data-value="{{ keys }}">{{ value }}</li>
                         {% endfor %}
@@ -185,6 +190,7 @@
                         {% endif %}
                     </div>
                     <ul class="dropdown-list dropdown-list-to-engine_volume">
+                        <li data-value="">до</li>
                         {% for keys, value in engine_volume.items %}
                         <li data-value="{{ keys }}">{{ value }}</li>
                         {% endfor %}
@@ -205,6 +211,7 @@
                         {% endif %}
                     </div>
                     <ul class="dropdown-list">
+                        <li data-value="">Год от</li>
                         {% for keys, value in year.items %}
                         <li data-value="{{ keys }}">{{ value }}</li>
                         {% endfor %}
@@ -220,6 +227,7 @@
                         {% endif %}
                     </div>
                     <ul class="dropdown-list dropdown-list-to-year">
+                        <li data-value="">до</li>
                         {% for keys, value in year.items %}
                         <li data-value="{{ keys }}">{{ value }}</li>
                         {% endfor %}
@@ -238,6 +246,7 @@
                         {% endif %}
                     </div>
                     <ul class="dropdown-list">
+                        <li data-value="">Любой</li>
                         {% for keys, value in car_fuel.items %}
                         <li data-value="{{ keys|join:',' }}">{{ value }}</li>
                         {% endfor %}
@@ -300,6 +309,7 @@
                         {% endif %}
                     </div>
                     <ul class="dropdown-list">
+                        <li data-value="">Пробег от</li>
                         {% for keys, value in mileage.items %}
                         <li data-value="{{ keys }}">{{ value }}</li>
                         {% endfor %}
@@ -315,6 +325,7 @@
                         {% endif %}
                     </div>
                     <ul class="dropdown-list dropdown-list-to-mileage">
+                        <li data-value="">до</li>
                         {% for keys, value in mileage.items %}
                         <li data-value="{{ keys }}">{{ value }}</li>
                         {% endfor %}
@@ -326,12 +337,16 @@
 
             <div class="col-md-3" style="display: flex;">
                 <div class="d-flex" style="align-items: center;">
+                    <div class="d-flex align-items-center">
+                    <input class="check-color" type="checkbox" id="agree-color" data-value="">
+                    <span class="me-3" style="font-size: 13px;">Любой</span>
+                        </div>
                     <div class="color-circle me-3" data-value="red" style="background-color: red;"></div>
                     <div class="color-circle me-3" data-value="green" style="background-color: green;"></div>
                     <div class="color-circle me-3" data-value="black" style="background-color: black;"></div>
                     <div class="color-circle me-3" data-value="blue" style="background-color: blue;"></div>
                     <div class="color-circle me-3" data-value="pink" style="background-color: pink;"></div>
-                    <div class="dropdown-button-color" style="border: 1px solid black; background-color: white;">⋮</div>
+                    <div class="dropdown-button-color" style="border: 1px solid #C4C4C4; background-color: white;">⋮</div>
                     <div style="display: inline-block; position: absolute; margin-top: 25px;">
                         <ul class="dropdown-list dropdown-list-color">
                             <li data-value="red">Красный</li>
@@ -384,6 +399,7 @@
 
     <div class="row mt-3">
         {% for car in cars %}
+        {% if car.photo %}
         <div class="col-12 col-md-3">
             <div class="card card-car">
                     <div class="position-relative">
@@ -434,6 +450,7 @@
                     </div>
                 </div>
         </div>
+        {% endif %}
         {% endfor %}
 
 
@@ -825,9 +842,14 @@
         const dropdownButton = document.querySelector(".dropdown-button-color");
         const dropdownList = document.querySelector(".dropdown-list-color");
         const hiddenInput = document.getElementById("selectedColor");
+        const agreeColorCheckbox = document.getElementById("agree-color");
 
         colorCircles.forEach(circle => {
             circle.addEventListener("click", function () {
+                if (agreeColorCheckbox.checked) {
+                    agreeColorCheckbox.checked = false;
+                }
+
                 hiddenInput.value = this.dataset.value;
 
                 dropdownButton.style.backgroundColor = 'white';
@@ -869,6 +891,23 @@
                 dropdownButton.style.backgroundColor = selectedColor;
                 dropdownButton.innerHTML = "&#10003;";
                 dropdownButton.style.color = 'white';
+                agreeColorCheckbox.checked = false;
+            }
+        });
+
+        agreeColorCheckbox.addEventListener("change", function () {
+            if (this.checked) {
+                hiddenInput.value = ""; // Reset selected color
+                dropdownButton.style.backgroundColor = 'white';
+                dropdownButton.innerHTML = '⋮';
+                dropdownButton.style.color = 'black';
+
+                colorCircles.forEach(circle => {
+                    circle.innerHTML = '';
+                    circle.style.color = '';
+                    circle.style.justifyContent = '';
+                    circle.style.display = '';
+                });
             }
         });
 

@@ -337,6 +337,7 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: #757575;
 }
 
 .dropdown-button::after {
@@ -362,6 +363,7 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: #757575;
 }
 
 .dropdown-button-order::after {
@@ -525,6 +527,13 @@ a {
     border-color: #7A7A7A;
 }
 
+.check-color {
+    width: 27px;
+    height: 27px;
+    border-radius: 8px!important;
+    border-color: #DDDDDD;
+}
+
 .form-check-input-modal {
     background-color: white;
     border-color: #DDDDDD;
@@ -598,6 +607,10 @@ footer {
     border-radius: 20px;
 }
 
+.fancybox__image {
+    border-radius: 20px;
+}
+
 .card-info-car {
     border: 1px solid #F8F8F8;
     background-color: #F8F8F8;
@@ -654,7 +667,7 @@ footer {
 }
 
 .input-price::placeholder {
-    color: black!important;
+    color: #757575!important;
 }
 
 #orderForm .dropdown-button {
@@ -754,7 +767,7 @@ footer {
 .slick-next {
     background-image: url('/static/img/chevron-right.png');
     background-size: cover;
-    right: -15px!important;
+    right: -5px!important;
     top: 60%!important;
 }
 

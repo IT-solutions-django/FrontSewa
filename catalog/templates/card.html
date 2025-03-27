@@ -14,6 +14,9 @@
 
     <!-- Swiper.js (для слайдера) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+    <!-- Fancybox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.0/dist/fancybox.css">
+
 
     <link rel="stylesheet" href="{% static 'css/home.css' %}" />
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -83,7 +86,13 @@
         <div class="swiper-wrapper">
             {% for photo in car.photos %}
             <div class="swiper-slide">
-                <img src="{% if car.auction == 'encar' %} {{ photo|filter_photo_card_car }} {% else %} {{ photo }} {% endif %}" class="car-img-card" alt="Авто" onclick="openModal({{ forloop.counter0 }})">
+                <a href="{% if car.auction == 'encar' %}{{ photo|filter_photo_card_car }}{% else %}{{ photo }}{% endif %}"
+                   data-fancybox="gallery"
+                   data-thumb="{% if car.auction == 'encar' %}{{ photo|filter_photo_card_car }}{% else %}{{ photo }}{% endif %}">
+                    <img src="{% if car.auction == 'encar' %}{{ photo|filter_photo_card_car }}{% else %}{{ photo }}{% endif %}"
+                         class="car-img-card"
+                         alt="Авто">
+                </a>
             </div>
             {% endfor %}
 
@@ -101,35 +110,13 @@
                 <img src="{% if car.auction == 'encar' %} {{ photo|filter_photo_card_car }} {% else %} {{ photo }} {% endif %}" class="thumbnail" onclick="mainSwiper.slideTo({{ forloop.counter0 }})" alt="Миниатюра 1">
             </div>
             {% endfor %}
-
+            </div>
         </div>
-    </div>
+
 </div>
 
 <!-- Модальное окно -->
-<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body">
-                <!-- Слайдер внутри модального окна -->
-                <div class="swiper modal-slider">
-                    <div class="swiper-wrapper">
-                        {% for photo in car.photos %}
-                        <div class="swiper-slide">
-                            <img src="{% if car.auction == 'encar' %} {{ photo|filter_photo_card_car }} {% else %} {{ photo }} {% endif %}" class="img-fluid" alt="Авто">
-                        </div>
-                        {% endfor %}
 
-
-                    </div>
-                    <!-- Стрелки -->
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
         <div class="col-md-6">
             <div class="card-info-car">
@@ -497,6 +484,10 @@
 <!-- Swiper.js -->
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 
+<!-- Fancybox JS -->
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.0/dist/fancybox.umd.js"></script>
+
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -599,20 +590,7 @@
 
     });
 
-    // Инициализация модального слайдера
-    var modalSwiper = new Swiper(".modal-slider", {
-        slidesPerView: 1,
-        navigation: {
-            nextEl: ".modal-slider .swiper-button-next",
-            prevEl: ".modal-slider .swiper-button-prev",
-        },
-    });
 
-    // Открытие модального окна с нужным фото
-    function openModal(index) {
-        modalSwiper.slideTo(index, 0);
-        new bootstrap.Modal(document.getElementById('imageModal')).show();
-    }
 </script>
 
 <script>
@@ -668,6 +646,23 @@
     var myModal = new bootstrap.Modal(document.getElementById('costModal'), {});
     myModal.show();
   });
+
+</script>
+
+<script>
+    Fancybox.bind("[data-fancybox='gallery']", {
+    Thumbs: {
+        autoStart: true,
+        position: "left",
+    },
+    Carousel: {
+        axis: "y",
+    },
+    Toolbar: {
+        display: ["zoom", "close"] // Инструменты
+    }
+
+});
 
 </script>
 
