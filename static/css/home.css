@@ -9,6 +9,7 @@ header {
     top: 0!important;
     left: 0!important;
     z-index: 999;
+    padding: 0;
 }
 
 a {
@@ -47,19 +48,24 @@ a {
 }
 
 .container-main {
-    padding-top: 87px!important;
-    padding-bottom: 20px!important;
-    margin-top: 87px !important;
+    padding-top: 168px!important;
+    padding-bottom: 43px!important;
+    padding-left: 0;
 }
 
 .container-main-catalog {
-     padding-top: 30px!important;
-     padding-bottom: 0px!important;
+     padding-top: 80px!important;
+     padding-bottom: 32px!important;
+}
+
+.container-main-card {
+    padding-top: 130px!important;
+    padding-bottom: 58px!important;
 }
 
 .container-main-about {
-    padding-top: 35px!important;
-    padding-bottom: 75px!important;
+    padding-top: 85px!important;
+    padding-bottom: 68px!important;
 }
 
 .user-command-img {
@@ -100,11 +106,20 @@ a {
     border-radius: 35px;
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
+    padding: 100px;
+    position: relative;
+}
+
+.car-img-form-delivery {
+    position: absolute;
+    right: 0;
+    height: 350px;
 }
 
 .container-about {
     border: 1px solid white;
     background-color: white;
+    padding: 100px;
 }
 
 .popular-card-brand {
@@ -121,7 +136,7 @@ a {
     border: 1px solid #F8F8F8 !important;
     background-color: #F8F8F8 !important;
     margin-bottom: 20px;
-    height: 385px !important;
+    height: fit-content !important;
     border-bottom-right-radius: 0px!important;
     border-bottom-left-radius: 0px!important;
     border-top-left-radius: 16px!important;
@@ -188,6 +203,7 @@ a {
 .btn-all {
     display: flex;
     justify-content: center;
+    margin-top: 15px;
 }
 
 .btn-all a {
@@ -483,20 +499,21 @@ a {
 }
 
 .logo-rub {
-    font-size: 20px!important;
+    font-size: 18px!important;
 }
 
 .container-contact {
     color: white!important;
+    padding: 100px;
 }
 
 .contact-form {
     border-radius: 24px;
-    background-color: rgba(0, 45, 65, 0.4);
+    background-color: rgba(191, 191, 198, 0.1);;
     color: white !important;
     padding: 40px;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(120px);
+    -webkit-backdrop-filter: blur(120px);
 }
 
 .contact-form input {
@@ -520,11 +537,11 @@ a {
 }
 
 .form-check-input {
-    width: 27px;
-    height: 27px;
+    width: 28px;
+    height: 28px;
     border-radius: 8px!important;
-    background-color: rgba(0, 10, 30, 0.2);
     border-color: #7A7A7A;
+    background-color: rgba(191, 191, 198, 0.1);
 }
 
 .check-color {
@@ -589,9 +606,9 @@ a {
 }
 
 footer {
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    margin-top: -20px;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+    margin-top: -47px;
 }
 
 .block-filter {
@@ -652,8 +669,7 @@ footer {
 }
 
 .modal-body img {
-    width: 100%;
-    object-fit: cover;
+
 }
 
 .input-price {
@@ -782,12 +798,10 @@ footer {
 
 .modal-body-feedback {
     justify-content: left;
-    padding: 28px;
-    margin-top: -25px;
 }
 
 .modal-content-feedback {
-    width: 508px;
+    width: 1181px;
     border-radius: 16px;
 }
 
@@ -801,23 +815,168 @@ footer {
     padding: 28px;
 }
 
-@media only screen and (min-width:1200px) {
-    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
-        max-width: 1600px;
-    }
+.card-title {
+    font-size: 16px;
 }
 
-@media only screen and (min-width:1400px) {
-    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
-        max-width: 1600px;
-    }
+.one-step-card h5 {
+    font-size: 18px;
 }
 
-@media only screen and (min-width: 1200px) and (max-width: 1400px) {
-    .container-main {
-        background-size: 1090px 511px!important;
-    }
-    .container-main-catalog {
-        background-size: 742px 245px!important;
-    }
+.card-car .card-text {
+    font-size: 13px;
+}
+
+.shorts-slider p {
+    margin-top: 7px;
+}
+
+.left-col-modal {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: linear-gradient(rgba(197, 23, 53, 0.7), rgba(197, 23, 53, 0.7)), url('/static/img/image-form-modal.png') left/cover no-repeat !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.promo-block-catalog {
+    border: 1px solid #F8F8F8;
+    background-color: #F8F8F8;
+    border-radius: 20px;
+    padding-right: 0;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.text-content-promo {
+    flex: 1;
+    padding-left: 24px;
+    padding-top: 28px;
+    padding-bottom: 28px;
+}
+
+.image-content-promo img {
+    display: block;
+    width: 558px;
+    height: 182px;
+    object-fit: cover;
+}
+
+.promo-catalog-btn {
+    border: 1px solid #D91033;
+    background-color: #D91033;
+    border-radius: 16px;
+    color: white!important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 16px;
+    padding-left: 16px;
+    font-size: 15px;
+}
+
+.promo-catalog-btn:hover {
+    background-color: red;
+    border-color: red;
+}
+
+.block-form-car-questions {
+    margin-top: 80px;
+    border-radius: 20px;
+    background: linear-gradient(rgba(197, 23, 53, 0.7), rgba(197, 23, 53, 0.7)), url('/static/img/image-form-modal.png') left/cover no-repeat !important;
+    background-size: cover !important;
+    padding: 24px;
+    color: white;
+}
+
+.block-btn-form-questions {
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+}
+
+#agree-questions {
+    background-color: white;
+    border-color: white;
+}
+
+#agree-questions:checked[type=checkbox] {
+    border: 1px solid red;
+    background-color: red;
+    border-color: red;
+    box-shadow: none;
+}
+
+#agree-questions:focus {
+    border: 1px solid red;
+    border-color: red;
+    box-shadow: none;
+}
+
+.modal-dialog-calc {
+    max-width: 1024px;
+}
+
+.modal-content-calc {
+    border-radius: 24px;
+}
+
+.modal-body-calc {
+    display: block;
+    padding: 30px;
+}
+
+.container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 1600px;
+    width: 100%;
+}
+
+.price-country-top {
+    padding: 8px !important;
+    border-radius: 12px !important;
+    background-color: #FFFFFF;
+    border: 1px solid #DEDEDE !important;
+    min-width: 130px;
+}
+
+.price-country-top span {
+    margin-right: 10px;
+}
+
+.total-price {
+    color: #C51735 !important;
+    padding: 1.5rem;
+    font-size: 20px;
+    border-color: rgb(82 82 911);
+    border-top: 1px solid #C51735;
+    border-bottom: 1px solid #C51735;
+    margin: 20px 0;
+}
+
+.currency {
+    font-size: 14px;
+    padding-top: 40px;
+    padding-inline: 5px;
+    display: flex;
+    justify-content: space-between;
+    color: #808980;
+}
+
+.tof, .duty, .yts, .price_country {
+    color: #757575 !important;
+    font-size: 14px;
+}
+
+.currency span:not(:first-child) {
+    border-left: 1px solid #75757585;
+    padding: 0 10px;
+}
+
+@media only screen and (min-width: 1100px) {
+    max-width: 1600px;
+    width: 100%;
 }

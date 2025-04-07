@@ -5,6 +5,9 @@ from django.http import JsonResponse
 import json
 from youtube.models import Video
 from delivery.models import City, DeliveryBody, Delivery
+from information.models import MainBlock, StagesOfWork, Contact
+from .models import CarPromoBlock
+from urllib.parse import unquote
 
 
 def send_order(request):
@@ -33,12 +36,24 @@ def home(request):
     videos = Video.objects.all()
     city_delivery = City.objects.all()
     body_delivery = DeliveryBody.objects.all()
-    return render(request, 'home.html', {'videos': videos, 'city_delivery': city_delivery, 'body_delivery': body_delivery})
+
+    info_main = MainBlock.objects.all().first()
+
+    stages_work = StagesOfWork.objects.all()
+
+    contact = Contact.objects.all().first()
+
+    return render(request, 'home.html', {'videos': videos, 'city_delivery': city_delivery, 'body_delivery': body_delivery, 'info_main': info_main, 'stages_work': stages_work, 'contact': contact})
 
 
 def about(request):
     videos = Video.objects.all()
-    return render(request, 'about.html', {'videos': videos})
+
+    info_main = MainBlock.objects.all().first()
+
+    contact = Contact.objects.all().first()
+
+    return render(request, 'about.html', {'videos': videos, 'info_main': info_main, 'contact': contact})
 
 
 def get_brands_from_api(params):
@@ -125,10 +140,14 @@ def get_all_models_from_api(ip_addr):
         return None
 
 
-def catalog(request):
+def catalog(request, country=None):
     params = {
         'ip': '94.241.142.204'
     }
+
+    if country:
+        params['country'] = country
+
     if request.GET:
         brand = request.GET.get('brand')
         if brand:
@@ -162,10 +181,13 @@ def catalog(request):
             params['car_type'] = car_type
         price_from = request.GET.get('price_from')
         if price_from:
-            params['price_from'] = price_from
+            price_from_params = price_from.replace("\xa0", "")
+            params['price_from'] = price_from_params
         price_to = request.GET.get('price_to')
         if price_to:
-            params['price_to'] = price_to
+            price_to_format = price_to.replace("\xa0", "")
+            params['price_to'] = price_to_format
+
         mileage_from = request.GET.get('mileage_from')
         if mileage_from:
             params['mileage_from'] = mileage_from
@@ -189,7 +211,8 @@ def catalog(request):
     page_range = list(range(min_page, max_page + 1))
 
     params_for_brand = {
-        'ip': '94.241.142.204'
+        'ip': '94.241.142.204',
+        'country': country
     }
     data_brand = get_brands_from_api(params_for_brand)
 
@@ -249,7 +272,7 @@ def catalog(request):
 
     brand_map = {"{}".format(",".join(keys)): value for keys, value in brands.items()}
 
-    model_map = get_all_models_from_api('94.241.142.204')
+    # model_map = get_all_models_from_api('94.241.142.204')
 
     drive_map = {"{}".format(",".join(keys)): value for keys, value in data_drive.items()}
 
@@ -259,13 +282,30 @@ def catalog(request):
 
     car_type_map = {"{}".format(",".join(keys)): value for keys, value in data_car_type.items()}
 
+    if country == 'Китай':
+        country_temp = 'Китая'
+    elif country == 'Корея':
+        country_temp = 'Кореи'
+    elif country == 'Япония':
+        country_temp = 'Японии'
+    elif country == 'Европа':
+        country_temp = 'Европы'
+    else:
+        country_temp = ''
+
+    city_delivery = City.objects.all()
+    body_delivery = DeliveryBody.objects.all()
+
+    contact = Contact.objects.all().first()
+
+    promo_car = CarPromoBlock.objects.filter(country=country).first()
+
     return render(
         request, 'catalog.html',
         {
             'result': brands,
             'brand_map': brand_map,
             'models': models,
-            'model_map': model_map,
             'drive': data_drive,
             'drive_map': drive_map,
             'transmission': data_transmission,
@@ -280,7 +320,12 @@ def catalog(request):
             'cars': data_cars,
             'total_pages': total_pages,
             'current_page': current_page,
-            'page_range': page_range
+            'page_range': page_range,
+            'country_temp': country_temp,
+            'city_delivery': city_delivery,
+            'body_delivery': body_delivery,
+            'contact': contact,
+            'promo_car': promo_car
         }
     )
 
@@ -295,8 +340,8 @@ def get_car_from_api(car_id):
         response = requests.get(url, params=params)
         response.raise_for_status()
 
-        data = response.json()['car']
-        return data
+        data, popular_cars, details_price_car = response.json()['car'], response.json()['popular_cars'], response.json()['detailed_calculation']
+        return data, popular_cars, details_price_car
 
     except requests.exceptions.RequestException as e:
         print(f"Ошибка при запросе к API: {e}")
@@ -342,40 +387,38 @@ def translate_model_car_card(car_model):
 
 
 def car(request, id_car):
-    params = {
-        'ip': '94.241.142.204'
-    }
-
-    data_car = get_car_from_api(id_car)
-
-    brand = data_car.get('brand')
-    if brand:
-        params['brand'] = brand
-
-    ru_brand = translate_brand_car_card(data_car.get('brand'))
-
-    ru_model = translate_model_car_card(data_car.get('model'))
-
-    data_cars, total_pages, current_page = get_cars_from_api(params)
-
-    grouped_data_brand = defaultdict(set)
-
-    params_for_brand = {
-        'ip': '94.241.142.204'
-    }
-    data_brand = get_brands_from_api(params_for_brand)
-
-    for key, value in data_brand:
-        normalized_value = value.title()
-        grouped_data_brand[normalized_value].add(key)
-
-    brands = {tuple(keys): value for value, keys in grouped_data_brand.items()}
-
-    brand_map = {"{}".format(",".join(keys)): value for keys, value in brands.items()}
-
-    model_map = get_all_models_from_api('94.241.142.204')
+    data_car, popular_cars, details_price_car = get_car_from_api(id_car)
 
     city_delivery = City.objects.all()
     body_delivery = DeliveryBody.objects.all()
 
-    return render(request, 'card.html', {'car': data_car, 'ru_brand': ru_brand, 'ru_model': ru_model, 'popular_cars': data_cars[:8], 'brand_map': brand_map, 'model_map': model_map, 'city_delivery': city_delivery, 'body_delivery': body_delivery})
+    country = data_car.get('country')
+
+    if country == 'Китай':
+        country_temp = 'Китая'
+        country_path = 'china'
+    elif country == 'Корея':
+        country_temp = 'Кореи'
+        country_path = 'korea'
+    elif country == 'Япония':
+        country_temp = 'Японии'
+        country_path = 'japan'
+    elif country == 'Европа':
+        country_temp = 'Европы'
+        country_path = 'europe'
+    else:
+        country_temp = ''
+        country_path = '#'
+
+    info_main = MainBlock.objects.all().first()
+
+    stages_work = StagesOfWork.objects.all()
+
+    contact = Contact.objects.all().first()
+
+    if details_price_car:
+        poshlina = float(details_price_car["toll"]) - float(details_price_car["yts"]) - float(details_price_car["tof"])
+    else:
+        poshlina = 0
+
+    return render(request, 'card.html', {'car': data_car, 'city_delivery': city_delivery, 'body_delivery': body_delivery, 'popular_cars': popular_cars, 'country_temp': country_temp, 'country_path': country_path, 'details_price_car': details_price_car, 'info_main': info_main, 'stages_work': stages_work, 'contact': contact, 'poshlina': poshlina})

@@ -17,11 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from catalog.views import home, send_order, about
+from django.conf import settings
+from django.conf.urls.static import static
+from feedback.views import feedback
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('catalog/', include('catalog.urls', namespace='catalog')),
     path('send_order/', send_order, name='send-order'),
-    path('about/', about, name='about')
+    path('about/', about, name='about'),
+    path('feedback/', feedback, name='feedback')
 ]

@@ -6,7 +6,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sewa</title>
+    <title>{{ car.ru_brand }} {{ car.ru_model }} | Sewa</title>
+    <meta name="description" content="Популярный автомобиль из {{ country_temp }} {{ car.ru_brand }} {{ car.ru_model }} с пробегом {{ car.mileage }} км. 🚘 Широкий выбор авто. Выберите идеальный вариант на нашем сайте.">
+    <link rel="icon" type="image/png" href="{% static 'favicon-sewa/favicon-96x96.png' %}" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="{% static 'favicon-sewa/favicon.svg' %}" />
+    <link rel="shortcut icon" href="{% static 'favicon-sewa/favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon-sewa/apple-touch-icon.png' %}" />
+    <link rel="manifest" href="{% static 'favicon-sewa/site.webmanifest' %}" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Bootstrap CSS (для модального окна) -->
@@ -19,6 +25,7 @@
 
 
     <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+    <script src="{% static 'js/imask/Imask.min.js' %}"></script>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 
@@ -34,11 +41,11 @@
 
             <nav>
                 <ul class="nav">
-                    <li class="nav-item"><a class="nav-link" href="#">Японские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Корейские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Китайские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Европейские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:japan' %}">Японские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:korea' %}">Корейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:china' %}">Китайские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:europe' %}">Европейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">О компании</a></li>
                 </ul>
             </nav>
 
@@ -50,14 +57,14 @@
                     <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
                 </div>
                 <div class="text-end">
-                    <a href="#" class="mb-0 fw-bold header-phone">+7 (999) 123-45-67</a>
+                    <a href="#" class="mb-0 fw-bold header-phone">{{ contact.phone }}</a>
                     <a href="https://t.me/your_username" class="header-write-ws">Написать в Telegram</a>
                 </div>
             </div>
         </div>
     </header>
 
-<section class="container text-white text-start container-main container-main-catalog mb-5">
+<section class="container text-white text-start container-main container-main-card">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -66,18 +73,18 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="13" viewBox="0 0 7 10" fill="none" class="ms-1 me-1">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M0.982384 0.359337C1.17765 0.164075 1.49423 0.164075 1.68949 0.359337L5.97616 4.646C6.06993 4.73977 6.1226 4.86695 6.1226 4.99956C6.1226 5.13217 6.06993 5.25934 5.97616 5.35311L1.68949 9.63978C1.49423 9.83504 1.17765 9.83504 0.982384 9.63978C0.787122 9.44452 0.787122 9.12793 0.982384 8.93267L4.9155 4.99956L0.982384 1.06644C0.787122 0.871182 0.787122 0.554599 0.982384 0.359337Z" fill="#D5D5D5" fill-opacity="0.5"/>
                         </svg>
-                        <a href="#" style="color: #757575!important; font-size: 13px;">Авто из Кореи</a>
+                        <a href="{% if country_path == '#' %}/{% else %}{% url 'catalog:'|add:country_path %}{% endif %}" style="color: #757575!important; font-size: 13px;">Авто из {{ country_temp }}</a>
                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="13" viewBox="0 0 7 10" fill="none" class="ms-1 me-1">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M0.982384 0.359337C1.17765 0.164075 1.49423 0.164075 1.68949 0.359337L5.97616 4.646C6.06993 4.73977 6.1226 4.86695 6.1226 4.99956C6.1226 5.13217 6.06993 5.25934 5.97616 5.35311L1.68949 9.63978C1.49423 9.83504 1.17765 9.83504 0.982384 9.63978C0.787122 9.44452 0.787122 9.12793 0.982384 8.93267L4.9155 4.99956L0.982384 1.06644C0.787122 0.871182 0.787122 0.554599 0.982384 0.359337Z" fill="#D5D5D5" fill-opacity="0.5"/>
                         </svg>
-                        <a href="{{ request.path }}" style="color: white!important; font-size: 13px;">{{ ru_brand }} {% if ru_model != 'Не определено' %}{{ ru_model }}{% endif %}{% if car.year %}, {{ car.year }} {% endif %}</a>
+                        <a href="{{ request.path }}" style="color: white!important; font-size: 13px;">{{ car.ru_brand }} {{ car.ru_model }}{% if car.year %}, {{ car.year }} {% endif %}</a>
                     </span>
                 </div>
             </div>
         </div>
     </section>
 
-<section class="container popular-cars py-5 px-5">
+<section class="container popular-cars">
     <div class="row mt-3">
 
         <div class="col-md-6">
@@ -120,29 +127,29 @@
 
         <div class="col-md-6">
             <div class="card-info-car">
-                <h1 style="font-size: 36px; font-weight: 800;">{{ ru_brand }} {% if ru_model != 'Не определено' %}{{ ru_model }}{% endif %}{% if car.year %}, {{ car.year }} {% endif %}</h1>
+                <h1 style="font-size: 36px; font-weight: 800;">{{ car.ru_brand }} {{ car.ru_model }}{% if car.year %}, {{ car.year }} {% endif %}</h1>
                 <p class="fw-bold mt-4" style="font-size: 28px;">
-                    {% if car.price and car.price != 'Не определено' %}
-                    {{ car.price|format_price }}
+                    {% if car.toll and car.toll != -1 %}
+                    {{ car.toll|format_price }} <span style="font-size: 30px;">₽</span>
                     {% else %}
                     Уточнить
                     {% endif %}
                 <p>
                 <div class="row">
                 <div class="col-md-6">
-                    <span style="color: #555252;">Стомость авто: </span><span class="fw-bold">17 500 000 $</span>
-                    <p class="mt-2"><span style="color: #555252;">Полная пошлина: </span><span class="fw-bold">1 295 000 ₽</span></p>
+                    <span style="color: #555252; font-size: 14px;">Стомость авто: </span><span class="fw-bold" style="font-size: 14px;">{{ car.price|filter_price_korea|format_price }} ₩</span>
+                    <p class="mt-2"><span style="color: #555252; font-size: 14px;">Полная пошлина: </span><span class="fw-bold" style="font-size: 14px;">{{ details_price_car.toll|format_price }} <span style="font-size: 16px;">₽</span></span></p>
                 </div>
                 <div class="col-md-6">
-                    <span style="color: #555252;">Страна производитель: </span><span class="fw-bold">Корея</span>
-                    <p class="mt-2"><span style="color: #555252;">Страна экспортер: </span><span class="fw-bold">Корея</span></p>
+                    <span style="color: #555252; font-size: 14px;">Страна производитель: </span><span class="fw-bold" style="font-size: 14px;">{{ car.country }}</span>
+                    <p class="mt-2"><span style="color: #555252; font-size: 14px;">Страна экспортер: </span><span class="fw-bold" style="font-size: 14px;">Корея</span></p>
                 </div>
             </div>
 
                 <div class="row mt-2">
                     <div class="col-md-12 d-flex">
                     <button class="btn-delivery me-2" style="padding: 12px!important;" id="btn-feedback-car">Оставить заявку</button>
-                    <button class="contact-from-bnt me-2">Подробный расчет</button>
+                    <button class="contact-from-bnt me-2" id="btn-calc-price-car">Подробный расчет</button>
                     <img src="{% static 'img/tg-card-car.png' %}" class="img-fluid" alt="Авто">
                 </div>
                 </div>
@@ -150,30 +157,32 @@
                 <div class="row mt-5">
                     <div class="col-md-6">
                         {% if car.transmission and car.transmission != 'Не определено' %}
-                        <p><span style="color: #555252;">Тип КПП: </span><span>
+                        <p style="font-size: 15px;"><span style="color: #555252;">Тип КПП: </span><span>
                             {{ car.transmission|translate_transmission }}
                         </span></p>
                         {% endif %}
                         {% if car.color %}
-                        <p><span style="color: #555252;">Цвет: </span><span>{{ car.color }}</span></p>
+                        <p style="font-size: 15px;"><span style="color: #555252;">Цвет: </span><span>{{ car.color }}</span></p>
                         {% endif %}
                         {% if car.body_type %}
-                        <p><span style="color: #555252;">Кузов: </span><span>{{ car.body_type|translate_body_type }}</span></p>
+                        <p style="font-size: 15px;"><span style="color: #555252;">Кузов: </span><span>{{ car.body_type|translate_body_type }}</span></p>
                         {% endif %}
-                        <p><span style="color: #555252;">Тип топлива: </span><span>Бензин</span></p>
+                        {% if car.engine %}
+                        <p style="font-size: 15px;"><span style="color: #555252;">Тип топлива: </span><span>{{ car.engine|translate_engine }}</span></p>
+                        {% endif %}
                     </div>
                     <div class="col-md-6">
-                        {% if car.year %}
-                        <p><span style="color: #555252;">Год: </span><span>{{ car.year }}</span></p>
+                        {% if car.auction %}
+                        <p style="font-size: 15px;"><span style="color: #555252;">Аукцион: </span><span>{{ car.auction }}</span></p>
                         {% endif %}
                         {% if car.mileage %}
-                        <p><span style="color: #555252;">Пробег: </span><span>{{ car.mileage|format_number }} км</span></p>
+                        <p style="font-size: 15px;"><span style="color: #555252;">Пробег: </span><span>{{ car.mileage|format_number }} км</span></p>
                         {% endif %}
                         {% if car.engine_volume and car.engine_volume != '0' %}
-                        <p><span style="color: #555252;">Объем двигателя: </span><span>{{ car.engine_volume|cc_to_liters }} л</span></p>
+                        <p style="font-size: 15px;"><span style="color: #555252;">Объем двигателя: </span><span>{{ car.engine_volume|cc_to_liters }} л</span></p>
                         {% endif %}
                         {% if car.drive and car.drive != 'Не определено' %}
-                        <p><span style="color: #555252;">Привод: </span><span>{{ car.drive|translate_drive }}</span></p>
+                        <p style="font-size: 15px;"><span style="color: #555252;">Привод: </span><span>{{ car.drive|translate_drive }}</span></p>
                         {% endif %}
                     </div>
                 </div>
@@ -182,7 +191,38 @@
         </div>
     </div>
 
-    <h1 style="font-size: 48px; font-weight: 800; margin-top: 70px;">Похожие авто</h1>
+    <div class="block-form-car-questions d-flex align-items-center justify-content-between">
+        <div>
+        <span style="font-weight: 800; font-size: 28px;">Остались вопросы</span>
+        <p>Оставьте заявку и наши специалисты подберут Вам автомобиль под Ваши требования<p>
+        <form method="post" id="feedback-block-car">
+        <div class="d-flex gap-3">
+            <div>
+            <label for="name-questions" class="form-label" style="font-size: 14px;">Имя</label>
+            <input type="text" id="name-questions" class="form-control" placeholder="Введите имя" required>
+            </div>
+            <div>
+            <label for="phone-questions" class="form-label" style="font-size: 14px;">Телефон</label>
+            <input type="tel" id="phone-questions" class="form-control" placeholder="+7 (___) ___-__-__" required>
+            </div>
+            <div class="block-btn-form-questions">
+            <button type="submit" class="contact-from-bnt" style="padding-top: 10px; padding-bottom: 10px;">Отправить</button>
+            </div>
+        </div>
+        <div class="form-check mt-4">
+            <input class="form-check-input" type="checkbox" id="agree-questions" required checked>
+            <label class="form-check-label ms-3" for="agree-questions" style="font-size: 13px;">
+                С правилами политики конфиденциальности ознакомлен
+            </label>
+        </div>
+        </form>
+        </div>
+        <div>
+        <img src="{% static 'img/Image-logo-questions.png' %}" class="img-fluid">
+        </div>
+    </div>
+
+    <h1 style="font-size: 48px; font-weight: 800; margin-top: 120px;">Похожие авто</h1>
 
     <div class="row mt-3">
         {% for car in popular_cars %}
@@ -194,24 +234,24 @@
                         </a>
                         <div class="position-absolute bottom-0 px-3 py-3">
                             {% if car.rule %}
-                            <small class="me-2 rule-img-car">{{ car.rule }}</small>
+                            <small class="me-1 rule-img-car">{{ car.rule }}</small>
                             {% endif %}
-                            <small class="me-2 param-img-car">{{ car.mileage|format_number }} км</small>
+                            <small class="me-1 param-img-car">{{ car.mileage|format_number }} км</small>
                             {% if car.rate %}
-                            <small class="param-img-car">{{ car.rate }}</small>
+                            <small class="me-1 param-img-car">{{ car.rate }}</small>
+                            {% endif %}
+                            {% if car.engine_volume != 'Не определено' and car.engine_volume != '0' %}
+                            <small class="param-img-car me-1">{{ car.engine_volume|cc_to_liters }} л</small>
                             {% endif %}
                         </div>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title fw-bold">
-                            {% if car.brand != 'Не определено' %} {{ brand_map|translate_brand:car.brand }} {% endif %} {% if car.model != 'Не определено' %} {{ model_map|translate_model:car.model }} {% endif %}
+                        <h5 class="card-title fw-bold" style="line-clamp: 1;">
+                             {{ car.ru_brand }} {{ car.ru_model }}
                         </h5>
                         <p class="card-text text-muted">
                             {% if car.year %}
                             {{ car.year }} &bull;
-                            {% endif %}
-                            {% if car.engine_volume != 'Не определено' and car.engine_volume != '0' %}
-                            {{ car.engine_volume|cc_to_liters }} л &bull;
                             {% endif %}
                             {% if car.drive and car.drive != 'Не определено' %}
                             {{ car.drive|translate_drive }} &bull;
@@ -225,8 +265,8 @@
                         </p>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">
-                                {% if car.price and car.price != 'Не определено' %}
-                                {{ car.price|format_price }}
+                                {% if car.toll and car.toll != -1 %}
+                                {{ car.toll|format_price }} <span class="logo-rub">₽</span>
                                 {% else %}
                                 Уточнить
                                 {% endif %}
@@ -242,63 +282,32 @@
 
     </div>
 
-    <h1 class="mt-5" style="font-size: 48px; font-weight: 800; margin-top: 120px!important;">Этапы работы</h1>
-    <p style="font-size: 15px;">Полное сопровождение сделки и поддержка связи с клиентом 24/7.</p>
-    <div class="row mt-5">
+    <h1 class="" style="font-size: 48px; font-weight: 800; margin-top: 120px!important;">Этапы работы</h1>
+    <p style="font-size: 15px; padding-top: 8px;">Полное сопровождение сделки и поддержка связи с клиентом 24/7.</p>
+    <div class="row" style="margin-top: 48px;">
+        {% for stage in stages_work %}
         <div class="col-md-3">
             <div class="one-step">
-                <span class="one-num">01</span>
+                <span class="one-num">0{{ forloop.counter }}</span>
             </div>
             <div class="one-step-card">
-                <h5 style="font-weight: 700;">Договор</h5>
-                <p style="font-size: 14px;" class="mt-3">Осуществляем поиск автомобиля по заданным параметрам</p>
+                <h5 style="font-weight: 700;">{{ stage.name }}</h5>
+                <p style="font-size: 14px;" class="mt-3">{{ stage.description }}</p>
             </div>
 
         </div>
-
-        <div class="col-md-3">
-            <div class="one-step">
-                <span class="one-num">02</span>
-            </div>
-            <div class="one-step-card">
-                <h5 style="font-weight: 700;">Подбор</h5>
-                <p style="font-size: 14px;" class="mt-3">Осуществляем поиск автомобиля по заданным параметрам</p>
-            </div>
-
-        </div>
-
-        <div class="col-md-3">
-            <div class="one-step">
-                <span class="one-num">03</span>
-            </div>
-            <div class="one-step-card">
-                <h5 style="font-weight: 700;">Доставка</h5>
-                <p style="font-size: 14px;" class="mt-3">Доставка авто в любую точку мира  под ключ</p>
-            </div>
-
-        </div>
-
-        <div class="col-md-3">
-            <div class="one-step">
-                <span class="one-num">04</span>
-            </div>
-            <div class="one-step-card">
-                <h5 style="font-weight: 700;">Передача</h5>
-                <p style="font-size: 14px;" class="mt-3">Передача Вам автомобиля, а также полного пакета документов</p>
-            </div>
-
-        </div>
+        {% endfor %}
 
     </div>
 
-    <div class="row mt-5" style="margin-top: 120px!important;">
+    <div class="row" style="margin-top: 40px!important;">
         <div class="col-md-5">
             <div class="form-cost-delivery">
-                <h4 class="fw-bold" style="font-weight: 800!important;">Стомость доставки</h4>
-                <span style="font-size: 14px;">Минимальный срок доставки 2-4 недели</span>
+                <h4 class="fw-bold" style="font-weight: 800!important; font-size: 24px;">Стомость доставки</h4>
+                <span style="font-size: 14px;">Минимальный срок доставки {{ info_main.min_day_delivery }}</span>
                 <div class="mt-4">
                     <div class="custom-dropdown">
-                        <div class="dropdown-button">Куда доставляем?</div>
+                        <div class="dropdown-button" style="padding: 6px;">Куда доставляем?</div>
                         <ul class="dropdown-list">
                             {% for city in city_delivery %}
                             <li data-value="{{ city }}">{{ city }}</li>
@@ -309,7 +318,7 @@
                 </div>
                 <div class="mt-3">
                     <div class="custom-dropdown">
-                        <div class="dropdown-button">Выберите кузов</div>
+                        <div class="dropdown-button" style="padding: 6px;">Выберите кузов</div>
                         <ul class="dropdown-list">
                             {% for body in body_delivery %}
                             <li data-value="{{ body }}">{{ body }}</li>
@@ -330,14 +339,14 @@
             </div>
         </div>
         <div class="col-7">
-            <img src="{% static 'img/car-img-delivery.png' %}" class="img-fluid" alt="Авто">
+            <img src="{% static 'img/car-img-delivery.png' %}" class="img-fluid" alt="Авто" style="border-radius: 16px;">
         </div>
     </div>
 </section>
 
 
 
-<section class="container py-5 px-5 container-contact" style="background: url('/static/img/Контакты.png') right/cover no-repeat;">
+<section class="container container-contact" style="background: url('/static/img/Контакты.png') right/cover no-repeat;">
     <div class="row">
         <div class="col-md-6 mb-5">
             <h1 style="font-size: 48px; font-weight: 800;">Контакты</h1>
@@ -345,22 +354,22 @@
             <div class="mt-5">
                 <div>
                     <span style="color: #dddddd; font-size: 14px;">Позвонить</span>
-                    <p style="font-size: 14px;">878-88-01899</p>
+                    <p style="font-size: 14px;">{{ contact.phone }}</p>
                 </div>
                 <div class="mt-5">
                     <span style="color: #dddddd; font-size: 14px;">Написать</span>
-                    <p style="font-size: 14px;">sewa2020@daum.net</p>
+                    <p style="font-size: 14px;">{{ contact.email }}</p>
                 </div>
                 <div class="mt-5">
                     <span style="color: #dddddd; font-size: 14px;">Адрес</span>
-                    <p style="font-size: 14px;">2603-3, Sewa Motors, 32, Songdogwahak-ro,<br>Yeonsu-gu, Incheon, Republic of Korea.</p>
+                    <p style="font-size: 14px;">{{ contact.address }}</p>
                 </div>
             </div>
         </div>
         <div class="col-md-6 mb-5">
             <div class="contact-form">
                 <h3 style="font-weight: 800; font-size: 24px;">Оставить заявку</h3>
-                <form method="post">
+                <form method="post" id="contact-feedback">
                     <div class="row mb-3 mt-4">
                         <div class="col-md-6">
                             <label for="name" class="form-label" style="font-size: 14px;">Имя</label>
@@ -377,7 +386,7 @@
                     </div>
                     <div class="d-flex justify-content-between align-items-center mt-5">
                         <div class="form-check d-flex justify-content-between align-items-center">
-                            <input class="form-check-input" type="checkbox" id="agree" required>
+                            <input class="form-check-input" type="checkbox" id="agree" required checked>
                             <label class="form-check-label ms-3" for="agree" style="font-size: 13px;">
                                 С правилами политики конфиденциальности ознакомлен
                             </label>
@@ -401,11 +410,11 @@
 
             <nav>
                 <ul class="nav">
-                    <li class="nav-item"><a class="nav-link" href="#">Японские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Корейские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Китайские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Европейские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:japan' %}">Японские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:korea' %}">Корейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:china' %}">Китайские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:europe' %}">Европейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">О компании</a></li>
                 </ul>
             </nav>
 
@@ -427,15 +436,25 @@
 
 <!-- Модальное окно -->
 <div class="modal fade" id="costModal" tabindex="-1" aria-labelledby="costModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-feedback">
+  <div class="modal-dialog modal-dialog-feedback modal-dialog-centered">
     <div class="modal-content modal-content-feedback">
-      <div class="modal-header modal-header-feedback">
-        <h5 class="modal-title" id="costModalLabel" style="font-weight: 700;">Оставить заявку</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+
       <div class="modal-body modal-body-feedback">
-          <form method="post">
-          <div class="row">
+          <form method="post" style="width: 1181px;" id="feedback-modal">
+          <div class="row" style="width: 1181px;">
+              <div class="col-md-7 left-col-modal" >
+                  <h1 style="color: white; font-size: 28px; font-weight: 700; padding: 28px; line-height: 150%;">Оставьте заявку и наши специалисты подберут лучшие варианты под ваш бюджет</h1>
+                  <div style="padding: 28px;">
+                        <span style="color: white; display: block; margin-bottom: 12px; font-size: 14px;">Мы в соцсетях</span>
+                        <div class="d-flex align-items-center">
+                            <a href="#" class="me-2"><img src="{% static 'img/tg.png' %}" alt="Telegram" width="28"></a>
+                            <a href="#" class="me-2"><img src="{% static 'img/Youtube.png' %}" alt="Youtube" width="28"></a>
+                            <a href="#" class="me-2"><img src="{% static 'img/instagram.png' %}" alt="instagram" width="28"></a>
+                            <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
+                        </div>
+                    </div>
+              </div>
+              <div class="col-md-5" style="padding: 28px;">
               <div class="col-md-12">
         <label for="name-modal" class="form-label" style="font-size: 14px;">Имя</label>
         <input type="text" id="name-modal" class="form-control" placeholder="Введите имя" required style="background-color: #F6F6F6;">
@@ -453,7 +472,7 @@
                             <li data-value="{{ city }}">{{ city }}</li>
                             {% endfor %}
                         </ul>
-                        <input type="hidden" name="city-modal">
+                        <input type="hidden" name="city-modal" id="city-modal">
                     </div>
                   </div>
               <div class="col-md-12 mt-3">
@@ -462,16 +481,133 @@
               </div>
               <div class="d-flex justify-content-between align-items-center mt-5">
                         <div class="form-check d-flex justify-content-between align-items-center">
-                            <input class="form-check-input form-check-input-modal" type="checkbox" id="agree-modal" required>
+                            <input class="form-check-input form-check-input-modal" type="checkbox" id="agree-modal" required checked>
                             <label class="form-check-label ms-3" for="agree" style="font-size: 13px;">
                                 С правилами политики конфиденциальности ознакомлен
                             </label>
                         </div>
 
-                        <button type="submit" class="btn-delivery">Отправить</button>
+                        <button type="submit" class="btn-delivery" style="padding-left: 16px; padding-right: 16px;">Отправить</button>
                     </div>
           </div>
+          </div>
           </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="calcModal" tabindex="-1" aria-labelledby="calcModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-calc modal-dialog-centered">
+    <div class="modal-content modal-content-calc">
+
+      <div class="modal-body modal-body-calc">
+          {% if details_price_car %}
+            <div class="calculator-result__block">
+                <h3 style="font-weight: 800; font-size: 18px;">Полная стоимость авто</h3>
+
+            <div class="row align-items-center mx-0">
+                <div class="col-md col-12 px-0">
+                    Стоимость авто
+                </div>
+                <div class="col-md mt-3 mt-md-0 col-6 d-flex justify-content-center">
+                    <div class="price-country-top d-flex justify-content-center">
+
+                        <span class="CN">KR₩</span>
+
+                    <div class="calculator-result__price">
+                            {{ car.price|filter_price_korea|format_price }}
+                    </div>
+                    </div>
+
+                </div>
+                <div class="col-md mt-3 mt-md-0 col-6 calculator-result-rus__price">
+                    {{ details_price_car.car_price_rus|format_price }} <span style="font-size: 18px;">₽</span>
+                </div>
+            </div>
+            <div class="total-price">
+                <div class="text-center">
+                    Итого ~ <span>{{ details_price_car.total|format_price }}</span> <span style="font-size: 22px;">₽</span>
+                </div>
+            </div>
+            <div class="row mx-0">
+                <div class="col-lg col-12 px-0 me-lg-4">
+                    <div class="delivery_modal_price row mt-4 mx-0">
+                        <div class="col text px-0">
+                            Доставка в РФ:
+                        </div>
+                        <div class="col-3 price text-end px-0">
+                            <div class="price_rus">
+                               {{ details_price_car.delivery_rus|format_price }} <span style="font-size: 18px;">₽</span>
+                            </div>
+                            <div class="price_country">{{ details_price_car.delivery|format_price }}
+
+                                    KR₩
+                                    </div>
+
+                        </div>
+                    </div>
+                    <div class="toll_price row mt-4 mx-0">
+                        <div class="col text px-0">
+                            Таможенные платежи:
+                        </div>
+                        <div class="col-3 price text-end px-0">
+                            <div class="price_rus px-0">
+                                {{ details_price_car.toll|format_price }} <span style="font-size: 18px;">₽</span>
+                            </div>
+                        </div>
+                        <div class="tof">
+                            Пошлина: <span>{{ poshlina|format_price }} <span style="font-size: 15px;">₽</span></span>
+                        </div>
+                        <div class="duty">
+                            Таможенный сбор: <span>{{ details_price_car.tof|format_price }} <span style="font-size: 15px;">₽</span></span>
+                        </div>
+                        <div class="yts">
+                            Утилизационный сбор: <span>{{ details_price_car.yts|format_price }} <span style="font-size: 15px;">₽</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg col-12 px-0">
+                    <div class="commission row mt-4 mx-0">
+                        <div class="col text px-0">
+                            Комиссия:
+                        </div>
+                        <div class="col-3 price text-end px-0">
+                            <div class="price_rus px-0">
+                                100 000 <span style="font-size: 18px;">₽</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="broker row mt-4 mx-0">
+                        <div class="col text px-0">
+                            Таможенный брокер:
+                        </div>
+                        <div class="col-3 price text-end px-0">
+                            <div class="price_rus">
+                                100 000 <span style="font-size: 18px;">₽</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="currency">
+                    Актуальный курс валют:
+                <div class="curr">
+                    <span>1€ - {{ details_price_car.currency.EUR }}(ЦБ)</span> <span>1$ - {{ details_price_car.currency.USD }}(ЦБ)</span>
+
+                    <span class="CN"> 1KR₩ - {{ details_price_car.currency.KRW }}</span>
+
+                </div>
+            </div>
+            </div>
+          {% else %}
+          <h1 style="font-weight: 800; font-size: 22px;" class="text-center">Пожалуйста, уточните стоимость у менеджера, оставив заявку.</h1>
+          {% endif %}
       </div>
 
     </div>
@@ -647,6 +783,11 @@
     myModal.show();
   });
 
+    document.getElementById('btn-calc-price-car').addEventListener('click', function() {
+        var myModal = new bootstrap.Modal(document.getElementById('calcModal'), {});
+        myModal.show();
+    });
+
 </script>
 
 <script>
@@ -664,6 +805,181 @@
 
 });
 
+</script>
+
+<script>
+    document.getElementById('contact-feedback').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = {
+        name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value,
+        message: document.getElementById('message').value,
+    };
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify(formData)
+    };
+
+    const url = '/feedback/';
+
+    fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка при заполнении формы');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert('Форма успешно отправлена!');
+            document.getElementById('contact-feedback').reset();
+        })
+        .catch(error => {
+            alert('Произошла ошибка при отправке формы.');
+        });
+});
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+
+<script>
+    document.getElementById('feedback-modal').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = {
+        name: document.getElementById('name-modal').value,
+        phone: document.getElementById('phone-modal').value,
+        message: document.getElementById('message-modal').value,
+        city_delivery: document.getElementById('city-modal').value
+    };
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify(formData)
+    };
+
+    const url = '/feedback/';
+
+    fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка при заполнении формы');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert('Форма успешно отправлена!');
+            document.getElementById('feedback-modal').reset();
+        })
+        .catch(error => {
+            alert('Произошла ошибка при отправке формы.');
+        });
+});
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+
+<script>
+    document.getElementById('feedback-block-car').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = {
+        name: document.getElementById('name-questions').value,
+        phone: document.getElementById('phone-questions').value,
+    };
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify(formData)
+    };
+
+    const url = '/feedback/';
+
+    fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка при заполнении формы');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert('Форма успешно отправлена!');
+            document.getElementById('feedback-block-car').reset();
+        })
+        .catch(error => {
+            alert('Произошла ошибка при отправке формы.');
+        });
+});
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+
+<script defer>
+document.addEventListener('DOMContentLoaded', () => {
+
+    document.querySelectorAll('input[type="tel"]').forEach(input => {
+        let phoneMask = IMask(input, { mask: "+{7} (000) 000-00-00" });
+
+        function validatePhoneNumber() {
+            let t = input.value.replace(/\D/g, "");
+            return t.length < 11 ? (input.setCustomValidity("Необходимо минимум 11 цифр"), !1) : (input.setCustomValidity(""), !0);
+        }
+
+        input.addEventListener("input", validatePhoneNumber);
+    });
+});
 </script>
 
 </body>

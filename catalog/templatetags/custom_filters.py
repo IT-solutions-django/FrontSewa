@@ -127,3 +127,8 @@ def translate_body_type(value):
         if value in key:
             return translated_value
     return value
+
+
+@register.filter
+def filter_price_korea(value):
+    return value + '000'

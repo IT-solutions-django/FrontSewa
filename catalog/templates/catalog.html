@@ -7,10 +7,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sewa</title>
+    <title>Авто из {{ country_temp }} | Sewa</title>
+    <meta name="description" content="Автомобили из {{ country_temp }} с растаможкой без пробега по России. 🚘 Полная комплектация, разнообразие моделей и брендов. Поможем на всех этапах: от растаможки до оформления ПТС. Оставьте заявку на подбор на нашем сайте.">
+    <link rel="icon" type="image/png" href="{% static 'favicon-sewa/favicon-96x96.png' %}" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="{% static 'favicon-sewa/favicon.svg' %}" />
+    <link rel="shortcut icon" href="{% static 'favicon-sewa/favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon-sewa/apple-touch-icon.png' %}" />
+    <link rel="manifest" href="{% static 'favicon-sewa/site.webmanifest' %}" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+    <script src="{% static 'js/imask/Imask.min.js' %}"></script>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 
@@ -26,11 +33,11 @@
 
             <nav>
                 <ul class="nav">
-                    <li class="nav-item"><a class="nav-link" href="#">Японские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Корейские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Китайские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Европейские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:japan' %}">Японские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:korea' %}">Корейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:china' %}">Китайские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:europe' %}">Европейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">О компании</a></li>
                 </ul>
             </nav>
 
@@ -42,22 +49,22 @@
                     <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
                 </div>
                 <div class="text-end">
-                    <a href="#" class="mb-0 fw-bold header-phone">+7 (999) 123-45-67</a>
+                    <a href="#" class="mb-0 fw-bold header-phone">{{ contact.phone }}</a>
                     <a href="https://t.me/your_username" class="header-write-ws">Написать в Telegram</a>
                 </div>
             </div>
         </div>
     </header>
 
-<section class="container text-white text-start mt-5 container-main container-main-catalog" style="background: url('/static/img/Images-car-catalog-effect.png') right/cover no-repeat; background-size: 942px 245px;">
+<section class="container text-white text-start mt-5 container-main container-main-catalog" style="background: url('/static/img/Images-car-catalog-effect.png') right/cover no-repeat; background-size: 942px 245px; background-position-y: 100%;">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <span class="mt-0"><a href="/" style="color: #757575!important; font-size: 13px;">Главная</a> <svg xmlns="http://www.w3.org/2000/svg" width="10" height="13" viewBox="0 0 7 10" fill="none" class="ms-1 me-1">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M0.982384 0.359337C1.17765 0.164075 1.49423 0.164075 1.68949 0.359337L5.97616 4.646C6.06993 4.73977 6.1226 4.86695 6.1226 4.99956C6.1226 5.13217 6.06993 5.25934 5.97616 5.35311L1.68949 9.63978C1.49423 9.83504 1.17765 9.83504 0.982384 9.63978C0.787122 9.44452 0.787122 9.12793 0.982384 8.93267L4.9155 4.99956L0.982384 1.06644C0.787122 0.871182 0.787122 0.554599 0.982384 0.359337Z" fill="#D5D5D5" fill-opacity="0.5"/>
-                    </svg> <a href="{{ request.path }}" style="color: white!important; font-size: 13px;">Авто из Кореи</a>
+                    </svg> <a href="{{ request.path }}" style="color: white!important; font-size: 13px;">Авто из {{ country_temp }}</a>
                     </span>
-                    <h1 class="promo-h1 mt-5" style="font-weight: 800;">Авто из Кореи</h1>
+                    <h1 class="promo-h1 mt-5" style="font-weight: 800;">Авто из {{ country_temp }}</h1>
                     <p class="mt-1" style="font-size: 15px;">Хорошие машины покупаются здесь</p>
 
 
@@ -66,7 +73,7 @@
         </div>
     </section>
 
-<section class="container popular-cars py-5 px-5">
+<section class="container popular-cars">
     <div class="container mt-3">
         <form method="get">
         <div class="row block-filter py-3 px-3 g-3">
@@ -259,7 +266,7 @@
 
             <div class="col-md-3">
                 <div style="display: flex; position: relative; width: fit-content; height: 46px;">
-                        <input class="form-control input-price" name="price_from" value="{% if request.GET.price_from %}{{ request.GET.price_from }}{% endif %}" placeholder="Цена от, ₽" style="border-top-right-radius: 0px!important; border-bottom-right-radius: 0px!important;">
+                        <input class="form-control input-price" name="price_from" value="{% if request.GET.price_from %}{{ request.GET.price_from }}{% endif %}" placeholder="Цена от, ₽" style="border-top-right-radius: 0px!important; border-bottom-right-radius: 0px!important;" oninput="formatPrice(this)">
 
 <!--                    <div class="dropdown-button" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">-->
 <!--                        {% if request.GET.price_from %}-->
@@ -276,7 +283,7 @@
 
 
 
-                            <input name="price_to" class="form-control input-price" value="{% if request.GET.price_to %}{{ request.GET.price_to }}{% endif %}" placeholder="до" style="border-top-left-radius: 0px!important; border-bottom-left-radius: 0px!important;">
+                            <input name="price_to" class="form-control input-price" value="{% if request.GET.price_to %}{{ request.GET.price_to }}{% endif %}" placeholder="до" style="border-top-left-radius: 0px!important; border-bottom-left-radius: 0px!important;" oninput="formatPrice(this)">
 
                             <div class="divider"></div>
 
@@ -335,32 +342,32 @@
             </div>
 
 
-            <div class="col-md-3" style="display: flex;">
-                <div class="d-flex" style="align-items: center;">
-                    <div class="d-flex align-items-center">
-                    <input class="check-color" type="checkbox" id="agree-color" data-value="">
-                    <span class="me-3" style="font-size: 13px;">Любой</span>
-                        </div>
-                    <div class="color-circle me-3" data-value="red" style="background-color: red;"></div>
-                    <div class="color-circle me-3" data-value="green" style="background-color: green;"></div>
-                    <div class="color-circle me-3" data-value="black" style="background-color: black;"></div>
-                    <div class="color-circle me-3" data-value="blue" style="background-color: blue;"></div>
-                    <div class="color-circle me-3" data-value="pink" style="background-color: pink;"></div>
-                    <div class="dropdown-button-color" style="border: 1px solid #C4C4C4; background-color: white;">⋮</div>
-                    <div style="display: inline-block; position: absolute; margin-top: 25px;">
-                        <ul class="dropdown-list dropdown-list-color">
-                            <li data-value="red">Красный</li>
-                            <li data-value="green">Зеленый</li>
-                            <li data-value="blue">Синий</li>
-                            <li data-value="yellow">Желтый</li>
-                        </ul>
-                    </div>
+<!--            <div class="col-md-3" style="display: flex;">-->
+<!--                <div class="d-flex" style="align-items: center;">-->
+<!--                    <div class="d-flex align-items-center">-->
+<!--                    <input class="check-color" type="checkbox" id="agree-color" data-value="">-->
+<!--                    <span class="me-3" style="font-size: 13px;">Любой</span>-->
+<!--                        </div>-->
+<!--                    <div class="color-circle me-3" data-value="red" style="background-color: red;"></div>-->
+<!--                    <div class="color-circle me-3" data-value="green" style="background-color: green;"></div>-->
+<!--                    <div class="color-circle me-3" data-value="black" style="background-color: black;"></div>-->
+<!--                    <div class="color-circle me-3" data-value="blue" style="background-color: blue;"></div>-->
+<!--                    <div class="color-circle me-3" data-value="pink" style="background-color: pink;"></div>-->
+<!--                    <div class="dropdown-button-color" style="border: 1px solid #C4C4C4; background-color: white;">⋮</div>-->
+<!--                    <div style="display: inline-block; position: absolute; margin-top: 25px;">-->
+<!--                        <ul class="dropdown-list dropdown-list-color">-->
+<!--                            <li data-value="red">Красный</li>-->
+<!--                            <li data-value="green">Зеленый</li>-->
+<!--                            <li data-value="blue">Синий</li>-->
+<!--                            <li data-value="yellow">Желтый</li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
 
-                    <input type="hidden" name="color" id="selectedColor">
-                </div>
+<!--                    <input type="hidden" name="color" id="selectedColor">-->
+<!--                </div>-->
 
 
-            </div>
+<!--            </div>-->
 
             <div class="d-flex align-items-center mt-4 ">
                 <button class="me-4 btn-filter-catalog">Смотреть все</button>
@@ -408,24 +415,24 @@
                         </a>
                         <div class="position-absolute bottom-0 px-3 py-3">
                             {% if car.rule %}
-                            <small class="me-2 rule-img-car">{{ car.rule }}</small>
+                            <small class="me-1 rule-img-car">{{ car.rule }}</small>
                             {% endif %}
-                            <small class="me-2 param-img-car">{{ car.mileage|format_number }} км</small>
+                            <small class="me-1 param-img-car">{{ car.mileage|format_number }} км</small>
                             {% if car.rate %}
-                            <small class="param-img-car">{{ car.rate }}</small>
+                            <small class="param-img-car me-1">{{ car.rate }}</small>
+                            {% endif %}
+                            {% if car.engine_volume != 'Не определено' and car.engine_volume != '0' %}
+                            <small class="param-img-car me-1">{{ car.engine_volume|cc_to_liters }} л</small>
                             {% endif %}
                         </div>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title fw-bold">
-                            {% if car.brand != 'Не определено' %} {{ brand_map|translate_brand:car.brand }} {% endif %} {% if car.model != 'Не определено' %} {{ model_map|translate_model:car.model }} {% endif %}
+                        <h5 class="card-title fw-bold" style="line-clamp: 1;">
+                            {{ car.ru_brand }} {{ car.ru_model }}
                         </h5>
-                        <p class="card-text text-muted">
+                        <span class="card-text text-muted mb-3">
                             {% if car.year %}
                             {{ car.year }} &bull;
-                            {% endif %}
-                            {% if car.engine_volume != 'Не определено' and car.engine_volume != '0' %}
-                            {{ car.engine_volume|cc_to_liters }} л &bull;
                             {% endif %}
                             {% if car.drive and car.drive != 'Не определено' %}
                             {{ car.drive|translate_drive }} &bull;
@@ -436,19 +443,33 @@
                             {% if car.transmission and car.transmission != 'Не определено' %}
                             {{ car.transmission|translate_transmission }}
                             {% endif %}
-                        </p>
+                        </span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">
-                                {% if car.price and car.price != 'Не определено' %}
-                                {{ car.price|format_price }}
+                                {% if car.toll and car.toll != -1 %}
+                                {{ car.toll|format_price }} <span class="logo-rub">₽</span>
                                 {% else %}
                                 Уточнить
                                 {% endif %}
                             </span>
-                            <a class="btn-feedback-card-car" id="btn-feedback-card-car">Оставить заявку</a>
+                            <a class="btn-feedback-card-car" id="btn-feedback-card-car" style="cursor: pointer;">Оставить заявку</a>
                         </div>
                     </div>
                 </div>
+        </div>
+        {% endif %}
+        {% if forloop.counter == 4 %}
+        <div class="promo-block-catalog d-flex justify-content-between">
+            <div class="text-content-promo">
+                <p style="font-weight: 800; font-size: 24px;">{{ promo_car.name }}</p>
+                <p><span style="font-weight: 700; font-size: 18px;">{{ promo_car.price }} <span class="logo-rub">₽</span> </span><del style="font-size: 16px;">{{ promo_car.old_price }} <span style="font-size: 18px;">₽</span> </del></p>
+                <div style="margin-top: 26px;">
+                <a class="promo-catalog-btn" id="promo-catalog-btn" style="cursor: pointer;">Подробнее</a >
+                    </div>
+            </div>
+            <div class="image-content-promo">
+                <img src="{{ promo_car.image_car.url }}" class="img-fluid">
+            </div>
         </div>
         {% endif %}
         {% endfor %}
@@ -496,7 +517,7 @@
 
 
 
-<section class="container py-5 px-5 container-contact" style="background: url('/static/img/Контакты.png') right/cover no-repeat;">
+<section class="container container-contact" style="background: url('/static/img/Контакты.png') right/cover no-repeat;">
     <div class="row">
         <div class="col-md-6 mb-5">
             <h1 style="font-size: 48px; font-weight: 800;">Контакты</h1>
@@ -504,22 +525,22 @@
             <div class="mt-5">
                 <div>
                     <span style="color: #dddddd; font-size: 14px">Позвонить</span>
-                    <p style="font-size: 14px;">878-88-01899</p>
+                    <p style="font-size: 14px;">{{ contact.phone }}</p>
                 </div>
                 <div class="mt-5">
                     <span style="color: #dddddd; font-size: 14px">Написать</span>
-                    <p style="font-size: 14px;">sewa2020@daum.net</p>
+                    <p style="font-size: 14px;">{{ contact.email }}</p>
                 </div>
                 <div class="mt-5">
                     <span style="color: #dddddd; font-size: 14px">Адрес</span>
-                    <p style="font-size: 14px;">2603-3, Sewa Motors, 32, Songdogwahak-ro,<br>Yeonsu-gu, Incheon, Republic of Korea.</p>
+                    <p style="font-size: 14px;">{{ contact.address }}</p>
                 </div>
             </div>
         </div>
         <div class="col-md-6 mb-5">
             <div class="contact-form">
                 <h3 style="font-weight: 800; font-size: 24px;">Оставить заявку</h3>
-                <form method="post">
+                <form method="post" id="contact-feedback">
                     <div class="row mb-3 mt-4">
                         <div class="col-md-6">
                             <label for="name" class="form-label" style="font-size: 14px;">Имя</label>
@@ -536,7 +557,7 @@
                     </div>
                     <div class="d-flex justify-content-between align-items-center mt-5">
                         <div class="form-check d-flex justify-content-between align-items-center">
-                            <input class="form-check-input" type="checkbox" id="agree" required>
+                            <input class="form-check-input" type="checkbox" id="agree" required checked>
                             <label class="form-check-label ms-3" for="agree" style="font-size: 13px;">
                                 С правилами политики конфиденциальности ознакомлен
                             </label>
@@ -560,11 +581,11 @@
 
             <nav>
                 <ul class="nav">
-                    <li class="nav-item"><a class="nav-link" href="#">Японские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Корейские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Китайские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Европейские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:japan' %}">Японские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:korea' %}">Корейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:china' %}">Китайские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:europe' %}">Европейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">О компании</a></li>
                 </ul>
             </nav>
 
@@ -586,15 +607,25 @@
 
 <!-- Модальное окно -->
 <div class="modal fade" id="costModal" tabindex="-1" aria-labelledby="costModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-feedback">
+  <div class="modal-dialog modal-dialog-feedback modal-dialog-centered">
     <div class="modal-content modal-content-feedback">
-      <div class="modal-header modal-header-feedback">
-        <h5 class="modal-title" id="costModalLabel" style="font-weight: 700;">Оставить заявку</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+
       <div class="modal-body modal-body-feedback">
-          <form method="post">
-          <div class="row">
+          <form method="post" style="width: 1181px;" id="feedback-modal">
+          <div class="row" style="width: 1181px;">
+              <div class="col-md-7 left-col-modal" >
+                  <h1 style="color: white; font-size: 28px; font-weight: 700; padding: 28px; line-height: 150%;">Оставьте заявку и наши специалисты подберут лучшие варианты под ваш бюджет</h1>
+                  <div style="padding: 28px;">
+                        <span style="color: white; display: block; margin-bottom: 12px; font-size: 14px;">Мы в соцсетях</span>
+                        <div class="d-flex align-items-center">
+                            <a href="#" class="me-2"><img src="{% static 'img/tg.png' %}" alt="Telegram" width="28"></a>
+                            <a href="#" class="me-2"><img src="{% static 'img/Youtube.png' %}" alt="Youtube" width="28"></a>
+                            <a href="#" class="me-2"><img src="{% static 'img/instagram.png' %}" alt="instagram" width="28"></a>
+                            <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
+                        </div>
+                    </div>
+              </div>
+              <div class="col-md-5" style="padding: 28px;">
               <div class="col-md-12">
         <label for="name-modal" class="form-label" style="font-size: 14px;">Имя</label>
         <input type="text" id="name-modal" class="form-control" placeholder="Введите имя" required style="background-color: #F6F6F6;">
@@ -612,7 +643,7 @@
                             <li data-value="{{ city }}">{{ city }}</li>
                             {% endfor %}
                         </ul>
-                        <input type="hidden" name="city-modal">
+                        <input type="hidden" name="city-modal" id="city-modal">
                     </div>
                   </div>
               <div class="col-md-12 mt-3">
@@ -621,14 +652,15 @@
               </div>
               <div class="d-flex justify-content-between align-items-center mt-5">
                         <div class="form-check d-flex justify-content-between align-items-center">
-                            <input class="form-check-input form-check-input-modal" type="checkbox" id="agree-modal" required>
+                            <input class="form-check-input form-check-input-modal" type="checkbox" id="agree-modal" required checked>
                             <label class="form-check-label ms-3" for="agree" style="font-size: 13px;">
                                 С правилами политики конфиденциальности ознакомлен
                             </label>
                         </div>
 
-                        <button type="submit" class="btn-delivery">Отправить</button>
+                        <button type="submit" class="btn-delivery" style="padding-left: 16px; padding-right: 16px;">Отправить</button>
                     </div>
+          </div>
           </div>
           </form>
       </div>
@@ -636,6 +668,27 @@
     </div>
   </div>
 </div>
+
+<script>
+function formatPrice(input) {
+    let value = input.value.replace(/[^\d]/g, '');
+
+    if (value.length > 0) {
+        value = parseInt(value, 10).toLocaleString('ru-RU');
+    }
+
+    input.value = value;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const priceInputs = document.querySelectorAll('.input-price');
+    priceInputs.forEach(input => {
+        if (input.value) {
+            formatPrice(input);
+        }
+    });
+});
+</script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -963,6 +1016,139 @@
     });
   });
 
+</script>
+
+<script>
+    var button = document.querySelector('#promo-catalog-btn');
+
+    button.addEventListener('click', function() {
+      var myModal = new bootstrap.Modal(document.getElementById('costModal'), {});
+      myModal.show();
+    });
+
+</script>
+
+<script>
+    document.getElementById('contact-feedback').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = {
+        name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value,
+        message: document.getElementById('message').value,
+    };
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify(formData)
+    };
+
+    const url = '/feedback/';
+
+    fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка при заполнении формы');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert('Форма успешно отправлена!');
+            document.getElementById('contact-feedback').reset();
+        })
+        .catch(error => {
+            alert('Произошла ошибка при отправке формы.');
+        });
+});
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+
+<script>
+    document.getElementById('feedback-modal').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = {
+        name: document.getElementById('name-modal').value,
+        phone: document.getElementById('phone-modal').value,
+        message: document.getElementById('message-modal').value,
+        city_delivery: document.getElementById('city-modal').value
+    };
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify(formData)
+    };
+
+    const url = '/feedback/';
+
+    fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка при заполнении формы');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert('Форма успешно отправлена!');
+            document.getElementById('feedback-modal').reset();
+        })
+        .catch(error => {
+            alert('Произошла ошибка при отправке формы.');
+        });
+});
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+
+<script defer>
+document.addEventListener('DOMContentLoaded', () => {
+
+    document.querySelectorAll('input[type="tel"]').forEach(input => {
+        let phoneMask = IMask(input, { mask: "+{7} (000) 000-00-00" });
+
+        function validatePhoneNumber() {
+            let t = input.value.replace(/\D/g, "");
+            return t.length < 11 ? (input.setCustomValidity("Необходимо минимум 11 цифр"), !1) : (input.setCustomValidity(""), !0);
+        }
+
+        input.addEventListener("input", validatePhoneNumber);
+    });
+});
 </script>
 
 </body>

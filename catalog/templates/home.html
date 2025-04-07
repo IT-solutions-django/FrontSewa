@@ -5,7 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sewa</title>
+    <title>Авто из Кореи с доставкой по России | Sewa</title>
+    <meta name="description" content="Автомобили с корейских автоаукционов с доставкой во все регионы РФ. 🚘 Растаможка, русификация, оформление ПТС - мы обеспечим под ключ и поможем на всех этапах. Оставьте заявку на подбор на нашем сайте.">
+    <link rel="icon" type="image/png" href="{% static 'favicon-sewa/favicon-96x96.png' %}" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="{% static 'favicon-sewa/favicon.svg' %}" />
+    <link rel="shortcut icon" href="{% static 'favicon-sewa/favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon-sewa/apple-touch-icon.png' %}" />
+    <link rel="manifest" href="{% static 'favicon-sewa/site.webmanifest' %}" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Slick CSS -->
@@ -13,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
 
     <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+    <script src="{% static 'js/imask/Imask.min.js' %}"></script>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 
@@ -28,11 +35,11 @@
 
             <nav>
                 <ul class="nav">
-                    <li class="nav-item"><a class="nav-link" href="#">Японские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Корейские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Китайские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Европейские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:japan' %}">Японские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:korea' %}">Корейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:china' %}">Китайские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:europe' %}">Европейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">О компании</a></li>
                 </ul>
             </nav>
 
@@ -44,46 +51,46 @@
                     <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
                 </div>
                 <div class="text-end">
-                    <a href="#" class="mb-0 fw-bold header-phone">+7 (999) 123-45-67</a>
+                    <a href="#" class="mb-0 fw-bold header-phone">{{ contact.phone }}</a>
                     <a href="https://t.me/your_username" class="header-write-ws">Написать в Telegram</a>
                 </div>
             </div>
         </div>
     </header>
 
-<section class="container text-white text-start mt-5 container-main" style="background: url('/static/img/Image.png') right/cover no-repeat; background-size: 1290px 511px;">
-        <div class="container">
+<section class="container text-white text-start mt-5 container-main" style="background: url('/static/img/Image.png') right/cover no-repeat; background-size: 1490px 511px; background-position-y: 100%;">
+        <div class="container" style="padding-left: 0;">
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="promo-h1">Авто из Японии, Кореи,<br>Китая и Европы </h1>
-                    <p class="mt-3" style="font-size: 15px; line-height: 28px;">Высокий сервис и качество, стоимость автомобилей до 30% ниже рынка</p>
-                    <button class="btn-cost-promo mt-4" id="btn-cost">Рассчитать стоимость</button>
+                    <p class="" style="font-size: 15px; line-height: 28px; margin-top: 24px;">Высокий сервис и качество, стоимость автомобилей до 30% ниже рынка</p>
+                    <button class="btn-cost-promo" id="btn-cost" style="margin-top: 48px;">Рассчитать стоимость</button>
 
-                    <div class="row mt-5 promo-end-desc">
+                    <div class="row promo-end-desc" style="margin-top: 61px;">
                         <div class="col-auto align-items-center me-4">
                             <div class="d-flex align-items-center" style="justify-content: center;">
                                 <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="20" height="19">
-                                <p class="fw-bold mb-0 ms-2">4.9</p>
+                                <p class="fw-bold mb-0 ms-2">{{ info_main.rate_clients }}</p>
                             </div>
                             <div>
-                                <small>рейтинг клиентов</small>
+                                <small style="color: #FFFFFF!important; font-size: 14px!important;">рейтинг клиентов</small>
                             </div>
 
                         </div>
 
                         <div class="col-auto text-center me-4">
-                            <p class="fw-bold mb-0">8</p>
-                            <small>лет на рынке</small>
+                            <p class="fw-bold mb-0">{{ info_main.year }}</p>
+                            <small style="color: #FFFFFF!important; font-size: 14px!important;">лет на рынке</small>
                         </div>
 
                         <div class="col-auto text-center me-4">
-                            <p class="fw-bold mb-0">5000 +</p>
-                            <small>авто привезли</small>
+                            <p class="fw-bold mb-0">{{ info_main.cnt_car }}</p>
+                            <small style="color: #FFFFFF!important; font-size: 14px!important;">авто привезли</small>
                         </div>
 
                         <div class="col-auto text-center">
-                            <p class="fw-bold mb-0">2-4 недели</p>
-                            <small>минимальный срок доставки</small>
+                            <p class="fw-bold mb-0">{{ info_main.min_day_delivery }}</p>
+                            <small style="color: #FFFFFF!important; font-size: 14px!important;">минимальный срок доставки</small>
                         </div>
                     </div>
                 </div>
@@ -91,22 +98,22 @@
         </div>
     </section>
 
-<section class="container popular-cars py-5 px-5">
+<section class="container popular-cars">
     <h1 style="font-size: 48px; font-weight: 800;">Популярные авто в Корее</h1>
-    <div class="row mt-5">
-        <a href="#" class="col-auto popular-card-brand me-3">
+    <div class="row mt-5" style="margin: 0;">
+        <a href="{% url 'catalog:korea' %}?brand=기아" class="col-auto popular-card-brand me-3">
             <div class="d-flex align-items-center">
                 <img src="{% static 'img/kia.png' %}" alt="kia" width="30" height="24">
                 <p class="mb-0 ms-2">Kia</p>
             </div>
         </a>
-        <a href="#" class="col-auto popular-card-brand me-3">
+        <a href="{% url 'catalog:korea' %}?brand=현대" class="col-auto popular-card-brand me-3">
             <div class="d-flex align-items-center">
                 <img src="{% static 'img/hyundai.png' %}" alt="hyundai" width="28" height="15">
                 <p class="mb-0 ms-2">Hyndai</p>
             </div>
         </a>
-        <a href="#" class="col-auto popular-card-brand me-2">
+        <a href="{% url 'catalog:korea' %}?brand=KG모빌리티%28쌍용%29" class="col-auto popular-card-brand me-2">
             <div class="d-flex align-items-center">
                 <img src="{% static 'img/SsangYong.png' %}" alt="hyundai" width="30" height="18">
                 <p class="mb-0 ms-2">SsangYong</p>
@@ -117,23 +124,23 @@
         </div>
     </div>
 
-    <div class="row mt-3">
+    <div class="row mt-4">
         <div class="col-12 col-md-3">
             <div class="card card-car">
                     <div class="position-relative">
                         <img src="{% static 'img/car.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -147,17 +154,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -171,17 +178,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -195,17 +202,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -219,17 +226,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -243,17 +250,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -267,17 +274,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -291,17 +298,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -311,26 +318,26 @@
         </div>
 
         <div class="btn-all">
-            <a href="#">Смотреть все</a>
+            <a href="{% url 'catalog:korea' %}">Смотреть все</a>
         </div>
 
     </div>
 
-    <h1 class="mt-5" style="font-size: 48px; font-weight: 800; margin-top: 120px!important;">Популярные авто в Японии</h1>
-    <div class="row mt-5">
-        <a href="#" class="col-auto popular-card-brand me-3">
+    <h1 class="" style="font-size: 48px; font-weight: 800; margin-top: 120px!important;">Популярные авто в Японии</h1>
+    <div class="row mt-5" style="margin: 0;">
+        <a href="{% url 'catalog:japan' %}?brand=토요타%2C도요타" class="col-auto popular-card-brand me-3">
             <div class="d-flex align-items-center">
                 <img src="{% static 'img/toyota.png' %}" alt="toyota" width="30" height="25">
                 <p class="mb-0 ms-2">Toyota</p>
             </div>
         </a>
-        <a href="#" class="col-auto popular-card-brand me-2">
+        <a href="{% url 'catalog:japan' %}?brand=혼다" class="col-auto popular-card-brand me-2">
             <div class="d-flex align-items-center">
                 <img src="{% static 'img/honda.png' %}" alt="honda" width="30" height="25">
                 <p class="mb-0 ms-2">Honda</p>
             </div>
         </a>
-        <a href="#" class="col-auto popular-card-brand me-2">
+        <a href="{% url 'catalog:japan' %}?brand=마쯔다" class="col-auto popular-card-brand me-2">
             <div class="d-flex align-items-center">
                 <img src="{% static 'img/mazda.png' %}" alt="mazda" width="30" height="25">
                 <p class="mb-0 ms-2">Mazda</p>
@@ -341,23 +348,23 @@
         </div>
     </div>
 
-    <div class="row mt-3">
+    <div class="row mt-4">
         <div class="col-12 col-md-3">
             <div class="card card-car">
                     <div class="position-relative">
                         <img src="{% static 'img/car2.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <small class="me-1">Правый руль</small>
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -371,17 +378,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car2.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <small class="me-1">Правый руль</small>
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -395,17 +402,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car2.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <small class="me-1">Правый руль</small>
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -419,17 +426,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <small class="me-1">Правый руль</small>
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -443,17 +450,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car2.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <small class="me-1">Правый руль</small>
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -467,17 +474,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <small class="me-1">Правый руль</small>
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -491,17 +498,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car2.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <small class="me-1">Правый руль</small>
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -515,17 +522,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <small class="me-1">Правый руль</small>
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -535,13 +542,13 @@
         </div>
 
         <div class="btn-all">
-            <a href="#">Смотреть все</a>
+            <a href="{% url 'catalog:japan' %}">Смотреть все</a>
         </div>
 
     </div>
 
-    <h1 class="mt-5" style="font-size: 48px; font-weight: 800; margin-top: 120px!important;">Популярные авто в Китае</h1>
-    <div class="row mt-5">
+    <h1 class="" style="font-size: 48px; font-weight: 800; margin-top: 120px!important;">Популярные авто в Китае</h1>
+    <div class="row mt-5" style="margin: 0;">
         <a href="#" class="col-auto popular-card-brand me-3">
             <div class="d-flex align-items-center">
                 <img src="{% static 'img/zeekr.png' %}" alt="zeekr">
@@ -563,23 +570,23 @@
         </div>
     </div>
 
-    <div class="row mt-3">
+    <div class="row mt-4">
         <div class="col-12 col-md-3">
             <div class="card card-car">
                     <div class="position-relative">
                         <img src="{% static 'img/car3.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -593,17 +600,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -617,17 +624,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car2.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -641,17 +648,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -665,17 +672,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car3.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -689,17 +696,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car3.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -713,17 +720,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car3.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -737,17 +744,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car2.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -757,26 +764,26 @@
         </div>
 
         <div class="btn-all">
-            <a href="#">Смотреть все</a>
+            <a href="{% url 'catalog:china' %}">Смотреть все</a>
         </div>
 
     </div>
 
-    <h1 class="mt-5" style="font-size: 48px; font-weight: 800; margin-top: 120px!important;">Популярные авто в Европе</h1>
-    <div class="row mt-5">
-        <a href="#" class="col-auto popular-card-brand me-3">
+    <h1 class="" style="font-size: 48px; font-weight: 800; margin-top: 120px!important;">Популярные авто в Европе</h1>
+    <div class="row mt-5" style="margin: 0;">
+        <a href="{% url 'catalog:europe' %}?brand=폭스바겐" class="col-auto popular-card-brand me-3">
             <div class="d-flex align-items-center">
                 <img src="{% static 'img/volkswagen.png' %}" alt="volkswagen" width="27" height="25">
                 <p class="mb-0 ms-2">Volkswagen</p>
             </div>
         </a>
-        <a href="#" class="col-auto popular-card-brand me-2">
+        <a href="{% url 'catalog:europe' %}?brand=BMW" class="col-auto popular-card-brand me-2">
             <div class="d-flex align-items-center">
                 <img src="{% static 'img/bmw.png' %}" alt="bmw" width="24" height="24">
                 <p class="mb-0 ms-2">BMW</p>
             </div>
         </a>
-        <a href="#" class="col-auto popular-card-brand me-2">
+        <a href="{% url 'catalog:europe' %}?brand=벤츠" class="col-auto popular-card-brand me-2">
             <div class="d-flex align-items-center">
                 <img src="{% static 'img/mersedes-benz.png' %}" alt="mersedes-benz" width="26" height="26">
                 <p class="mb-0 ms-2">Mersedes</p>
@@ -787,23 +794,23 @@
         </div>
     </div>
 
-    <div class="row mt-3">
+    <div class="row mt-4">
         <div class="col-12 col-md-3">
             <div class="card card-car">
                     <div class="position-relative">
                         <img src="{% static 'img/car4.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -817,17 +824,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car4.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -841,17 +848,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car2.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -865,17 +872,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -889,17 +896,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car3.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -913,17 +920,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car4.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -937,17 +944,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car2.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -961,17 +968,17 @@
                     <div class="position-relative">
                         <img src="{% static 'img/car3.png' %}" class="card-img-top" alt="Авто">
                         <div class="position-absolute bottom-0 px-3 py-3 d-flex">
-                            <div class="d-flex rule-img-car align-items-center">
+                            <div class="d-flex rule-img-car align-items-center me-1">
                                 <img src="{% static 'img/Icon_rule.png' %}" height="14">
                                 <small class="ms-1">Левый руль</small>
                             </div>
-                            <small class="param-img-car">1 тыс. км</small>
+                            <small class="param-img-car me-1">1 тыс. км</small>
                             <small class="param-img-car">5 б</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Hyundai Palisade</h5>
-                        <p class="card-text text-muted">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</p>
+                        <span class="card-text text-muted mb-3">2022 &bull; 2.5 л &bull; AWD &bull; Бензин &bull; АКПП</span>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold price-car-card">2 500 000 <span class="logo-rub">₽</span></span>
                             <a href="#" class="btn-feedback-card-car">Оставить заявку</a>
@@ -981,68 +988,39 @@
         </div>
 
         <div class="btn-all">
-            <a href="#">Смотреть все</a>
+            <a href="{% url 'catalog:europe' %}">Смотреть все</a>
         </div>
 
     </div>
 
-    <h1 class="mt-5" style="font-size: 48px; font-weight: 800; margin-top: 120px!important;">Этапы работы</h1>
-    <p style="font-size: 15px;">Полное сопровождение сделки и поддержка связи с клиентом 24/7.</p>
-    <div class="row mt-5">
+    <h1 class="" style="font-size: 48px; font-weight: 800; margin-top: 120px!important;">Этапы работы</h1>
+    <p style="font-size: 15px; padding-top: 8px;">Полное сопровождение сделки и поддержка связи с клиентом 24/7.</p>
+    <div class="row" style="margin-top: 48px;">
+        {% for stage in stages_work %}
         <div class="col-md-3">
             <div class="one-step">
-                <span class="one-num">01</span>
+                <span class="one-num">0{{ forloop.counter }}</span>
             </div>
             <div class="one-step-card">
-                <h5 style="font-weight: 700;">Договор</h5>
-                <p style="font-size: 14px;" class="mt-3">Уточнение информации для поиска авто, подписание договора</p>
+                <h5 style="font-weight: 700;">{{ stage.name }}</h5>
+                <p style="font-size: 14px;" class="mt-3">{{ stage.description }}</p>
             </div>
 
         </div>
+        {% endfor %}
 
-        <div class="col-md-3">
-            <div class="one-step">
-                <span class="one-num">02</span>
-            </div>
-            <div class="one-step-card">
-                <h5 style="font-weight: 700;">Подбор</h5>
-                <p style="font-size: 14px;" class="mt-3">Осуществляем поиск автомобиля по заданным параметрам</p>
-            </div>
 
-        </div>
-
-        <div class="col-md-3">
-            <div class="one-step">
-                <span class="one-num">03</span>
-            </div>
-            <div class="one-step-card">
-                <h5 style="font-weight: 700;">Доставка</h5>
-                <p style="font-size: 14px;" class="mt-3">Доставка авто в любую точку мира  под ключ</p>
-            </div>
-
-        </div>
-
-        <div class="col-md-3">
-            <div class="one-step">
-                <span class="one-num">04</span>
-            </div>
-            <div class="one-step-card">
-                <h5 style="font-weight: 700;">Передача</h5>
-                <p style="font-size: 14px;" class="mt-3">Передача Вам автомобиля, а также полного пакета документов</p>
-            </div>
-
-        </div>
 
     </div>
 
-    <div class="row mt-5" style="margin-top: 120px!important;">
+    <div class="row" style="margin-top: 80px!important;">
         <div class="col-md-5">
             <div class="form-cost-delivery">
-                <h4 class="fw-bold" style="font-weight: 800!important;">Стомость доставки</h4>
-                <span style="font-size: 14px;">Минимальный срок доставки 2-4 недели</span>
+                <h4 class="fw-bold" style="font-weight: 800!important; font-size: 24px;">Стомость доставки</h4>
+                <span style="font-size: 14px;">Минимальный срок доставки {{ info_main.min_day_delivery }}</span>
                 <div class="mt-4">
                     <div class="custom-dropdown">
-                        <div class="dropdown-button">Куда доставляем?</div>
+                        <div class="dropdown-button" style="padding: 6px;">Куда доставляем?</div>
                         <ul class="dropdown-list">
                             {% for city in city_delivery %}
                             <li data-value="{{ city }}">{{ city }}</li>
@@ -1053,7 +1031,7 @@
                 </div>
                 <div class="mt-3">
                     <div class="custom-dropdown">
-                        <div class="dropdown-button">Выберите кузов</div>
+                        <div class="dropdown-button" style="padding: 6px;">Выберите кузов</div>
                         <ul class="dropdown-list">
                             {% for body in body_delivery %}
                             <li data-value="{{ body }}">{{ body }}</li>
@@ -1074,11 +1052,11 @@
             </div>
         </div>
         <div class="col-7">
-            <img src="{% static 'img/car-img-delivery.png' %}" class="img-fluid" alt="Авто">
+            <img src="{% static 'img/car-img-delivery.png' %}" class="img-fluid car-img-form-delivery" alt="Авто">
         </div>
     </div>
 </section>
-<section class="container py-5" style="background: url('/static/img/calculation-img.png') right/cover no-repeat; background-size: 1600px 427px; height: 427px;">
+<section class="container py-5" style="background: url('/static/img/calculation-img.png') right/cover no-repeat; background-size: 1600px 427px; height: 427px; background-color: rgba(0, 60, 180, 0.25);">
     <div class="">
         <h1 class="text-white calculation-block-h1">
         Нужен расчёт стоимости авто?
@@ -1090,14 +1068,14 @@
     </div>
 </section>
 
-<section class="container py-5 px-5 container-about">
+<section class="container container-about">
     <h1 style="font-size: 48px; font-weight: 800;">О компании SEWA</h1>
     <div class="row">
-        <div class="col-md-7">
-            <p class="mt-3" style="font-size: 15px;">Мы — ведущая экспортная компания из Южной Кореи, специализирующаяся на поставке автомобилей в страны по всему миру. Наша компания предлагает выгодные условия сотрудничества с возможностью с возможностью приобрести авто выгоднее на 30%. Мы гордимся тем, что предоставляем нашим клиентам не только высококачественные автомобили, но и первоклассный сервис. С нами вы получите надежные решения и максимальную выгоду  от каждой сделки.</p>
-            <h4 class="mt-5" style="font-weight: 700; font-size: 18px;">Почему мы - это лучший выбор</h4>
+        <div class="col-md-8">
+            <p class="" style="font-size: 15px; line-height: 26px; padding-top: 16px;">Мы — ведущая экспортная компания из Южной Кореи, специализирующаяся на поставке автомобилей в страны по всему миру. Наша компания предлагает выгодные условия сотрудничества с возможностью с возможностью приобрести авто выгоднее на 30%. Мы гордимся тем, что предоставляем нашим клиентам не только высококачественные автомобили, но и первоклассный сервис. С нами вы получите надежные решения и максимальную выгоду  от каждой сделки.</p>
+            <h4 class="" style="font-weight: 700; font-size: 18px; margin-top: 36px;">Почему мы - это лучший выбор</h4>
             <p style="font-size: 14px;">Работаем напрямую, поэтому не берем никаких комиссий за наши услуги</p>
-            <div class="row mt-5">
+            <div class="row" style="margin-top: 32px;">
                 <div class="col-md-4">
                     <img src="{% static 'img/Icon Container.png' %}" class="img-fluid" alt="Авто">
                     <h4 style="font-size: 16px; font-weight: 700;" class="mt-3">Таможенное оформление</h4>
@@ -1130,35 +1108,35 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-4">
             <img src="{% static 'img/Image-about.png' %}" class="img-fluid" alt="Авто">
             <div class="row mt-3 promo-end-desc">
-                        <div class="col-auto align-items-center me-4">
+                        <div class="col-md-4 align-items-center">
                             <div class="d-flex align-items-center">
                                 <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="20" height="19">
-                                <p class="fw-bold mb-0 ms-2">4.9</p>
+                                <p class="fw-bold mb-0 ms-2">{{ info_main.rate_clients }}</p>
                             </div>
                             <div>
-                                <small>рейтинг клиентов</small>
+                                <small style="color: #333333!important; font-size: 14px!important; text-wrap: nowrap;">рейтинг клиентов</small>
                             </div>
 
                         </div>
 
-                        <div class="col-auto text-center me-4">
-                            <p class="fw-bold mb-0">8</p>
-                            <small>лет на рынке</small>
+                        <div class="col-md-4 text-center">
+                            <p class="fw-bold mb-0">{{ info_main.year }}</p>
+                            <small style="color: #333333!important; font-size: 14px!important; text-wrap: nowrap;">лет на рынке</small>
                         </div>
 
-                        <div class="col-auto text-center me-4">
-                            <p class="fw-bold mb-0">5000 +</p>
-                            <small>авто привезли</small>
+                        <div class="col-md-4 text-center">
+                            <p class="fw-bold mb-0">{{ info_main.cnt_car }}</p>
+                            <small style="color: #333333!important; font-size: 14px!important; text-wrap: nowrap;">авто привезли</small>
                         </div>
                     </div>
         </div>
     </div>
 
-    <h1 class="mt-5" style="font-size: 48px; font-weight: 800; margin-top: 120px!important;">Что говорят наши клиенты</h1>
-    <div class="row mt-5">
+    <h1 class="" style="font-size: 48px; font-weight: 800; margin-top: 105px!important;">Что говорят наши клиенты</h1>
+    <div class="row" style="margin-top: 60px;">
         <div class="col-md-3">
             <img src="{% static 'img/Шаг.png' %}" class="img-fluid" alt="Авто">
             <div class="one-step-card" style="position: relative">
@@ -1249,7 +1227,7 @@
             </div>
         </div>
     </div>
-    <div class="d-flex align-items-center justify-content-between mt-5">
+    <div class="d-flex align-items-center justify-content-between" style="margin-top: 60px;">
         <h3 style="font-weight: 800; font-size: 26px;">Отзывы</h3>
     </div>
     <div class="row mt-3 review-slider">
@@ -1396,7 +1374,7 @@
         </div>
 
     </div>
-    <div class="d-flex align-items-center justify-content-between mt-5">
+    <div class="d-flex align-items-center justify-content-between" style="margin-top: 62px;">
         <div class="d-flex align-items-center">
             <img src="{% static 'img/YouTube Icon.png' %}" class="img-fluid" alt="Авто">
             <h3 class="mt-2 ms-2" style="font-weight: 800; font-size: 26px;">Обзоры</h3>
@@ -1408,14 +1386,14 @@
         {% for video in videos %}
         <div class="col-md-3 me-3">
             <a href="{{ video.link }}" target="_blank">
-            <img src="{{ video.preview }}" class="img-fluid" alt="Авто" style="border-radius: 12px;">
+            <img src="{{ video.preview_img.url }}" class="img-fluid" alt="Авто" style="border-radius: 12px;">
             </a>
         </div>
         {% endfor %}
 
     </div>
 
-    <div class="d-flex align-items-center justify-content-between mt-5">
+    <div class="d-flex align-items-center justify-content-between" style="margin-top: 62px;">
         <div class="d-flex align-items-center">
             <img src="{% static 'img/logo-short.png' %}" class="img-fluid" alt="Авто">
             <h3 class="mt-2 ms-2" style="font-weight: 800; font-size: 26px;">Shorts</h3>
@@ -1423,59 +1401,59 @@
         <a href="#" class="ms-auto text-primary">Смотреть все</a>
     </div>
     <div class="row mt-3 shorts-slider">
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
     </div>
 
 </section>
 
-<section class="container py-5 px-5 container-contact" style="background: url('/static/img/Контакты.png') right/cover no-repeat;">
+<section class="container container-contact" style="background: url('/static/img/Контакты.png') right/cover no-repeat;">
     <div class="row">
         <div class="col-md-6 mb-5">
             <h1 style="font-size: 48px; font-weight: 800;">Контакты</h1>
@@ -1483,22 +1461,22 @@
             <div class="mt-5">
                 <div>
                     <span style="color: #dddddd; font-size: 14px;">Позвонить</span>
-                    <p style="font-size: 14px;">878-88-01899</p>
+                    <p style="font-size: 14px;">{{ contact.phone }}</p>
                 </div>
                 <div class="mt-5">
                     <span style="color: #dddddd; font-size: 14px">Написать</span>
-                    <p style="font-size: 14px;">sewa2020@daum.net</p>
+                    <p style="font-size: 14px;">{{ contact.email }}</p>
                 </div>
                 <div class="mt-5">
                     <span style="color: #dddddd; font-size: 14px">Адрес</span>
-                    <p style="font-size: 14px;">2603-3, Sewa Motors, 32, Songdogwahak-ro,<br>Yeonsu-gu, Incheon, Republic of Korea.</p>
+                    <p style="font-size: 14px;">{{ contact.address }}</p>
                 </div>
             </div>
         </div>
         <div class="col-md-6 mb-5">
             <div class="contact-form">
                 <h3 style="font-weight: 800; font-size: 24px;">Оставить заявку</h3>
-                <form method="post">
+                <form method="post" id="contact-feedback">
                     <div class="row mb-3 mt-4">
                         <div class="col-md-6">
                             <label for="name" class="form-label" style="font-size: 14px;">Имя</label>
@@ -1515,7 +1493,7 @@
                     </div>
                     <div class="d-flex justify-content-between align-items-center mt-5">
                         <div class="form-check d-flex justify-content-between align-items-center">
-                            <input class="form-check-input" type="checkbox" id="agree" required>
+                            <input class="form-check-input" type="checkbox" id="agree" required checked>
                             <label class="form-check-label ms-3" for="agree" style="font-size: 13px;">
                                 С правилами политики конфиденциальности ознакомлен
                             </label>
@@ -1539,11 +1517,11 @@
 
             <nav>
                 <ul class="nav">
-                    <li class="nav-item"><a class="nav-link" href="#">Японские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Корейские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Китайские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Европейские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:japan' %}">Японские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:korea' %}">Корейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:china' %}">Китайские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:europe' %}">Европейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">О компании</a></li>
                 </ul>
             </nav>
 
@@ -1565,15 +1543,25 @@
 
 <!-- Модальное окно -->
 <div class="modal fade" id="costModal" tabindex="-1" aria-labelledby="costModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-feedback">
+  <div class="modal-dialog modal-dialog-feedback modal-dialog-centered">
     <div class="modal-content modal-content-feedback">
-      <div class="modal-header modal-header-feedback">
-        <h5 class="modal-title" id="costModalLabel" style="font-weight: 700;">Оставить заявку</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+
       <div class="modal-body modal-body-feedback">
-          <form method="post">
-          <div class="row">
+          <form method="post" style="width: 1181px;" id="feedback-modal">
+          <div class="row" style="width: 1181px;">
+              <div class="col-md-7 left-col-modal" >
+                  <h1 style="color: white; font-size: 28px; font-weight: 700; padding: 28px; line-height: 150%;">Оставьте заявку и наши специалисты подберут лучшие варианты под ваш бюджет</h1>
+                  <div style="padding: 28px;">
+                        <span style="color: white; display: block; margin-bottom: 12px; font-size: 14px;">Мы в соцсетях</span>
+                        <div class="d-flex align-items-center">
+                            <a href="#" class="me-2"><img src="{% static 'img/tg.png' %}" alt="Telegram" width="28"></a>
+                            <a href="#" class="me-2"><img src="{% static 'img/Youtube.png' %}" alt="Youtube" width="28"></a>
+                            <a href="#" class="me-2"><img src="{% static 'img/instagram.png' %}" alt="instagram" width="28"></a>
+                            <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
+                        </div>
+                    </div>
+              </div>
+              <div class="col-md-5" style="padding: 28px;">
               <div class="col-md-12">
         <label for="name-modal" class="form-label" style="font-size: 14px;">Имя</label>
         <input type="text" id="name-modal" class="form-control" placeholder="Введите имя" required style="background-color: #F6F6F6;">
@@ -1591,7 +1579,7 @@
                             <li data-value="{{ city }}">{{ city }}</li>
                             {% endfor %}
                         </ul>
-                        <input type="hidden" name="city-modal">
+                        <input type="hidden" name="city-modal" id="city-modal">
                     </div>
                   </div>
               <div class="col-md-12 mt-3">
@@ -1600,14 +1588,15 @@
               </div>
               <div class="d-flex justify-content-between align-items-center mt-5">
                         <div class="form-check d-flex justify-content-between align-items-center">
-                            <input class="form-check-input form-check-input-modal" type="checkbox" id="agree-modal" required>
+                            <input class="form-check-input form-check-input-modal" type="checkbox" id="agree-modal" required checked>
                             <label class="form-check-label ms-3" for="agree" style="font-size: 13px;">
                                 С правилами политики конфиденциальности ознакомлен
                             </label>
                         </div>
 
-                        <button type="submit" class="btn-delivery">Отправить</button>
+                        <button type="submit" class="btn-delivery" style="padding-left: 16px; padding-right: 16px;">Отправить</button>
                     </div>
+          </div>
           </div>
           </form>
       </div>
@@ -1731,7 +1720,7 @@
 <script>
     $(document).ready(function(){
         $('.shorts-slider').slick({
-            slidesToShow: 8.1,
+            slidesToShow: 7.1,
             slidesToScroll: 1,
             dots: false,
             infinite: true,
@@ -1820,6 +1809,129 @@
 
 });
 
+</script>
+
+<script>
+    document.getElementById('contact-feedback').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = {
+        name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value,
+        message: document.getElementById('message').value,
+    };
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify(formData)
+    };
+
+    const url = '/feedback/';
+
+    fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка при заполнении формы');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert('Форма успешно отправлена!');
+            document.getElementById('contact-feedback').reset();
+        })
+        .catch(error => {
+            alert('Произошла ошибка при отправке формы.');
+        });
+});
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+
+<script>
+    document.getElementById('feedback-modal').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = {
+        name: document.getElementById('name-modal').value,
+        phone: document.getElementById('phone-modal').value,
+        message: document.getElementById('message-modal').value,
+        city_delivery: document.getElementById('city-modal').value
+    };
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify(formData)
+    };
+
+    const url = '/feedback/';
+
+    fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка при заполнении формы');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert('Форма успешно отправлена!');
+            document.getElementById('feedback-modal').reset();
+        })
+        .catch(error => {
+            alert('Произошла ошибка при отправке формы.');
+        });
+});
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+
+<script defer>
+document.addEventListener('DOMContentLoaded', () => {
+
+    document.querySelectorAll('input[type="tel"]').forEach(input => {
+        let phoneMask = IMask(input, { mask: "+{7} (000) 000-00-00" });
+
+        function validatePhoneNumber() {
+            let t = input.value.replace(/\D/g, "");
+            return t.length < 11 ? (input.setCustomValidity("Необходимо минимум 11 цифр"), !1) : (input.setCustomValidity(""), !0);
+        }
+
+        input.addEventListener("input", validatePhoneNumber);
+    });
+});
 </script>
 
 </body>

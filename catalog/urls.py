@@ -4,7 +4,10 @@ from catalog.views import catalog, car, get_models_from_api
 app_name = 'catalog'
 
 urlpatterns = [
-    path('korea/', catalog, name='korea'),
+    path('korea/', catalog, {'country': 'Корея'}, name='korea'),
+    path('japan/', catalog, {'country': 'Япония'}, name='japan'),
+    path('china/', catalog, {'country': 'Китай'}, name='china'),
+    path('europe/', catalog, {'country': 'Европа'}, name='europe'),
     path('car/<int:id_car>/', car, name='car'),
     path('get-models/', get_models_from_api, name='get-models')
 ]

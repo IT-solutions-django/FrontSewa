@@ -1,3 +1,4 @@
 from django.contrib import admin
+from catalog.models import CarPromoBlock
 
-# Register your models here.
+admin.site.register(CarPromoBlock)

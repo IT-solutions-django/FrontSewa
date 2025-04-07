@@ -5,7 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sewa</title>
+    <title>О компании | Sewa</title>
+    <meta name="description" content="Автомобили с корейских автоаукционов с доставкой во все регионы РФ. 🚘 Растаможка, русификация, оформление ПТС - мы обеспечим под ключ и поможем на всех этапах. Оставьте заявку на подбор на нашем сайте.">
+    <link rel="icon" type="image/png" href="{% static 'favicon-sewa/favicon-96x96.png' %}" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="{% static 'favicon-sewa/favicon.svg' %}" />
+    <link rel="shortcut icon" href="{% static 'favicon-sewa/favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon-sewa/apple-touch-icon.png' %}" />
+    <link rel="manifest" href="{% static 'favicon-sewa/site.webmanifest' %}" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Slick CSS -->
@@ -13,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
 
     <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+    <script src="{% static 'js/imask/Imask.min.js' %}"></script>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 
@@ -28,11 +35,11 @@
 
             <nav>
                 <ul class="nav">
-                    <li class="nav-item"><a class="nav-link" href="#">Японские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Корейские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Китайские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Европейские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:japan' %}">Японские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:korea' %}">Корейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:china' %}">Китайские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:europe' %}">Европейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">О компании</a></li>
                 </ul>
             </nav>
 
@@ -44,14 +51,14 @@
                     <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
                 </div>
                 <div class="text-end">
-                    <a href="#" class="mb-0 fw-bold header-phone">+7 (999) 123-45-67</a>
+                    <a href="#" class="mb-0 fw-bold header-phone">{{ contact.phone }}</a>
                     <a href="https://t.me/your_username" class="header-write-ws">Написать в Telegram</a>
                 </div>
             </div>
         </div>
     </header>
 
-<section class="container text-white text-start mt-5 container-main container-main-about" style="background: url('/static/img/Image.png') right/cover no-repeat; background-size: 1012px 343px; background-position-y: -5%;">
+<section class="container text-white text-start mt-5 container-main container-main-about" style="background: url('/static/img/Image.png') right/cover no-repeat; background-size: 1012px 393px; background-position-y: -25%;">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -70,14 +77,14 @@
 
 
 
-<section class="container py-5 px-5 container-about" style="border-top-left-radius: 32px; border-top-right-radius: 32px;">
+<section class="container container-about" style="border-top-left-radius: 32px; border-top-right-radius: 32px;">
     <h1 style="font-size: 48px; font-weight: 800;">О компании SEWA</h1>
     <div class="row">
-        <div class="col-md-7">
-            <p class="mt-3" style="font-size: 15px;">Мы — ведущая экспортная компания из Южной Кореи, специализирующаяся на поставке автомобилей в страны по всему миру. Наша компания предлагает выгодные условия сотрудничества с возможностью с возможностью приобрести авто выгоднее на 30%. Мы гордимся тем, что предоставляем нашим клиентам не только высококачественные автомобили, но и первоклассный сервис. С нами вы получите надежные решения и максимальную выгоду  от каждой сделки.</p>
-            <h4 class="mt-5" style="font-weight: 700; font-size: 18px;">Почему мы - это лучший выбор</h4>
+        <div class="col-md-8">
+            <p class="" style="font-size: 15px; line-height: 26px; padding-top: 16px;">Мы — ведущая экспортная компания из Южной Кореи, специализирующаяся на поставке автомобилей в страны по всему миру. Наша компания предлагает выгодные условия сотрудничества с возможностью с возможностью приобрести авто выгоднее на 30%. Мы гордимся тем, что предоставляем нашим клиентам не только высококачественные автомобили, но и первоклассный сервис. С нами вы получите надежные решения и максимальную выгоду  от каждой сделки.</p>
+            <h4 class="" style="font-weight: 700; font-size: 18px; margin-top: 36px;">Почему мы - это лучший выбор</h4>
             <p style="font-size: 14px;">Работаем напрямую, поэтому не берем никаких комиссий за наши услуги</p>
-            <div class="row mt-5">
+            <div class="row" style="margin-top: 32px;">
                 <div class="col-md-4">
                     <img src="{% static 'img/Icon Container.png' %}" class="img-fluid" alt="Авто">
                     <h4 style="font-size: 16px; font-weight: 700;" class="mt-3">Таможенное оформление</h4>
@@ -110,69 +117,108 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-4">
             <img src="{% static 'img/Image-about.png' %}" class="img-fluid" alt="Авто">
             <div class="row mt-3 promo-end-desc">
-                        <div class="col-auto align-items-center me-4">
-                            <div class="d-flex align-items-center" style="justify-content: center;">
+                        <div class="col-auto align-items-center">
+                            <div class="d-flex align-items-center">
                                 <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="20" height="19">
-                                <p class="fw-bold mb-0 ms-2">4.9</p>
+                                <p class="fw-bold mb-0 ms-2">{{ info_main.rate_clients }}</p>
                             </div>
                             <div>
-                                <small>рейтинг клиентов</small>
+                                <small style="color: #333333!important; font-size: 14px!important; text-wrap: nowrap;">рейтинг клиентов</small>
                             </div>
 
                         </div>
 
-                        <div class="col-auto text-center me-4">
-                            <p class="fw-bold mb-0">8</p>
-                            <small>лет на рынке</small>
+                        <div class="col-auto text-center">
+                            <p class="fw-bold mb-0">{{ info_main.year }}</p>
+                            <small style="color: #333333!important; font-size: 14px!important; text-wrap: nowrap;">лет на рынке</small>
                         </div>
 
-                        <div class="col-auto text-center me-4">
-                            <p class="fw-bold mb-0">5000 +</p>
-                            <small>авто привезли</small>
+                        <div class="col-auto text-center">
+                            <p class="fw-bold mb-0">{{ info_main.cnt_car }}</p>
+                            <small style="color: #333333!important; font-size: 14px!important; text-wrap: nowrap;">авто привезли</small>
                         </div>
                     </div>
         </div>
     </div>
 
-    <h1 class="mt-3" style="font-size: 48px; font-weight: 800; margin-top: 100px!important;">Наша команда</h1>
-    <div class="row mt-5">
-        <div class="col-md-2 me-3">
-            <img src="{% static 'img/red-fone.png' %}" class="img-fluid" alt="Авто" style="position: absolute; height: 205px; width: 200px; margin-left: 10px;">
-            <img src="{% static 'img/user-command-1.png' %}" class="img-fluid mb-3 user-command-img" alt="Авто" style="position: relative; margin-top: 5px;">
-            <span style="font-weight: 700; font-size: 18px;">Абрамов Кирилл</span>
-            <p style="color: #757575; font-size: 15px;">Отдел экспедиторов</p>
+    <h1 class="" style="font-size: 48px; font-weight: 800; margin-top: 65px!important;">Наша команда</h1>
+    <div class="row mt-5 gap-4">
+        <div class="col-md-2  position-relative">
+            <img src="{% static 'img/red-fone.png' %}" class="img-fluid position-absolute"
+                 alt="Фон"
+                 style="top: -5px; left: 10px; z-index: 1;">
+
+            <img src="{% static 'img/user-command-1.png' %}" class="img-fluid position-absolute user-command-img"
+                 alt="Фото"
+                 style="top: 0; left: 0; z-index: 2;">
+
+            <div class="position-relative" style="z-index: 3; margin-top: 215px;">
+                <span style="font-weight: 700; font-size: 18px;">Абрамов Кирилл</span>
+                <p style="color: #757575; font-size: 15px;">Отдел экспедиторов</p>
+            </div>
         </div>
-        <div class="col-md-2 me-3">
-            <img src="{% static 'img/red-fone.png' %}" class="img-fluid" alt="Авто" style="position: absolute; height: 205px; width: 200px; margin-left: 10px;">
-            <img src="{% static 'img/user-command-1.png' %}" class="img-fluid mb-3 user-command-img" alt="Авто" style="position: relative; margin-top: 5px;">
-            <span style="font-weight: 700; font-size: 18px;">Абрамов Кирилл</span>
-            <p style="color: #757575; font-size: 15px;">Отдел экспедиторов</p>
+        <div class="col-md-2 position-relative">
+            <img src="{% static 'img/red-fone.png' %}" class="img-fluid position-absolute"
+                 alt="Фон"
+                 style="top: -5px; left: 10px; z-index: 1;">
+
+            <img src="{% static 'img/user-command-1.png' %}" class="img-fluid position-absolute user-command-img"
+                 alt="Фото"
+                 style="top: 0; left: 0; z-index: 2;">
+
+            <div class="position-relative" style="z-index: 3; margin-top: 215px;">
+                <span style="font-weight: 700; font-size: 18px;">Абрамов Кирилл</span>
+                <p style="color: #757575; font-size: 15px;">Отдел экспедиторов</p>
+            </div>
         </div>
-        <div class="col-md-2 me-3">
-            <img src="{% static 'img/red-fone.png' %}" class="img-fluid" alt="Авто" style="position: absolute; height: 205px; width: 200px; margin-left: 10px;">
-            <img src="{% static 'img/user-command-1.png' %}" class="img-fluid mb-3 user-command-img" alt="Авто" style="position: relative; margin-top: 5px;">
-            <span style="font-weight: 700; font-size: 18px;">Абрамов Кирилл</span>
-            <p style="color: #757575; font-size: 15px;">Отдел экспедиторов</p>
+        <div class="col-md-2 position-relative">
+            <img src="{% static 'img/red-fone.png' %}" class="img-fluid position-absolute"
+                 alt="Фон"
+                 style="top: -5px; left: 10px; z-index: 1;">
+
+            <img src="{% static 'img/user-command-1.png' %}" class="img-fluid position-absolute user-command-img"
+                 alt="Фото"
+                 style="top: 0; left: 0; z-index: 2;">
+
+            <div class="position-relative" style="z-index: 3; margin-top: 215px;">
+                <span style="font-weight: 700; font-size: 18px;">Абрамов Кирилл</span>
+                <p style="color: #757575; font-size: 15px;">Отдел экспедиторов</p>
+            </div>
         </div>
-        <div class="col-md-2 me-3">
-            <img src="{% static 'img/red-fone.png' %}" class="img-fluid" alt="Авто" style="position: absolute; height: 205px; width: 200px; margin-left: 10px;">
-            <img src="{% static 'img/user-command-1.png' %}" class="img-fluid mb-3 user-command-img" alt="Авто" style="position: relative; margin-top: 5px;">
-            <span style="font-weight: 700; font-size: 18px;">Абрамов Кирилл</span>
-            <p style="color: #757575; font-size: 15px;">Отдел экспедиторов</p>
+        <div class="col-md-2 position-relative">
+            <img src="{% static 'img/red-fone.png' %}" class="img-fluid position-absolute"
+                 alt="Фон"
+                 style="top: -5px; left: 10px; z-index: 1;">
+
+            <img src="{% static 'img/user-command-1.png' %}" class="img-fluid position-absolute user-command-img"
+                 alt="Фото"
+                 style="top: 0; left: 0; z-index: 2;">
+
+            <div class="position-relative" style="z-index: 3; margin-top: 215px;">
+                <span style="font-weight: 700; font-size: 18px;">Абрамов Кирилл</span>
+                <p style="color: #757575; font-size: 15px;">Отдел экспедиторов</p>
+            </div>
         </div>
-        <div class="col-md-2 me-3">
-            <img src="{% static 'img/red-fone.png' %}" class="img-fluid" alt="Авто" style="position: absolute; height: 205px; width: 200px; margin-left: 10px;">
-            <img src="{% static 'img/user-command-1.png' %}" class="img-fluid mb-3 user-command-img" alt="Авто" style="position: relative; margin-top: 5px;">
-            <span style="font-weight: 700; font-size: 18px;">Абрамов Кирилл</span>
-            <p style="color: #757575; font-size: 15px;">Отдел экспедиторов</p>
+        <div class="col-md-2 position-relative">
+            <img src="{% static 'img/red-fone.png' %}" class="img-fluid position-absolute"
+                 alt="Фон"
+                 style="top: -5px; left: 10px; z-index: 1;">
+
+            <img src="{% static 'img/user-command-1.png' %}" class="img-fluid position-absolute user-command-img"
+                 alt="Фото"
+                 style="top: 0; left: 0; z-index: 2;">
+
+            <div class="position-relative" style="z-index: 3; margin-top: 215px;">
+                <span style="font-weight: 700; font-size: 18px;">Абрамов Кирилл</span>
+                <p style="color: #757575; font-size: 15px;">Отдел экспедиторов</p>
+            </div>
         </div>
     </div>
 
-    <h1 class="mt-4" style="font-size: 48px; font-weight: 800; margin-top: 120px!important;">Что говорят наши клиенты</h1>
-    <div class="row mt-5">
+    <div class="row" style="margin-top: 80px;">
         <div class="col-md-3">
             <img src="{% static 'img/Шаг.png' %}" class="img-fluid" alt="Авто">
             <div class="one-step-card" style="position: relative">
@@ -257,10 +303,10 @@
             </div>
         </div>
     </div>
-    <div class="d-flex align-items-center justify-content-between mt-5">
+    <div class="d-flex align-items-center justify-content-between" style="margin-top: 28px;">
         <h3 style="font-weight: 800; font-size: 26px;">Отзывы</h3>
     </div>
-    <div class="row mt-3 review-slider">
+    <div class="row mt-2 review-slider">
         <div class="col-md-3">
             <div class="card card-car me-3" style="height: fit-content!important;">
                     <img src="{% static 'img/Image-review.png' %}" class="card-img-top" alt="Авто">
@@ -404,7 +450,7 @@
         </div>
 
     </div>
-    <div class="d-flex align-items-center justify-content-between mt-5">
+    <div class="d-flex align-items-center justify-content-between" style="margin-top: 42px;">
         <div class="d-flex align-items-center">
             <img src="{% static 'img/YouTube Icon.png' %}" class="img-fluid" alt="Авто">
             <h3 class="mt-2 ms-2" style="font-weight: 800; font-size: 26px;">Обзоры</h3>
@@ -416,14 +462,14 @@
         {% for video in videos %}
         <div class="col-md-3 me-3">
             <a href="{{ video.link }}" target="_blank">
-            <img src="{{ video.preview }}" class="img-fluid" alt="Авто" style="border-radius: 12px;">
+            <img src="{{ video.preview_img.url }}" class="img-fluid" alt="Авто" style="border-radius: 12px;">
             </a>
         </div>
         {% endfor %}
 
     </div>
 
-    <div class="d-flex align-items-center justify-content-between mt-5">
+    <div class="d-flex align-items-center justify-content-between" style="margin-top: 42px;">
         <div class="d-flex align-items-center">
             <img src="{% static 'img/logo-short.png' %}" class="img-fluid" alt="Авто">
             <h3 class="mt-2 ms-2" style="font-weight: 800; font-size: 26px;">Shorts</h3>
@@ -431,47 +477,59 @@
         <a href="#" class="ms-auto text-primary">Смотреть все</a>
     </div>
     <div class="row mt-3 shorts-slider">
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
-        <div class="col-md-3">
+        <div class="">
             <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
         </div>
     </div>
 
 </section>
 
-<section class="container py-5 px-5 container-contact" style="background: url('/static/img/Контакты.png') right/cover no-repeat;">
+<section class="container container-contact" style="background: url('/static/img/Контакты.png') right/cover no-repeat;">
     <div class="row">
         <div class="col-md-6 mb-5">
             <h1 style="font-size: 48px; font-weight: 800;">Контакты</h1>
@@ -479,22 +537,22 @@
             <div class="mt-5">
                 <div>
                     <span style="color: #dddddd; font-size: 14px;">Позвонить</span>
-                    <p style="font-size: 14px;">878-88-01899</p>
+                    <p style="font-size: 14px;">{{ contact.phone }}</p>
                 </div>
                 <div class="mt-5">
                     <span style="color: #dddddd; font-size: 14px">Написать</span>
-                    <p style="font-size: 14px;">sewa2020@daum.net</p>
+                    <p style="font-size: 14px;">{{ contact.email }}</p>
                 </div>
                 <div class="mt-5">
                     <span style="color: #dddddd; font-size: 14px">Адрес</span>
-                    <p style="font-size: 14px;">2603-3, Sewa Motors, 32, Songdogwahak-ro,<br>Yeonsu-gu, Incheon, Republic of Korea.</p>
+                    <p style="font-size: 14px;">{{ contact.address }}</p>
                 </div>
             </div>
         </div>
         <div class="col-md-6 mb-5">
             <div class="contact-form">
                 <h3 style="font-weight: 800; font-size: 24px;">Оставить заявку</h3>
-                <form method="post">
+                <form method="post" id="contact-feedback">
                     <div class="row mb-3 mt-4">
                         <div class="col-md-6">
                             <label for="name" class="form-label" style="font-size: 14px;">Имя</label>
@@ -511,7 +569,7 @@
                     </div>
                     <div class="d-flex justify-content-between align-items-center mt-5">
                         <div class="form-check d-flex justify-content-between align-items-center">
-                            <input class="form-check-input" type="checkbox" id="agree" required>
+                            <input class="form-check-input" type="checkbox" id="agree" required checked>
                             <label class="form-check-label ms-3" for="agree" style="font-size: 13px;">
                                 С правилами политики конфиденциальности ознакомлен
                             </label>
@@ -535,11 +593,11 @@
 
             <nav>
                 <ul class="nav">
-                    <li class="nav-item"><a class="nav-link" href="#">Японские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Корейские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Китайские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Европейские авто</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:japan' %}">Японские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:korea' %}">Корейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:china' %}">Китайские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:europe' %}">Европейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">О компании</a></li>
                 </ul>
             </nav>
 
@@ -588,7 +646,7 @@
 <script>
     $(document).ready(function(){
         $('.shorts-slider').slick({
-            slidesToShow: 8.1,
+            slidesToShow: 7.1,
             slidesToScroll: 1,
             dots: false,
             infinite: true,
@@ -627,6 +685,75 @@
             ]
         });
     });
+</script>
+
+<script>
+    document.getElementById('contact-feedback').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = {
+        name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value,
+        message: document.getElementById('message').value,
+    };
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify(formData)
+    };
+
+    const url = '/feedback/';
+
+    fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка при заполнении формы');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert('Форма успешно отправлена!');
+            document.getElementById('contact-feedback').reset();
+        })
+        .catch(error => {
+            alert('Произошла ошибка при отправке формы.');
+        });
+});
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+
+<script defer>
+document.addEventListener('DOMContentLoaded', () => {
+
+    document.querySelectorAll('input[type="tel"]').forEach(input => {
+        let phoneMask = IMask(input, { mask: "+{7} (000) 000-00-00" });
+
+        function validatePhoneNumber() {
+            let t = input.value.replace(/\D/g, "");
+            return t.length < 11 ? (input.setCustomValidity("Необходимо минимум 11 цифр"), !1) : (input.setCustomValidity(""), !0);
+        }
+
+        input.addEventListener("input", validatePhoneNumber);
+    });
+});
 </script>
 
 </body>
