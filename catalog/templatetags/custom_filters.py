@@ -131,4 +131,4 @@ def translate_body_type(value):
 
 @register.filter
 def filter_price_korea(value):
-    return value + '000'
+    return value + '0000'

@@ -100,7 +100,7 @@
                 <div class="custom-dropdown">
                     <div class="dropdown-button" id="dropdown-button-model">
                         {% if request.GET.model %}
-                        <span style="color: #757575!important;" class="fw-bold">{{ model_map|translate_model:request.GET.model }}</span>
+                        <span style="color: #757575!important;" class="fw-bold" id="model-get-request"></span>
                         {% else %}
                         Модель авто
                         {% endif %}
@@ -112,26 +112,26 @@
                 </div>
             </div>
 
-            <div class="col-md-3">
-                <div class="custom-dropdown">
-                    <div class="dropdown-button">
-                        {% if request.GET.auction %}
-                        <span style="color: #757575!important;" class="fw-bold">{{ request.GET.auction }}</span>
-                        {% else %}
-                         Аукцион
-                        {% endif %}
-                    </div>
-                    <ul class="dropdown-list">
-                        <li data-value="">Любой</li>
-                        <li data-value="encar">Encar</li>
-                        <li data-value="kcar">Kcar</li>
-                        <li data-value="charancha">Charancha</li>
-                        <li data-value="mpark">Mpark</li>
-                        <li data-value="bobaedream">Bobaedream</li>
-                    </ul>
-                    <input type="hidden" name="auction" value="{% if request.GET.auction %}{{ request.GET.auction }}{% endif %}">
-                </div>
-            </div>
+<!--            <div class="col-md-3">-->
+<!--                <div class="custom-dropdown">-->
+<!--                    <div class="dropdown-button">-->
+<!--                        {% if request.GET.auction %}-->
+<!--                        <span style="color: #757575!important;" class="fw-bold">{{ request.GET.auction }}</span>-->
+<!--                        {% else %}-->
+<!--                         Аукцион-->
+<!--                        {% endif %}-->
+<!--                    </div>-->
+<!--                    <ul class="dropdown-list">-->
+<!--                        <li data-value="">Любой</li>-->
+<!--                        <li data-value="encar">Encar</li>-->
+<!--                        <li data-value="kcar">Kcar</li>-->
+<!--                        <li data-value="charancha">Charancha</li>-->
+<!--                        <li data-value="mpark">Mpark</li>-->
+<!--                        <li data-value="bobaedream">Bobaedream</li>-->
+<!--                    </ul>-->
+<!--                    <input type="hidden" name="auction" value="{% if request.GET.auction %}{{ request.GET.auction }}{% endif %}">-->
+<!--                </div>-->
+<!--            </div>-->
 
             <div class="col-md-3">
                 <div class="custom-dropdown">
@@ -384,16 +384,30 @@
                         {% if request.GET.order %}
                         {% if request.GET.order == 'price_increase' %}
                         <span style="color: #757575!important;" class="fw-bold">По возрастанию цены</span>
-                        {% else %}
+                        {% elif request.GET.order == 'price_decreasing' %}
                         <span style="color: #757575!important;" class="fw-bold">По убыванию цены</span>
+                        {% elif request.GET.order == 'year_increase' %}
+                        <span style="color: #757575!important;" class="fw-bold">Сначала старые</span>
+                        {% elif request.GET.order == 'year_decreasing' %}
+                        <span style="color: #757575!important;" class="fw-bold">Сначала новые</span>
+                        {% elif request.GET.order == 'mileage_increase' %}
+                        <span style="color: #757575!important;" class="fw-bold">Сначала с низким пробегом</span>
+                        {% elif request.GET.order == 'mileage_decreasing' %}
+                        <span style="color: #757575!important;" class="fw-bold">Сначала с высоким пробегом</span>
                         {% endif %}
                         {% else %}
                         Сортировка
                         {% endif %}
                     </div>
                     <ul class="dropdown-list" style="width: 312px!important;">
-                        <li><a href="?{% for key, val in request.GET.items %}{% if key != 'order' %}{{ key }}={{ val }}&{% endif %}{% endfor %}order=price_increase">По возрастанию цены</a></li>
-                        <li><a href="?{% for key, val in request.GET.items %}{% if key != 'order' %}{{ key }}={{ val }}&{% endif %}{% endfor %}order=price_decreasing">По убыванию цены</a></li>
+                        <li style="padding: 0;"><a href="?{% for key, val in request.GET.items %}{% if key != 'order' %}{{ key }}={{ val }}&{% endif %}{% endfor %}order=price_increase" style="display: block; padding: 10px;">По возрастанию цены</a></li>
+                        <li style="padding: 0;"><a href="?{% for key, val in request.GET.items %}{% if key != 'order' %}{{ key }}={{ val }}&{% endif %}{% endfor %}order=price_decreasing" style="display: block; padding: 10px;">По убыванию цены</a></li>
+
+                        <li style="padding: 0;"><a href="?{% for key, val in request.GET.items %}{% if key != 'order' %}{{ key }}={{ val }}&{% endif %}{% endfor %}order=year_increase" style="display: block; padding: 10px;">Сначала старые</a></li>
+                        <li style="padding: 0;"><a href="?{% for key, val in request.GET.items %}{% if key != 'order' %}{{ key }}={{ val }}&{% endif %}{% endfor %}order=year_decreasing" style="display: block; padding: 10px;">Сначала новые</a></li>
+
+                        <li style="padding: 0;"><a href="?{% for key, val in request.GET.items %}{% if key != 'order' %}{{ key }}={{ val }}&{% endif %}{% endfor %}order=mileage_increase" style="display: block; padding: 10px;">Сначала с низким пробегом</a></li>
+                        <li style="padding: 0;"><a href="?{% for key, val in request.GET.items %}{% if key != 'order' %}{{ key }}={{ val }}&{% endif %}{% endfor %}order=mileage_decreasing" style="display: block; padding: 10px;">Сначала с высоким пробегом</a></li>
                     </ul>
                     <input type="hidden" name="order">
                 </div>
@@ -891,6 +905,53 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+
+    const modelDropdown = document.querySelector("#model-dropdown-list");
+    const hiddenModelInput = document.querySelector("input[name='model']");
+    const buttonModel = document.querySelector("#dropdown-button-model");
+
+    function fetchModels(brandValue) {
+        fetch(`http://94.241.142.204/catalog/get-models/?brand=${brandValue}&ip=94.241.142.204`)
+            .then(response => response.json())
+            .then(data => {
+                updateModelDropdown(data);
+            })
+            .catch(error => console.error("Ошибка загрузки моделей:", error));
+    }
+
+    function updateModelDropdown(data) {
+        if (!modelDropdown) return;
+        modelDropdown.innerHTML = "";
+
+        Object.entries(data).forEach(([key, value]) => {
+            const li = document.createElement("li");
+            li.textContent = value;
+            li.setAttribute("data-value", key);
+            li.addEventListener("click", function () {
+                hiddenModelInput.value = key;
+                buttonModel.textContent = value;
+            });
+            modelDropdown.appendChild(li);
+        });
+
+        const params = new URLSearchParams(window.location.search);
+        const model = params.get("model");
+
+        const spanModel = document.querySelector("#model-get-request");
+        spanModel.textContent = data[model];
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const brand = params.get("brand");
+
+    if (brand) {
+        fetchModels(brand);
+    }
+});
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
         const colorCircles = document.querySelectorAll(".color-circle");
         const dropdownButton = document.querySelector(".dropdown-button-color");
         const dropdownList = document.querySelector(".dropdown-list-color");
@@ -1047,7 +1108,7 @@ document.addEventListener('DOMContentLoaded', function() {
         body: JSON.stringify(formData)
     };
 
-    const url = '/feedback/';
+    const url = 'http://94.241.142.204/feedback/';
 
     fetch(url, options)
         .then(response => {
@@ -1101,7 +1162,7 @@ function getCookie(name) {
         body: JSON.stringify(formData)
     };
 
-    const url = '/feedback/';
+    const url = 'http://94.241.142.204/feedback/';
 
     fetch(url, options)
         .then(response => {

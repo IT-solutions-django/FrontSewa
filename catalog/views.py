@@ -32,6 +32,20 @@ def send_order(request):
     return JsonResponse({"price_delivery": delivery_data.price}, status=200)
 
 
+def get_main_cars(params):
+    url = "http://193.164.149.51/cars/get-main-cars/"
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+
+        popular_korea, popular_japan, popular_china, popular_europe = response.json()['popular_cars_korea'], response.json()['popular_cars_japan'], response.json()['popular_cars_china'], response.json()['popular_cars_europe']
+        return popular_korea, popular_japan, popular_china, popular_europe
+
+    except requests.exceptions.RequestException as e:
+        print(f"Ошибка при запросе к API: {e}")
+        return None
+
+
 def home(request):
     videos = Video.objects.all()
     city_delivery = City.objects.all()
@@ -43,7 +57,24 @@ def home(request):
 
     contact = Contact.objects.all().first()
 
-    return render(request, 'home.html', {'videos': videos, 'city_delivery': city_delivery, 'body_delivery': body_delivery, 'info_main': info_main, 'stages_work': stages_work, 'contact': contact})
+    params = {
+        'ip': '94.241.142.204'
+    }
+
+    popular_korea, popular_japan, popular_china, popular_europe = get_main_cars(params)
+
+    return render(request, 'home.html', {
+        'videos': videos,
+        'city_delivery': city_delivery,
+        'body_delivery': body_delivery,
+        'info_main': info_main,
+        'stages_work': stages_work,
+        'contact': contact,
+        'popular_korea': popular_korea,
+        'popular_japan': popular_japan,
+        'popular_china': popular_china,
+        'popular_europe': popular_europe
+    })
 
 
 def about(request):
@@ -200,6 +231,9 @@ def catalog(request, country=None):
         color = request.GET.get('color')
         if color:
             params['color'] = color
+        order = request.GET.get('order')
+        if order:
+            params['order'] = order
         page = request.GET.get('page')
         if page:
             params['page'] = page
@@ -417,7 +451,7 @@ def car(request, id_car):
     contact = Contact.objects.all().first()
 
     if details_price_car:
-        poshlina = float(details_price_car["toll"]) - float(details_price_car["yts"]) - float(details_price_car["tof"])
+        poshlina = float(details_price_car["toll"]) + float(details_price_car["yts"]) + float(details_price_car["tof"])
     else:
         poshlina = 0
 

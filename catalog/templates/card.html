@@ -137,12 +137,18 @@
                 <p>
                 <div class="row">
                 <div class="col-md-6">
-                    <span style="color: #555252; font-size: 14px;">Стомость авто: </span><span class="fw-bold" style="font-size: 14px;">{{ car.price|filter_price_korea|format_price }} ₩</span>
-                    <p class="mt-2"><span style="color: #555252; font-size: 14px;">Полная пошлина: </span><span class="fw-bold" style="font-size: 14px;">{{ details_price_car.toll|format_price }} <span style="font-size: 16px;">₽</span></span></p>
+                    <span style="color: #555252; font-size: 14px;">Стомость авто: </span><span class="fw-bold" style="font-size: 14px;">
+                    {% if car.auction != 'encar' %}
+                    {{ car.price|filter_price_korea|format_price }} ₩
+                    {% else %}
+                    {{ car.price|format_price }} ₩
+                    {% endif %}
+                </span>
+                    <p class="mt-2"><span style="color: #555252; font-size: 14px;">Полная пошлина: </span><span class="fw-bold" style="font-size: 14px;">{{ poshlina|format_price }} <span style="font-size: 16px;">₽</span></span></p>
                 </div>
                 <div class="col-md-6">
-                    <span style="color: #555252; font-size: 14px;">Страна производитель: </span><span class="fw-bold" style="font-size: 14px;">{{ car.country }}</span>
-                    <p class="mt-2"><span style="color: #555252; font-size: 14px;">Страна экспортер: </span><span class="fw-bold" style="font-size: 14px;">Корея</span></p>
+                    <span style="color: #555252; font-size: 14px;">Производитель: </span><span class="fw-bold" style="font-size: 14px;">{{ car.country }}</span>
+                    <p class="mt-2"><span style="color: #555252; font-size: 14px;">Экспортер: </span><span class="fw-bold" style="font-size: 14px;">Корея</span></p>
                 </div>
             </div>
 
@@ -170,6 +176,13 @@
                         {% if car.engine %}
                         <p style="font-size: 15px;"><span style="color: #555252;">Тип топлива: </span><span>{{ car.engine|translate_engine }}</span></p>
                         {% endif %}
+                        {% if car.power_volume and car.power_volume != '0' %}
+                        <p style="font-size: 15px;"><span style="color: #555252;">Мощность двигателя: </span><span>{{ car.power_volume }}</span></p>
+                        {% endif %}
+                        {% if car.body_brand %}
+                        <p style="font-size: 15px;"><span style="color: #555252;">Бренд кузова: </span><span>{{ car.body_brand }}</span></p>
+                        {% endif %}
+
                     </div>
                     <div class="col-md-6">
                         {% if car.auction %}
@@ -183,6 +196,12 @@
                         {% endif %}
                         {% if car.drive and car.drive != 'Не определено' %}
                         <p style="font-size: 15px;"><span style="color: #555252;">Привод: </span><span>{{ car.drive|translate_drive }}</span></p>
+                        {% endif %}
+                        {% if car.grade and car.auction == 'encar' %}
+                        <p style="font-size: 15px;"><span style="color: #555252;">Комплектация: </span><span>{{ car.grade }}</span></p>
+                        {% endif %}
+                        {% if car.rate and car.rate != 'Нет' %}
+                        <p style="font-size: 15px;"><span style="color: #555252;">Оценка: </span><span>{{ car.rate }}</span></p>
                         {% endif %}
                     </div>
                 </div>
@@ -518,7 +537,11 @@
                         <span class="CN">KR₩</span>
 
                     <div class="calculator-result__price">
+                        {% if car.auction != 'encar' %}
                             {{ car.price|filter_price_korea|format_price }}
+                        {% else %}
+                        {{ car.price|format_price }}
+                        {% endif %}
                     </div>
                     </div>
 
@@ -555,11 +578,11 @@
                         </div>
                         <div class="col-3 price text-end px-0">
                             <div class="price_rus px-0">
-                                {{ details_price_car.toll|format_price }} <span style="font-size: 18px;">₽</span>
+                                {{ poshlina|format_price }} <span style="font-size: 18px;">₽</span>
                             </div>
                         </div>
                         <div class="tof">
-                            Пошлина: <span>{{ poshlina|format_price }} <span style="font-size: 15px;">₽</span></span>
+                            Пошлина: <span>{{ details_price_car.toll|format_price }} <span style="font-size: 15px;">₽</span></span>
                         </div>
                         <div class="duty">
                             Таможенный сбор: <span>{{ details_price_car.tof|format_price }} <span style="font-size: 15px;">₽</span></span>
@@ -577,7 +600,7 @@
                         </div>
                         <div class="col-3 price text-end px-0">
                             <div class="price_rus px-0">
-                                100 000 <span style="font-size: 18px;">₽</span>
+                                {{ details_price_car.our_commision|format_price }} <span style="font-size: 18px;">₽</span>
                             </div>
                         </div>
                     </div>
@@ -587,7 +610,7 @@
                         </div>
                         <div class="col-3 price text-end px-0">
                             <div class="price_rus">
-                                100 000 <span style="font-size: 18px;">₽</span>
+                                {{ details_price_car.broker|format_price }} <span style="font-size: 18px;">₽</span>
                             </div>
                         </div>
                     </div>
@@ -826,7 +849,7 @@
         body: JSON.stringify(formData)
     };
 
-    const url = '/feedback/';
+    const url = 'http://94.241.142.204/feedback/';
 
     fetch(url, options)
         .then(response => {
@@ -880,7 +903,7 @@ function getCookie(name) {
         body: JSON.stringify(formData)
     };
 
-    const url = '/feedback/';
+    const url = 'http://94.241.142.204/feedback/';
 
     fetch(url, options)
         .then(response => {
@@ -932,7 +955,7 @@ function getCookie(name) {
         body: JSON.stringify(formData)
     };
 
-    const url = '/feedback/';
+    const url = 'http://94.241.142.204/feedback/';
 
     fetch(url, options)
         .then(response => {
