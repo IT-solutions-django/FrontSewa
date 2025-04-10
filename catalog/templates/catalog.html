@@ -473,6 +473,7 @@
         </div>
         {% endif %}
         {% if forloop.counter == 4 %}
+        <div class="row" style="margin: 0;">
         <div class="promo-block-catalog d-flex justify-content-between">
             <div class="text-content-promo">
                 <p style="font-weight: 800; font-size: 24px;">{{ promo_car.name }}</p>
@@ -482,9 +483,10 @@
                     </div>
             </div>
             <div class="image-content-promo">
-                <img src="{{ promo_car.image_car.url }}" class="img-fluid">
+                <img src="{{ promo_car.image_car.url }}" class="img-fluid" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px;">
             </div>
         </div>
+            </div>
         {% endif %}
         {% endfor %}
 
