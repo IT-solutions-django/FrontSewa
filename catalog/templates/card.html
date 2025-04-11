@@ -215,6 +215,7 @@
         <span style="font-weight: 800; font-size: 28px;">Остались вопросы</span>
         <p>Оставьте заявку и наши специалисты подберут Вам автомобиль под Ваши требования<p>
         <form method="post" id="feedback-block-car">
+            {% csrf_token %}
         <div class="d-flex gap-3">
             <div>
             <label for="name-questions" class="form-label" style="font-size: 14px;">Имя</label>
@@ -389,6 +390,7 @@
             <div class="contact-form">
                 <h3 style="font-weight: 800; font-size: 24px;">Оставить заявку</h3>
                 <form method="post" id="contact-feedback">
+                    {% csrf_token %}
                     <div class="row mb-3 mt-4">
                         <div class="col-md-6">
                             <label for="name" class="form-label" style="font-size: 14px;">Имя</label>
@@ -460,6 +462,7 @@
 
       <div class="modal-body modal-body-feedback">
           <form method="post" style="width: 1181px;" id="feedback-modal">
+              {% csrf_token %}
           <div class="row" style="width: 1181px;">
               <div class="col-md-7 left-col-modal" >
                   <h1 style="color: white; font-size: 28px; font-weight: 700; padding: 28px; line-height: 150%;">Оставьте заявку и наши специалисты подберут лучшие варианты под ваш бюджет</h1>
@@ -726,9 +729,8 @@
     }
 
     function getCSRFToken() {
-        return document.cookie.split('; ')
-            .find(row => row.startsWith('csrftoken='))
-            ?.split('=')[1];
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+        return csrfToken;
     }
 });
 
@@ -844,7 +846,7 @@
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
+            'X-CSRFToken': getCookie()
         },
         body: JSON.stringify(formData)
     };
@@ -868,18 +870,8 @@
 });
 
 function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+    return csrfToken;
 }
 </script>
 
@@ -898,7 +890,7 @@ function getCookie(name) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
+            'X-CSRFToken': getCookie()
         },
         body: JSON.stringify(formData)
     };
@@ -922,18 +914,8 @@ function getCookie(name) {
 });
 
 function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+    return csrfToken;
 }
 </script>
 
@@ -950,7 +932,7 @@ function getCookie(name) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
+            'X-CSRFToken': getCookie()
         },
         body: JSON.stringify(formData)
     };
@@ -974,18 +956,8 @@ function getCookie(name) {
 });
 
 function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+    return csrfToken;
 }
 </script>
 
