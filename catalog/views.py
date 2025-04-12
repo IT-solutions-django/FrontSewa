@@ -286,7 +286,7 @@ def catalog(request, country=None):
         ('픽업(화물)', '화물차'): 'Пикап'
     }
 
-    data_mileage = {value: f'{value} км' for value in range(10000, 200000 + 1, 10000)}
+    data_mileage = {value: f'{value:,} км'.replace(',', ' ') for value in range(10000, 200000 + 1, 10000)}
 
     grouped_data_brand = defaultdict(set)
 

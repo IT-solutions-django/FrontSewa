@@ -3,6 +3,13 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    padding-right: 0 !important;
+}
+
 header {
     background-color: white;
     position: fixed!important;
@@ -12,6 +19,11 @@ header {
     padding: 0;
     padding-left: 0!important;
     padding-right: 0!important;
+    transition: transform 0.3s ease;
+}
+
+.header-hidden {
+    transform: translateY(-100%); /* Скрывает шапку за пределами экрана */
 }
 
 a {
@@ -417,8 +429,8 @@ a {
 }
 
 .dropdown-list li:hover {
-    background: #B4B4B4;
-    color: white;
+    background: #F8F8F8;
+    color: black;
     border-radius: 16px;
 }
 
@@ -479,8 +491,8 @@ a {
 }
 
 .dropdown-list-modal li:hover {
-    background: #B4B4B4;
-    color: white;
+    background: #F8F8F8;
+    color: black;
     border-radius: 16px;
 }
 
@@ -556,6 +568,20 @@ a {
 .form-check-input-modal {
     background-color: white;
     border-color: #DDDDDD;
+}
+
+.form-check-input-modal:checked[type=checkbox] {
+    border: 1px solid #DDDDDD!important;
+    background-color: white!important;
+    border-color: #DDDDDD!important;
+    box-shadow: none;
+    --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='red' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e")!important;
+}
+
+.form-check-input-modal:focus {
+    border: 1px solid #DDDDDD!important;
+    border-color: #DDDDDD!important;
+    box-shadow: none;
 }
 
 .form-check-label {
@@ -819,6 +845,10 @@ footer {
 
 .card-title {
     font-size: 16px;
+    -webkit-line-clamp: 1;
+     overflow: hidden;
+     -webkit-box-orient: vertical;
+     display: -webkit-box;
 }
 
 .one-step-card h5 {
@@ -831,12 +861,16 @@ footer {
 
 .shorts-slider p {
     margin-top: 7px;
+    -webkit-line-clamp: 2;
+     overflow: hidden;
+     -webkit-box-orient: vertical;
+     display: -webkit-box;
 }
 
 .left-col-modal {
     margin: 0 !important;
     padding: 0 !important;
-    background: linear-gradient(rgba(197, 23, 53, 0.7), rgba(197, 23, 53, 0.7)), url('/static/img/image-form-modal.png') left/cover no-repeat !important;
+    background: linear-gradient(rgba(98, 0, 15, 0.81), rgba(98, 0, 15, 0.81)), url('/static/img/image-form-modal.png') left/cover no-repeat !important;
     background-size: cover !important;
     background-position: center center !important;
     border-top-left-radius: 16px;
@@ -889,7 +923,7 @@ footer {
 .block-form-car-questions {
     margin-top: 80px;
     border-radius: 20px;
-    background: linear-gradient(rgba(197, 23, 53, 0.7), rgba(197, 23, 53, 0.7)), url('/static/img/image-form-modal.png') left/cover no-repeat !important;
+    background: linear-gradient(rgba(98, 0, 15, 0.81), rgba(98, 0, 15, 0.81)), url('/static/img/image-form-modal.png') left/cover no-repeat !important;
     background-size: cover !important;
     padding: 24px;
     color: white;
@@ -976,6 +1010,23 @@ footer {
 .currency span:not(:first-child) {
     border-left: 1px solid #75757585;
     padding: 0 10px;
+}
+
+.left-col-modal a {
+    padding: 8px;
+    border-radius: 12px;
+    background-color: rgba(0, 0, 0, 0.28);
+}
+
+.popular-brand-catalog {
+    border: 1px solid #F2F2F2;
+    background-color: #F2F2F2;
+    border-radius: 16px;
+    padding-left: 16px!important;
+    padding-right: 16px!important;
+    padding-top: 8px!important;
+    padding-bottom: 8px!important;
+    font-size: 13px;
 }
 
 @media only screen and (min-width: 1100px) {

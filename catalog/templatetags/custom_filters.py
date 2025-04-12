@@ -132,3 +132,11 @@ def translate_body_type(value):
 @register.filter
 def filter_price_korea(value):
     return value + '0000'
+
+
+@register.filter
+def truncate_decimal(value, digits=3):
+    try:
+        return round(float(value), digits)
+    except (ValueError, TypeError):
+        return value

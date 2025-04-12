@@ -48,7 +48,6 @@
                 <div class="me-5">
                     <a href="#" class="me-2"><img src="{% static 'img/tg.png' %}" alt="Telegram" width="28"></a>
                     <a href="#" class="me-2"><img src="{% static 'img/Youtube.png' %}" alt="Youtube" width="28"></a>
-                    <a href="#" class="me-2"><img src="{% static 'img/instagram.png' %}" alt="instagram" width="28"></a>
                     <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
                 </div>
                 <div class="text-end">
@@ -102,7 +101,7 @@
 <section class="container popular-cars">
     <h1 style="font-size: 48px; font-weight: 800;">Популярные авто в Корее</h1>
     <div class="row mt-5" style="margin: 0;">
-        <a href="{% url 'catalog:korea' %}?brand=기아" class="col-auto popular-card-brand me-3">
+        <a href="{% url 'catalog:korea' %}?brand=기아%2CKIA" class="col-auto popular-card-brand me-3">
             <div class="d-flex align-items-center">
                 <img src="{% static 'img/kia.png' %}" alt="kia" width="30" height="24">
                 <p class="mb-0 ms-2">Kia</p>
@@ -121,7 +120,9 @@
             </div>
         </a>
         <div class="col-auto">
+            <a href="{% url 'catalog:korea' %}">
             <img src="{% static 'img/korea.png' %}" alt="korea">
+            </a>
         </div>
     </div>
 
@@ -160,26 +161,28 @@
 
     <h1 class="" style="font-size: 48px; font-weight: 800; margin-top: 120px!important;">Популярные авто в Японии</h1>
     <div class="row mt-5" style="margin: 0;">
-        <a href="{% url 'catalog:japan' %}?brand=토요타%2C도요타" class="col-auto popular-card-brand me-3">
+        <a href="{% url 'catalog:japan' %}?brand=토요타%2CTOYOTA%2C도요타" class="col-auto popular-card-brand me-3">
             <div class="d-flex align-items-center">
                 <img src="{% static 'img/toyota.png' %}" alt="toyota" width="30" height="25">
                 <p class="mb-0 ms-2">Toyota</p>
             </div>
         </a>
-        <a href="{% url 'catalog:japan' %}?brand=혼다" class="col-auto popular-card-brand me-2">
+        <a href="{% url 'catalog:japan' %}?brand=혼다%2CHONDA" class="col-auto popular-card-brand me-2">
             <div class="d-flex align-items-center">
                 <img src="{% static 'img/honda.png' %}" alt="honda" width="30" height="25">
                 <p class="mb-0 ms-2">Honda</p>
             </div>
         </a>
-        <a href="{% url 'catalog:japan' %}?brand=마쯔다" class="col-auto popular-card-brand me-2">
+        <a href="{% url 'catalog:japan' %}?brand=MAZDA%2C마쯔다" class="col-auto popular-card-brand me-2">
             <div class="d-flex align-items-center">
                 <img src="{% static 'img/mazda.png' %}" alt="mazda" width="30" height="25">
                 <p class="mb-0 ms-2">Mazda</p>
             </div>
         </a>
         <div class="col-auto">
+            <a href="{% url 'catalog:japan' %}">
             <img src="{% static 'img/japan.png' %}" alt="japan">
+            </a>
         </div>
     </div>
 
@@ -233,7 +236,9 @@
             </div>
         </a>
         <div class="col-auto">
+            <a href="{% url 'catalog:china' %}">
             <img src="{% static 'img/china.png' %}" alt="china">
+            </a>
         </div>
     </div>
 
@@ -270,7 +275,7 @@
 
     <h1 class="" style="font-size: 48px; font-weight: 800; margin-top: 120px!important;">Популярные авто в Европе</h1>
     <div class="row mt-5" style="margin: 0;">
-        <a href="{% url 'catalog:europe' %}?brand=폭스바겐" class="col-auto popular-card-brand me-3">
+        <a href="{% url 'catalog:europe' %}?brand=VOLKSWAGEN%2C폭스바겐" class="col-auto popular-card-brand me-3">
             <div class="d-flex align-items-center">
                 <img src="{% static 'img/volkswagen.png' %}" alt="volkswagen" width="27" height="25">
                 <p class="mb-0 ms-2">Volkswagen</p>
@@ -282,14 +287,16 @@
                 <p class="mb-0 ms-2">BMW</p>
             </div>
         </a>
-        <a href="{% url 'catalog:europe' %}?brand=벤츠" class="col-auto popular-card-brand me-2">
+        <a href="{% url 'catalog:europe' %}?brand=MERCEDES+BENZ" class="col-auto popular-card-brand me-2">
             <div class="d-flex align-items-center">
                 <img src="{% static 'img/mersedes-benz.png' %}" alt="mersedes-benz" width="26" height="26">
                 <p class="mb-0 ms-2">Mersedes</p>
             </div>
         </a>
         <div class="col-auto">
+            <a href="{% url 'catalog:europe' %}">
             <img src="{% static 'img/euroupe.png' %}" alt="euroupe">
+            </a>
         </div>
     </div>
 
@@ -860,7 +867,6 @@
                 <div>
                     <a href="#" class="me-2"><img src="{% static 'img/tg.png' %}" alt="Telegram" width="28"></a>
                     <a href="#" class="me-2"><img src="{% static 'img/Youtube.png' %}" alt="Youtube" width="28"></a>
-                    <a href="#" class="me-2"><img src="{% static 'img/instagram.png' %}" alt="instagram" width="28"></a>
                     <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
                 </div>
             </div>
@@ -886,10 +892,9 @@
                   <div style="padding: 28px;">
                         <span style="color: white; display: block; margin-bottom: 12px; font-size: 14px;">Мы в соцсетях</span>
                         <div class="d-flex align-items-center">
-                            <a href="#" class="me-2"><img src="{% static 'img/tg.png' %}" alt="Telegram" width="28"></a>
-                            <a href="#" class="me-2"><img src="{% static 'img/Youtube.png' %}" alt="Youtube" width="28"></a>
-                            <a href="#" class="me-2"><img src="{% static 'img/instagram.png' %}" alt="instagram" width="28"></a>
-                            <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
+                            <a href="#" class="me-2"><img src="{% static 'img/Social Media Icon.png' %}" alt="Wa" width="28"></a>
+                            <a href="#" class="me-2"><img src="{% static 'img/Artboard.png' %}" alt="Telegram" width="28"></a>
+                            <a href="#" class="me-2"><img src="{% static 'img/Social Media Icon-youtube.png' %}" alt="YouTube" width="28"></a>
                         </div>
                     </div>
               </div>
@@ -1233,7 +1238,15 @@ function getCookie(name) {
 document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('input[type="tel"]').forEach(input => {
-        let phoneMask = IMask(input, { mask: "+{7} (000) 000-00-00" });
+        let phoneMask = IMask(input, {
+        mask: "+{7} (000) 000-00-00",
+        validate: function(value, masked) {
+            if (value.startsWith('+7 (8')) {
+                return false;
+            }
+            return true;
+        }
+        });
 
         function validatePhoneNumber() {
             let t = input.value.replace(/\D/g, "");
@@ -1255,6 +1268,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('header');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY;
+
+        if (currentScroll <= 0) {
+            header.classList.remove('header-hidden');
+            return;
+        }
+
+        if (currentScroll > lastScroll) {
+            header.classList.add('header-hidden');
+        } else {
+            header.classList.remove('header-hidden');
+        }
+
+        lastScroll = currentScroll;
+    });
+});
 </script>
 
 </body>

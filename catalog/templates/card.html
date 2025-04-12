@@ -53,7 +53,6 @@
                 <div class="me-5">
                     <a href="#" class="me-2"><img src="{% static 'img/tg.png' %}" alt="Telegram" width="28"></a>
                     <a href="#" class="me-2"><img src="{% static 'img/Youtube.png' %}" alt="Youtube" width="28"></a>
-                    <a href="#" class="me-2"><img src="{% static 'img/instagram.png' %}" alt="instagram" width="28"></a>
                     <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
                 </div>
                 <div class="text-end">
@@ -443,7 +442,6 @@
                 <div>
                     <a href="#" class="me-2"><img src="{% static 'img/tg.png' %}" alt="Telegram" width="28"></a>
                     <a href="#" class="me-2"><img src="{% static 'img/Youtube.png' %}" alt="Youtube" width="28"></a>
-                    <a href="#" class="me-2"><img src="{% static 'img/instagram.png' %}" alt="instagram" width="28"></a>
                     <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
                 </div>
             </div>
@@ -469,10 +467,9 @@
                   <div style="padding: 28px;">
                         <span style="color: white; display: block; margin-bottom: 12px; font-size: 14px;">Мы в соцсетях</span>
                         <div class="d-flex align-items-center">
-                            <a href="#" class="me-2"><img src="{% static 'img/tg.png' %}" alt="Telegram" width="28"></a>
-                            <a href="#" class="me-2"><img src="{% static 'img/Youtube.png' %}" alt="Youtube" width="28"></a>
-                            <a href="#" class="me-2"><img src="{% static 'img/instagram.png' %}" alt="instagram" width="28"></a>
-                            <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
+                            <a href="#" class="me-2"><img src="{% static 'img/Social Media Icon.png' %}" alt="Wa" width="28"></a>
+                            <a href="#" class="me-2"><img src="{% static 'img/Artboard.png' %}" alt="Telegram" width="28"></a>
+                            <a href="#" class="me-2"><img src="{% static 'img/Social Media Icon-youtube.png' %}" alt="YouTube" width="28"></a>
                         </div>
                     </div>
               </div>
@@ -626,7 +623,7 @@
                 <div class="curr">
                     <span>1€ - {{ details_price_car.currency.EUR }}(ЦБ)</span> <span>1$ - {{ details_price_car.currency.USD }}(ЦБ)</span>
 
-                    <span class="CN"> 1KR₩ - {{ details_price_car.currency.KRW }}</span>
+                    <span class="CN"> 1KR₩ - {{ details_price_car.currency.KRW|truncate_decimal:3 }}</span>
 
                 </div>
             </div>
@@ -965,7 +962,15 @@ function getCookie(name) {
 document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('input[type="tel"]').forEach(input => {
-        let phoneMask = IMask(input, { mask: "+{7} (000) 000-00-00" });
+        let phoneMask = IMask(input, {
+        mask: "+{7} (000) 000-00-00",
+        validate: function(value, masked) {
+            if (value.startsWith('+7 (8')) {
+                return false;
+            }
+            return true;
+        }
+        });
 
         function validatePhoneNumber() {
             let t = input.value.replace(/\D/g, "");
@@ -973,6 +978,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         input.addEventListener("input", validatePhoneNumber);
+    });
+});
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('header');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY;
+
+        if (currentScroll <= 0) {
+            header.classList.remove('header-hidden');
+            return;
+        }
+
+        if (currentScroll > lastScroll) {
+            header.classList.add('header-hidden');
+        } else {
+            header.classList.remove('header-hidden');
+        }
+
+        lastScroll = currentScroll;
     });
 });
 </script>
