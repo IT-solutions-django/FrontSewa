@@ -4,10 +4,7 @@ body {
 }
 
 body.modal-open {
-    overflow: hidden;
-    position: fixed;
-    width: 100%;
-    padding-right: 0 !important;
+    overflow-y: scroll !important;
 }
 
 header {
@@ -17,8 +14,6 @@ header {
     left: 0!important;
     z-index: 999;
     padding: 0;
-    padding-left: 0!important;
-    padding-right: 0!important;
     transition: transform 0.3s ease;
 }
 

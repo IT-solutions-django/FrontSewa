@@ -493,13 +493,13 @@
         <div class="promo-block-catalog d-flex justify-content-between">
             <div class="text-content-promo">
                 <p style="font-weight: 800; font-size: 24px;">{{ promo_car.name }}</p>
-                <p><span style="font-weight: 700; font-size: 18px;">{{ promo_car.price }} <span class="logo-rub">₽</span> </span><del style="font-size: 16px;">{{ promo_car.old_price }} <span style="font-size: 18px;">₽</span> </del></p>
+                <p><span style="font-weight: 700; font-size: 18px;">{{ promo_car.price|format_price }} <span class="logo-rub">₽</span> </span><del style="font-size: 16px;">{{ promo_car.price|add_percent:promo_car.percent_price|format_price }} <span style="font-size: 18px;">₽</span> </del></p>
                 <div style="margin-top: 26px;">
-                <a class="promo-catalog-btn" id="promo-catalog-btn" style="cursor: pointer;">Подробнее</a >
+                <a class="promo-catalog-btn" id="promo-catalog-btn" href="{% url 'catalog:promo-car' promo_car.id %}" style="cursor: pointer;">Подробнее</a >
                     </div>
             </div>
             <div class="image-content-promo">
-                <img src="{{ promo_car.image_car.url }}" class="img-fluid" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px;">
+                <img src="{{ promo_car.images.all.0.image.url }}" class="img-fluid" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px;">
             </div>
         </div>
             </div>
@@ -1100,16 +1100,6 @@ document.addEventListener('DOMContentLoaded', function() {
       myModal.show();
     });
   });
-
-</script>
-
-<script>
-    var button = document.querySelector('#promo-catalog-btn');
-
-    button.addEventListener('click', function() {
-      var myModal = new bootstrap.Modal(document.getElementById('costModal'), {});
-      myModal.show();
-    });
 
 </script>
 

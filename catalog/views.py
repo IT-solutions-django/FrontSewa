@@ -6,8 +6,9 @@ import json
 from youtube.models import Video
 from delivery.models import City, DeliveryBody, Delivery
 from information.models import MainBlock, StagesOfWork, Contact
-from .models import CarPromoBlock
+from .models import CarPromoBlock, ExclusiveOfferCar
 from urllib.parse import unquote
+import random
 
 
 def send_order(request):
@@ -332,7 +333,10 @@ def catalog(request, country=None):
 
     contact = Contact.objects.all().first()
 
-    promo_car = CarPromoBlock.objects.filter(country=country).first()
+    promo_car = ExclusiveOfferCar.objects.prefetch_related('images').filter(is_active=True)
+    promo_car_list = list(promo_car)
+    random.shuffle(promo_car_list)
+    random_promo_cars = promo_car_list[0]
 
     return render(
         request, 'catalog.html',
@@ -359,7 +363,7 @@ def catalog(request, country=None):
             'city_delivery': city_delivery,
             'body_delivery': body_delivery,
             'contact': contact,
-            'promo_car': promo_car
+            'promo_car': random_promo_cars
         }
     )
 
@@ -456,3 +460,26 @@ def car(request, id_car):
         poshlina = 0
 
     return render(request, 'card.html', {'car': data_car, 'city_delivery': city_delivery, 'body_delivery': body_delivery, 'popular_cars': popular_cars, 'country_temp': country_temp, 'country_path': country_path, 'details_price_car': details_price_car, 'info_main': info_main, 'stages_work': stages_work, 'contact': contact, 'poshlina': poshlina})
+
+
+def get_promo_car_card(request, id_car):
+    promo_car = ExclusiveOfferCar.objects.prefetch_related('images').get(id=id_car)
+
+    city_delivery = City.objects.all()
+    body_delivery = DeliveryBody.objects.all()
+
+    info_main = MainBlock.objects.all().first()
+
+    stages_work = StagesOfWork.objects.all()
+
+    contact = Contact.objects.all().first()
+
+    return render(request, 'promo_card.html', {
+        'car': promo_car,
+        'city_delivery': city_delivery,
+        'body_delivery': body_delivery,
+        'info_main': info_main,
+        'stages_work': stages_work,
+        'contact': contact,
+    })
+

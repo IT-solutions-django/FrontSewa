@@ -29,3 +29,6 @@ urlpatterns = [
     path('about/', about, name='about'),
     path('feedback/', feedback, name='feedback')
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

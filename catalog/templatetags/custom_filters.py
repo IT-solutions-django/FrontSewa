@@ -16,6 +16,7 @@ def get_item_int(dictionary, key):
 @register.filter
 def format_number(value):
     try:
+        value = int(value)
         return "{:,.0f}".format(value).replace(",", " ")
     except (ValueError, TypeError):
         return value
@@ -138,5 +139,16 @@ def filter_price_korea(value):
 def truncate_decimal(value, digits=3):
     try:
         return round(float(value), digits)
+    except (ValueError, TypeError):
+        return value
+
+
+@register.filter
+def add_percent(value, percent):
+    try:
+        value = value.replace(' ', '')
+        value = int(value)
+        percent = int(percent)
+        return int(value * (1 + percent / 100))
     except (ValueError, TypeError):
         return value

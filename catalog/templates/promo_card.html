@@ -1,0 +1,808 @@
+{% load static %}
+{% load custom_filters %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ car.name }}, {{ car.year }} | Sewa</title>
+    <meta name="description" content="Популярный автомобиль {{ car.name }} с пробегом {{ car.mileage }} км. 🚘 Широкий выбор авто. Выберите идеальный вариант на нашем сайте.">
+    <link rel="icon" type="image/png" href="{% static 'favicon-sewa/favicon-96x96.png' %}" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="{% static 'favicon-sewa/favicon.svg' %}" />
+    <link rel="shortcut icon" href="{% static 'favicon-sewa/favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon-sewa/apple-touch-icon.png' %}" />
+    <link rel="manifest" href="{% static 'favicon-sewa/site.webmanifest' %}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap CSS (для модального окна) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Swiper.js (для слайдера) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+    <!-- Fancybox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.0/dist/fancybox.css">
+
+
+    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+    <script src="{% static 'js/imask/Imask.min.js' %}"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+<header class="container-fluid py-3 bg-light">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="{% url 'home' %}">
+            <div>
+                <img src="{% static 'img/Logo.png' %}" alt="Логотип" height="69" width="70">
+            </div>
+            </a>
+
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:japan' %}">Японские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:korea' %}">Корейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:china' %}">Китайские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:europe' %}">Европейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">О компании</a></li>
+                </ul>
+            </nav>
+
+            <div class="d-flex align-items-center">
+                <div class="me-5">
+                    <a href="#" class="me-2"><img src="{% static 'img/tg.png' %}" alt="Telegram" width="28"></a>
+                    <a href="#" class="me-2"><img src="{% static 'img/Youtube.png' %}" alt="Youtube" width="28"></a>
+                    <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
+                </div>
+                <div class="text-end">
+                    <a href="#" class="mb-0 fw-bold header-phone">{{ contact.phone }}</a>
+                    <a href="https://t.me/your_username" class="header-write-ws">Написать в Telegram</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<section class="container text-white text-start container-main container-main-card">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="mt-0">
+                        <a href="/" style="color: #757575!important; font-size: 13px;">Главная</a>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="13" viewBox="0 0 7 10" fill="none" class="ms-1 me-1">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.982384 0.359337C1.17765 0.164075 1.49423 0.164075 1.68949 0.359337L5.97616 4.646C6.06993 4.73977 6.1226 4.86695 6.1226 4.99956C6.1226 5.13217 6.06993 5.25934 5.97616 5.35311L1.68949 9.63978C1.49423 9.83504 1.17765 9.83504 0.982384 9.63978C0.787122 9.44452 0.787122 9.12793 0.982384 8.93267L4.9155 4.99956L0.982384 1.06644C0.787122 0.871182 0.787122 0.554599 0.982384 0.359337Z" fill="#D5D5D5" fill-opacity="0.5"/>
+                        </svg>
+                        <a href="{{ request.path }}" style="color: white!important; font-size: 13px;">{{ car.name }}, {{ car.year }}</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section class="container popular-cars">
+    <div class="row mt-3">
+
+        <div class="col-md-6">
+    <!-- Главный слайдер с изображениями -->
+    <div class="swiper main-slider">
+        <div class="swiper-wrapper">
+            {% for photo in car.images.all %}
+            <div class="swiper-slide">
+                <a href="{{ photo.image.url }}"
+                   data-fancybox="gallery"
+                   data-thumb="{{ photo.image.url }}">
+                    <img src="{{ photo.image.url }}"
+                         class="car-img-card"
+                         alt="Авто">
+                </a>
+            </div>
+            {% endfor %}
+
+        </div>
+        <!-- Стрелки для навигации -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+
+    <!-- Галерея миниатюр -->
+    <div class="swiper thumbnail-slider mt-3">
+        <div class="swiper-wrapper">
+            {% for photo in car.images.all %}
+            <div class="swiper-slide">
+                <img src="{{ photo.image.url }}" class="thumbnail" onclick="mainSwiper.slideTo({{ forloop.counter0 }})" alt="Миниатюра 1">
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+
+</div>
+
+<!-- Модальное окно -->
+
+
+        <div class="col-md-6">
+            <div class="card-info-car">
+                <h1 style="font-size: 36px; font-weight: 800;">{{ car.name }} {% if car.year %}, {{ car.year }} {% endif %}</h1>
+                <p class="fw-bold mt-4" style="font-size: 28px;">
+                    {{ car.price|format_price }} <span style="font-size: 30px;">₽</span>
+                <p>
+
+
+                <div class="row mt-2">
+                    <div class="col-md-12 d-flex">
+                    <button class="btn-delivery me-2" style="padding: 12px!important;" id="btn-feedback-car">Оставить заявку</button>
+                    <img src="{% static 'img/tg-card-car.png' %}" class="img-fluid" alt="Авто">
+                </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col-md-6">
+                        {% if car.transmission %}
+                        <p style="font-size: 15px;"><span style="color: #555252;">Тип КПП: </span><span>
+                            {{ car.transmission }}
+                        </span></p>
+                        {% endif %}
+                        {% if car.color %}
+                        <p style="font-size: 15px;"><span style="color: #555252;">Цвет: </span><span>{{ car.color }}</span></p>
+                        {% endif %}
+                        {% if car.body_type %}
+                        <p style="font-size: 15px;"><span style="color: #555252;">Кузов: </span><span>{{ car.body_type }}</span></p>
+                        {% endif %}
+                        {% if car.engine %}
+                        <p style="font-size: 15px;"><span style="color: #555252;">Тип топлива: </span><span>{{ car.engine }}</span></p>
+                        {% endif %}
+                        {% if car.power_volume %}
+                        <p style="font-size: 15px;"><span style="color: #555252;">Мощность двигателя: </span><span>{{ car.power_volume }} л.с</span></p>
+                        {% endif %}
+                        {% if car.body_brand %}
+                        <p style="font-size: 15px;"><span style="color: #555252;">Бренд кузова: </span><span>{{ car.body_brand }}</span></p>
+                        {% endif %}
+
+                    </div>
+                    <div class="col-md-6">
+                        {% if car.auction %}
+                        <p style="font-size: 15px;"><span style="color: #555252;">Аукцион: </span><span>{{ car.auction }}</span></p>
+                        {% endif %}
+                        {% if car.mileage %}
+                        <p style="font-size: 15px;"><span style="color: #555252;">Пробег: </span><span>{{ car.mileage|format_number }} км</span></p>
+                        {% endif %}
+                        {% if car.eng_v %}
+                        <p style="font-size: 15px;"><span style="color: #555252;">Объем двигателя: </span><span>{{ car.eng_v|cc_to_liters }} л</span></p>
+                        {% endif %}
+                        {% if car.drive %}
+                        <p style="font-size: 15px;"><span style="color: #555252;">Привод: </span><span>{{ car.drive }}</span></p>
+                        {% endif %}
+                        {% if car.grade %}
+                        <p style="font-size: 15px;"><span style="color: #555252;">Комплектация: </span><span>{{ car.grade }}</span></p>
+                        {% endif %}
+                        {% if car.rate %}
+                        <p style="font-size: 15px;"><span style="color: #555252;">Оценка: </span><span>{{ car.rate }}</span></p>
+                        {% endif %}
+                    </div>
+                </div>
+                <p class="mt-3" style="font-size: 15px;">Стоимость является ориентировочной. Оставьте заявку и наш менеджер свяжется с Вами для уточнения деталей.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="block-form-car-questions d-flex align-items-center justify-content-between">
+        <div>
+        <span style="font-weight: 800; font-size: 28px;">Остались вопросы</span>
+        <p>Оставьте заявку и наши специалисты подберут Вам автомобиль под Ваши требования<p>
+        <form method="post" id="feedback-block-car">
+            {% csrf_token %}
+        <div class="d-flex gap-3">
+            <div>
+            <label for="name-questions" class="form-label" style="font-size: 14px;">Имя</label>
+            <input type="text" id="name-questions" class="form-control" placeholder="Введите имя" required>
+            </div>
+            <div>
+            <label for="phone-questions" class="form-label" style="font-size: 14px;">Телефон</label>
+            <input type="tel" id="phone-questions" class="form-control" placeholder="+7 (___) ___-__-__" required>
+            </div>
+            <div class="block-btn-form-questions">
+            <button type="submit" class="contact-from-bnt" style="padding-top: 10px; padding-bottom: 10px;">Отправить</button>
+            </div>
+        </div>
+        <div class="form-check mt-4">
+            <input class="form-check-input" type="checkbox" id="agree-questions" required checked>
+            <label class="form-check-label ms-3" for="agree-questions" style="font-size: 13px;">
+                С правилами политики конфиденциальности ознакомлен
+            </label>
+        </div>
+        </form>
+        </div>
+        <div>
+        <img src="{% static 'img/Image-logo-questions.png' %}" class="img-fluid">
+        </div>
+    </div>
+
+
+
+    <h1 class="" style="font-size: 48px; font-weight: 800; margin-top: 120px!important;">Этапы работы</h1>
+    <p style="font-size: 15px; padding-top: 8px;">Полное сопровождение сделки и поддержка связи с клиентом 24/7.</p>
+    <div class="row" style="margin-top: 48px;">
+        {% for stage in stages_work %}
+        <div class="col-md-3">
+            <div class="one-step">
+                <span class="one-num">0{{ forloop.counter }}</span>
+            </div>
+            <div class="one-step-card">
+                <h5 style="font-weight: 700;">{{ stage.name }}</h5>
+                <p style="font-size: 14px;" class="mt-3">{{ stage.description }}</p>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <div class="row" style="margin-top: 40px!important;">
+        <div class="col-md-5">
+            <div class="form-cost-delivery">
+                <h4 class="fw-bold" style="font-weight: 800!important; font-size: 24px;">Стомость доставки</h4>
+                <span style="font-size: 14px;">Минимальный срок доставки {{ info_main.min_day_delivery }}</span>
+                <div class="mt-4">
+                    <div class="custom-dropdown">
+                        <div class="dropdown-button" style="padding: 6px;">Куда доставляем?</div>
+                        <ul class="dropdown-list">
+                            {% for city in city_delivery %}
+                            <li data-value="{{ city }}">{{ city }}</li>
+                            {% endfor %}
+                        </ul>
+                        <input type="hidden" name="city">
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <div class="custom-dropdown">
+                        <div class="dropdown-button" style="padding: 6px;">Выберите кузов</div>
+                        <ul class="dropdown-list">
+                            {% for body in body_delivery %}
+                            <li data-value="{{ body }}">{{ body }}</li>
+                            {% endfor %}
+                        </ul>
+                        <input type="hidden" name="car_type">
+                    </div>
+                </div>
+                <div class="row d-flex mt-5 justify-content-between">
+                    <div class="col-md-7">
+                        <span style="font-size: 14px;">Стоимость доставки:</span>
+                        <p class="fw-bold price-delivery">от <span id="price_delivery">0</span> <span class="logo-rub">₽</span></p>
+                    </div>
+                    <div class="col-md-5">
+                        <button class="btn-delivery" id="btn-delivery">Оставить заявку</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-7">
+            <img src="{% static 'img/car-img-delivery.png' %}" class="img-fluid" alt="Авто" style="border-radius: 16px;">
+        </div>
+    </div>
+</section>
+
+
+
+<section class="container container-contact" style="background: url('/static/img/Контакты.png') right/cover no-repeat;">
+    <div class="row">
+        <div class="col-md-6 mb-5">
+            <h1 style="font-size: 48px; font-weight: 800;">Контакты</h1>
+            <p style="font-size: 14px;">Оставьте свою заявку и наш менеджер свяжется с Вами для уточнения деталей.</p>
+            <div class="mt-5">
+                <div>
+                    <span style="color: #dddddd; font-size: 14px;">Позвонить</span>
+                    <p style="font-size: 14px;">{{ contact.phone }}</p>
+                </div>
+                <div class="mt-5">
+                    <span style="color: #dddddd; font-size: 14px;">Написать</span>
+                    <p style="font-size: 14px;">{{ contact.email }}</p>
+                </div>
+                <div class="mt-5">
+                    <span style="color: #dddddd; font-size: 14px;">Адрес</span>
+                    <p style="font-size: 14px;">{{ contact.address }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-5">
+            <div class="contact-form">
+                <h3 style="font-weight: 800; font-size: 24px;">Оставить заявку</h3>
+                <form method="post" id="contact-feedback">
+                    {% csrf_token %}
+                    <div class="row mb-3 mt-4">
+                        <div class="col-md-6">
+                            <label for="name" class="form-label" style="font-size: 14px;">Имя</label>
+                            <input type="text" id="name" class="form-control" placeholder="Введите имя" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phone" class="form-label" style="font-size: 14px;">Телефон</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="+7 (___) ___-__-__" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label" style="font-size: 14px;">Уточните свой вопрос</label>
+                        <textarea id="message" class="form-control" rows="4" placeholder="Введите текст сообщения"></textarea>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-5">
+                        <div class="form-check d-flex justify-content-between align-items-center">
+                            <input class="form-check-input" type="checkbox" id="agree" required checked>
+                            <label class="form-check-label ms-3" for="agree" style="font-size: 13px;">
+                                С правилами политики конфиденциальности ознакомлен
+                            </label>
+                        </div>
+
+                        <button type="submit" class="contact-from-bnt">Отправить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="container py-3 bg-light px-5">
+    <div class="container d-flex justify-content-between align-items-center">
+            <a href="{% url 'home' %}">
+            <div>
+                <img src="{% static 'img/Logo.png' %}" alt="Логотип" height="69" width="70">
+            </div>
+            </a>
+
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:japan' %}">Японские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:korea' %}">Корейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:china' %}">Китайские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:europe' %}">Европейские авто</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">О компании</a></li>
+                </ul>
+            </nav>
+
+            <div class="d-flex align-items-center">
+                <div>
+                    <a href="#" class="me-2"><img src="{% static 'img/tg.png' %}" alt="Telegram" width="28"></a>
+                    <a href="#" class="me-2"><img src="{% static 'img/Youtube.png' %}" alt="Youtube" width="28"></a>
+                    <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
+                </div>
+            </div>
+        </div>
+    <hr>
+    <div class="d-flex justify-content-between align-items-center">
+        <span style="color: #555252; font-size: 13px;"> Все права зарегистрированы.</span>
+        <span style="color: #555252; font-size: 13px;">© 2021 Sewa Motors</span>
+    </div>
+</footer>
+
+<!-- Модальное окно -->
+<div class="modal fade" id="costModal" tabindex="-1" aria-labelledby="costModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-feedback modal-dialog-centered">
+    <div class="modal-content modal-content-feedback">
+
+      <div class="modal-body modal-body-feedback">
+          <form method="post" style="width: 1181px;" id="feedback-modal">
+              {% csrf_token %}
+          <div class="row" style="width: 1181px;">
+              <div class="col-md-7 left-col-modal" >
+                  <h1 style="color: white; font-size: 28px; font-weight: 700; padding: 28px; line-height: 150%;">Оставьте заявку и наши специалисты подберут лучшие варианты под ваш бюджет</h1>
+                  <div style="padding: 28px;">
+                        <span style="color: white; display: block; margin-bottom: 12px; font-size: 14px;">Мы в соцсетях</span>
+                        <div class="d-flex align-items-center">
+                            <a href="#" class="me-2"><img src="{% static 'img/Social Media Icon.png' %}" alt="Wa" width="28"></a>
+                            <a href="#" class="me-2"><img src="{% static 'img/Artboard.png' %}" alt="Telegram" width="28"></a>
+                            <a href="#" class="me-2"><img src="{% static 'img/Social Media Icon-youtube.png' %}" alt="YouTube" width="28"></a>
+                        </div>
+                    </div>
+              </div>
+              <div class="col-md-5" style="padding: 28px;">
+              <div class="col-md-12">
+        <label for="name-modal" class="form-label" style="font-size: 14px;">Имя</label>
+        <input type="text" id="name-modal" class="form-control" placeholder="Введите имя" required style="background-color: #F6F6F6;">
+                  </div>
+              <div class="col-md-12 mt-3">
+                  <label for="phone-modal" class="form-label" style="font-size: 14px;">Телефон</label>
+                <input type="tel" id="phone-modal" class="form-control" placeholder="+7 (___) ___-__-__" required style="background-color: #F6F6F6;">
+              </div>
+              <div class="col-md-12 mt-3">
+                   <label class="form-label" style="font-size: 14px;">Город</label>
+                  <div class="custom-dropdown-modal">
+                        <div class="dropdown-button-modal" style="background-color: #F6F6F6;">Куда доставляем?</div>
+                        <ul class="dropdown-list-modal">
+                            {% for city in city_delivery %}
+                            <li data-value="{{ city }}">{{ city }}</li>
+                            {% endfor %}
+                        </ul>
+                        <input type="hidden" name="city-modal" id="city-modal">
+                    </div>
+                  </div>
+              <div class="col-md-12 mt-3">
+                  <label for="message-modal" class="form-label" style="font-size: 14px;">Какой автомобиль ищите?</label>
+                  <textarea id="message-modal" class="form-control" rows="4" placeholder="Введите текст сообщения" style="background-color: #F6F6F6;"></textarea>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mt-5">
+                        <div class="form-check d-flex justify-content-between align-items-center">
+                            <input class="form-check-input form-check-input-modal" type="checkbox" id="agree-modal" required checked>
+                            <label class="form-check-label ms-3" for="agree" style="font-size: 13px;">
+                                С правилами политики конфиденциальности ознакомлен
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-delivery" style="padding-left: 16px; padding-right: 16px;">Отправить</button>
+                    </div>
+          </div>
+          </div>
+          </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Bootstrap JS (для модального окна) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Swiper.js -->
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+<!-- Fancybox JS -->
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.0/dist/fancybox.umd.js"></script>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const dropdowns = document.querySelectorAll(".custom-dropdown");
+    let selectedValues = { city: null, car_type: null };
+
+    dropdowns.forEach(dropdown => {
+        const button = dropdown.querySelector(".dropdown-button");
+        const list = dropdown.querySelector(".dropdown-list");
+        const hiddenInput = dropdown.querySelector("input");
+
+        button.addEventListener("click", function () {
+            list.classList.toggle("show");
+        });
+
+        list.querySelectorAll("li").forEach(item => {
+            item.addEventListener("click", function () {
+                button.textContent = this.textContent;
+                button.style.color = 'black';
+                hiddenInput.value = this.dataset.value;
+                list.classList.remove("show");
+                button.classList.remove("error");
+
+                selectedValues[hiddenInput.name] = this.dataset.value;
+
+                if (selectedValues.city && selectedValues.car_type) {
+                    sendOrder(selectedValues.city, selectedValues.car_type);
+                }
+            });
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!dropdown.contains(event.target)) {
+                list.classList.remove("show");
+            }
+        });
+    });
+
+    function sendOrder(city, carType) {
+        fetch("http://94.241.142.204/send_order/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCSRFToken()
+            },
+            body: JSON.stringify({ city, carType })
+        })
+        .then(response => response.json())
+        .then(data => {
+            let targetPrice = data.price_delivery;
+            let priceSpan = document.querySelector("#price_delivery");
+
+            let currentPrice = parseInt(priceSpan.textContent) || 0;
+            let duration = 1000;
+            let startTime = null;
+
+            function animatePrice(timestamp) {
+                if (!startTime) startTime = timestamp;
+                let progress = (timestamp - startTime) / duration;
+
+                if (progress < 1) {
+                    let animatedValue = Math.floor(currentPrice + (targetPrice - currentPrice) * progress);
+                    priceSpan.textContent = animatedValue;
+                    requestAnimationFrame(animatePrice);
+                } else {
+                    priceSpan.textContent = targetPrice;
+                }
+            }
+
+            requestAnimationFrame(animatePrice);
+
+        })
+        .catch(error => {
+            alert("Ошибка при отправке заявки!");
+            console.error(error);
+        });
+    }
+
+    function getCSRFToken() {
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+        return csrfToken;
+    }
+});
+
+</script>
+
+<script>
+    // Инициализация главного слайдера
+    var mainSwiper = new Swiper(".main-slider", {
+        slidesPerView: 1,
+        navigation: {
+            nextEl: ".main-slider .swiper-button-next",
+            prevEl: ".main-slider .swiper-button-prev",
+        },
+    });
+
+    // Инициализация миниатюрного слайдера
+    var thumbSwiper = new Swiper(".thumbnail-slider", {
+
+    });
+
+
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const dropdowns = document.querySelectorAll(".custom-dropdown-modal");
+
+    dropdowns.forEach(dropdown => {
+        const button = dropdown.querySelector(".dropdown-button-modal");
+        const list = dropdown.querySelector(".dropdown-list-modal");
+        const hiddenInput = dropdown.querySelector("input");
+
+        button.addEventListener("click", function () {
+            list.classList.toggle("show");
+        });
+
+        list.querySelectorAll("li").forEach(item => {
+            item.addEventListener("click", function () {
+                button.textContent = this.textContent;
+                button.style.color = 'black';
+                hiddenInput.value = this.dataset.value;
+                list.classList.remove("show");
+                button.classList.remove("error");
+            });
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!dropdown.contains(event.target)) {
+                list.classList.remove("show");
+            }
+        });
+    });
+
+});
+
+</script>
+
+<script>
+  var buttons = document.querySelectorAll('#btn-feedback-card-car');
+
+  buttons.forEach(function(button) {
+    button.addEventListener('click', function() {
+      var myModal = new bootstrap.Modal(document.getElementById('costModal'), {});
+      myModal.show();
+    });
+  });
+
+    document.getElementById('btn-feedback-car').addEventListener('click', function() {
+    var myModal = new bootstrap.Modal(document.getElementById('costModal'), {});
+    myModal.show();
+  });
+
+    document.getElementById('btn-delivery').addEventListener('click', function() {
+    var myModal = new bootstrap.Modal(document.getElementById('costModal'), {});
+    myModal.show();
+  });
+
+
+
+</script>
+
+<script>
+    Fancybox.bind("[data-fancybox='gallery']", {
+    Thumbs: {
+        autoStart: true,
+        position: "left",
+    },
+    Carousel: {
+        axis: "y",
+    },
+    Toolbar: {
+        display: ["zoom", "close"] // Инструменты
+    }
+
+});
+
+</script>
+
+<script>
+    document.getElementById('contact-feedback').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = {
+        name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value,
+        message: document.getElementById('message').value,
+    };
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie()
+        },
+        body: JSON.stringify(formData)
+    };
+
+    const url = 'http://94.241.142.204/feedback/';
+
+    fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка при заполнении формы');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert('Форма успешно отправлена!');
+            document.getElementById('contact-feedback').reset();
+        })
+        .catch(error => {
+            alert('Произошла ошибка при отправке формы.');
+        });
+});
+
+function getCookie(name) {
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+    return csrfToken;
+}
+</script>
+
+<script>
+    document.getElementById('feedback-modal').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = {
+        name: document.getElementById('name-modal').value,
+        phone: document.getElementById('phone-modal').value,
+        message: document.getElementById('message-modal').value,
+        city_delivery: document.getElementById('city-modal').value
+    };
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie()
+        },
+        body: JSON.stringify(formData)
+    };
+
+    const url = 'http://94.241.142.204/feedback/';
+
+    fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка при заполнении формы');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert('Форма успешно отправлена!');
+            document.getElementById('feedback-modal').reset();
+        })
+        .catch(error => {
+            alert('Произошла ошибка при отправке формы.');
+        });
+});
+
+function getCookie(name) {
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+    return csrfToken;
+}
+</script>
+
+<script>
+    document.getElementById('feedback-block-car').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = {
+        name: document.getElementById('name-questions').value,
+        phone: document.getElementById('phone-questions').value,
+    };
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie()
+        },
+        body: JSON.stringify(formData)
+    };
+
+    const url = 'http://94.241.142.204/feedback/';
+
+    fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка при заполнении формы');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert('Форма успешно отправлена!');
+            document.getElementById('feedback-block-car').reset();
+        })
+        .catch(error => {
+            alert('Произошла ошибка при отправке формы.');
+        });
+});
+
+function getCookie(name) {
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+    return csrfToken;
+}
+</script>
+
+<script defer>
+document.addEventListener('DOMContentLoaded', () => {
+
+    document.querySelectorAll('input[type="tel"]').forEach(input => {
+        let phoneMask = IMask(input, {
+        mask: "+{7} (000) 000-00-00",
+        validate: function(value, masked) {
+            if (value.startsWith('+7 (8')) {
+                return false;
+            }
+            return true;
+        }
+        });
+
+        function validatePhoneNumber() {
+            let t = input.value.replace(/\D/g, "");
+            return t.length < 11 ? (input.setCustomValidity("Необходимо минимум 11 цифр"), !1) : (input.setCustomValidity(""), !0);
+        }
+
+        input.addEventListener("input", validatePhoneNumber);
+    });
+});
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('header');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY;
+
+        if (currentScroll <= 0) {
+            header.classList.remove('header-hidden');
+            return;
+        }
+
+        if (currentScroll > lastScroll) {
+            header.classList.add('header-hidden');
+        } else {
+            header.classList.remove('header-hidden');
+        }
+
+        lastScroll = currentScroll;
+    });
+});
+</script>
+
+</body>
+</html>
