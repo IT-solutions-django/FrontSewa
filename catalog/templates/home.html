@@ -798,15 +798,23 @@
             <div class="mt-5">
                 <div>
                     <span style="color: #dddddd; font-size: 14px;">Позвонить</span>
-                    <p style="font-size: 14px;">{{ contact.phone }}</p>
+                    <p style="font-size: 14px;">
+                        <a href="tel:{{ contact.phone }}" style="font-size: 14px; color: white!important;" target="_blank">{{ contact.phone }}</a>
+                    </p>
                 </div>
                 <div class="mt-5">
                     <span style="color: #dddddd; font-size: 14px">Написать</span>
-                    <p style="font-size: 14px;">{{ contact.email }}</p>
+                    <p style="font-size: 14px;">
+                        <a href="mailto:{{ contact.email }}" style="font-size: 14px; color: white!important;" target="_blank">{{ contact.email }}</a>
+                    </p>
                 </div>
                 <div class="mt-5">
                     <span style="color: #dddddd; font-size: 14px">Адрес</span>
-                    <p style="font-size: 14px;">{{ contact.address }}</p>
+                    <p style="font-size: 14px;">
+                        <a href="https://yandex.ru/maps/?text={{ contact.address|urlencode }}" target="_blank" style="font-size: 14px; color: white!important;">
+                            {{ contact.address }}
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>

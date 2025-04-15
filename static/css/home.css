@@ -5,6 +5,7 @@ body {
 
 body.modal-open {
     overflow-y: scroll !important;
+    padding-right: 15px!important;
 }
 
 header {
@@ -103,10 +104,12 @@ a {
     color: white;
     padding: 15px;
     font-size: 18px;
+    transition: background-color 0.3s ease;
 }
 
 .btn-cost-promo:hover {
     background-color: red;
+    transition: background-color 0.3s ease;
 }
 
 .popular-cars {
@@ -198,6 +201,7 @@ a {
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 14px;
+    transition: background-color 0.3s ease;
 }
 
 .price-car-card {
@@ -207,6 +211,7 @@ a {
 .btn-feedback-card-car:hover {
     background-color: #D91033;
     border-color: #D91033;
+    transition: background-color 0.3s ease;
 }
 
 .btn-all {
@@ -225,12 +230,14 @@ a {
     padding-right: 36px;
     border-radius: 16px;
     font-size: 15px;
+    transition: background-color 0.3s ease;
 
 }
 
 .btn-all a:hover {
     background-color: red;
     border-color: red;
+    transition: background-color 0.3s ease;
 }
 
 .btn-filter-catalog {
@@ -243,11 +250,13 @@ a {
     padding-right: 33px;
     border-radius: 16px;
     font-size: 15px;
+    transition: background-color 0.3s ease;
 }
 
 .btn-filter-catalog:hover {
     background-color: red;
     border-color: red;
+    transition: background-color 0.3s ease;
 }
 
 .one-step {
@@ -301,11 +310,13 @@ a {
     padding-right: 24px;
     padding-left: 24px;
     font-size: 15px;
+    transition: background-color 0.3s ease;
 }
 
 .btn-delivery:hover {
     background-color: red;
     border-color: red;
+    transition: background-color 0.3s ease;
 }
 
 .calculation-block-p {
@@ -337,11 +348,13 @@ a {
     padding-left: 20px;
     padding-right: 20px;
     font-size: 15px;
+    transition: background-color 0.3s ease;
 }
 
 .calculation-block-btn:hover {
     background-color: red;
     border-color: red;
+    transition: background-color 0.3s ease;
 }
 
 .custom-dropdown {
@@ -421,12 +434,14 @@ a {
 .dropdown-list li {
     padding: 10px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .dropdown-list li:hover {
     background: #F8F8F8;
     color: black;
     border-radius: 16px;
+    transition: background-color 0.3s ease;
 }
 
 .dropdown-list.show {
@@ -483,12 +498,14 @@ a {
 .dropdown-list-modal li {
     padding: 10px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .dropdown-list-modal li:hover {
     background: #F8F8F8;
     color: black;
     border-radius: 16px;
+    transition: background-color 0.3s ease;
 }
 
 .dropdown-list-modal.show {
@@ -594,11 +611,13 @@ a {
     padding-left: 20px;
     padding-right: 20px;
     font-size: 15px;
+    transition: background-color 0.3s ease;
 }
 
 .contact-from-bnt:hover {
     background-color: #D91033;
     border-color: #D91033;
+    transition: background-color 0.3s ease;
 }
 
 .contact-form input::placeholder {
@@ -908,11 +927,13 @@ footer {
     padding-right: 16px;
     padding-left: 16px;
     font-size: 15px;
+    transition: background-color 0.3s ease;
 }
 
 .promo-catalog-btn:hover {
     background-color: red;
     border-color: red;
+    transition: background-color 0.3s ease;
 }
 
 .block-form-car-questions {

@@ -89,16 +89,23 @@
                         {% if country_temp != 'Китая' %}
                         <div style="display: flex; gap: 5px;">
                             {% if country_temp == 'Кореи' %}
-                            <li data-value="기아,KIA" style="display: inline-block;" class="popular-brand-catalog">Kia</li>
-                            <li data-value="HYUNDAI" style="display: inline-block;" class="popular-brand-catalog">Hyundai</li>
+                            {% for keys, value in result.items %}
+                            {% if value == 'Hyundai' or value == 'Kia' %}
+                            <li data-value="{{ keys|join:',' }}" style="display: inline-block;" class="popular-brand-catalog">{{ value }}</li>
+                            {% endif %}
+                            {% endfor %}
                             {% elif country_temp == 'Японии' %}
-                            <li data-value="혼다,HONDA" style="display: inline-block;" class="popular-brand-catalog">Honda</li>
-                            <li data-value="토요타,TOYOTA,도요타" style="display: inline-block;" class="popular-brand-catalog">Toyota</li>
-                            <li data-value="SUBARU,스바루" style="display: inline-block;" class="popular-brand-catalog">Subaru</li>
+                            {% for keys, value in result.items %}
+                            {% if value == 'Honda' or value == 'Toyota' or value == 'Subaru' %}
+                            <li data-value="{{ keys|join:',' }}" style="display: inline-block;" class="popular-brand-catalog">{{ value }}</li>
+                            {% endif %}
+                            {% endfor %}
                             {% elif country_temp == 'Европы' %}
-                            <li data-value="BMW" style="display: inline-block;" class="popular-brand-catalog">Bmw</li>
-                            <li data-value="아우디,AUDI" style="display: inline-block;" class="popular-brand-catalog">Audi</li>
-                            <li data-value="VOLVO,볼보" style="display: inline-block;" class="popular-brand-catalog">Volvo</li>
+                            {% for keys, value in result.items %}
+                            {% if value == 'Bmw' or value == 'Audi' or value == 'Volvo' %}
+                            <li data-value="{{ keys|join:',' }}" style="display: inline-block;" class="popular-brand-catalog">{{ value }}</li>
+                            {% endif %}
+                            {% endfor %}
                             {% endif %}
                         </div>
                         <hr>
@@ -488,7 +495,7 @@
                 </div>
         </div>
         {% endif %}
-        {% if forloop.counter == 4 %}
+        {% if forloop.counter == 4 and promo_car %}
         <div class="row" style="margin: 0;">
         <div class="promo-block-catalog d-flex justify-content-between">
             <div class="text-content-promo">
@@ -556,16 +563,24 @@
             <p style="font-size: 14px;">Оставьте свою заявку и наш менеджер свяжется с Вами для уточнения деталей.</p>
             <div class="mt-5">
                 <div>
-                    <span style="color: #dddddd; font-size: 14px">Позвонить</span>
-                    <p style="font-size: 14px;">{{ contact.phone }}</p>
+                    <span style="color: #dddddd; font-size: 14px;">Позвонить</span>
+                    <p style="font-size: 14px;">
+                        <a href="tel:{{ contact.phone }}" style="font-size: 14px; color: white!important;" target="_blank">{{ contact.phone }}</a>
+                    </p>
                 </div>
                 <div class="mt-5">
                     <span style="color: #dddddd; font-size: 14px">Написать</span>
-                    <p style="font-size: 14px;">{{ contact.email }}</p>
+                    <p style="font-size: 14px;">
+                        <a href="mailto:{{ contact.email }}" style="font-size: 14px; color: white!important;" target="_blank">{{ contact.email }}</a>
+                    </p>
                 </div>
                 <div class="mt-5">
                     <span style="color: #dddddd; font-size: 14px">Адрес</span>
-                    <p style="font-size: 14px;">{{ contact.address }}</p>
+                    <p style="font-size: 14px;">
+                        <a href="https://yandex.ru/maps/?text={{ contact.address|urlencode }}" target="_blank" style="font-size: 14px; color: white!important;">
+                            {{ contact.address }}
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>

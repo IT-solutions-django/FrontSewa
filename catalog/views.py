@@ -9,6 +9,8 @@ from information.models import MainBlock, StagesOfWork, Contact
 from .models import CarPromoBlock, ExclusiveOfferCar
 from urllib.parse import unquote
 import random
+from django.utils import timezone
+from datetime import timedelta
 
 
 def send_order(request):
@@ -333,10 +335,15 @@ def catalog(request, country=None):
 
     contact = Contact.objects.all().first()
 
-    promo_car = ExclusiveOfferCar.objects.prefetch_related('images').filter(is_active=True)
-    promo_car_list = list(promo_car)
-    random.shuffle(promo_car_list)
-    random_promo_cars = promo_car_list[0]
+    seven_days_ago = timezone.now().date() - timedelta(days=7)
+
+    promo_car = ExclusiveOfferCar.objects.prefetch_related('images').filter(is_active=True, date__gte=seven_days_ago)
+    if promo_car:
+        promo_car_list = list(promo_car)
+        random.shuffle(promo_car_list)
+        random_promo_cars = promo_car_list[0]
+    else:
+        random_promo_cars = None
 
     return render(
         request, 'catalog.html',

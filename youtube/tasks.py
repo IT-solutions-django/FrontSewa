@@ -1,4 +1,4 @@
-from .models import Youtube, Video, ShortVideo
+from .models import Youtube, Video, ShortVideo, ReviewVideo
 import requests
 import datetime
 
@@ -86,4 +86,43 @@ def get_shorts_videos_data():
     except Exception as e:
         print(e)
 
+
+def get_review_videos_data():
+    try:
+        channel = Youtube.objects.first()
+        video_count = channel.videos_count
+        review_playlist_id = channel.review_url.split("list=")[-1]
+
+        url_video = f'https://www.googleapis.com/youtube/v3/playlistItems/?playlistId={review_playlist_id}&part=snippet&maxResults=50&key=AIzaSyBrFE-ZAUOl5_Pzm9KFZo0igJ-ftg6hKXA'
+        response = requests.get(url_video)
+        data = response.json()
+        if 'error' not in data:
+            all_videos = data.get('items', [])
+
+            while 'nextPageToken' in data:
+                next_page_token = data['nextPageToken']
+                url_video = f'https://www.googleapis.com/youtube/v3/playlistItems/?playlistId={review_playlist_id}&part=snippet&maxResults=50&pageToken={next_page_token}&key=AIzaSyBrFE-ZAUOl5_Pzm9KFZo0igJ-ftg6hKXA'
+                response = requests.get(url_video)
+                data = response.json()
+                all_videos.extend(data.get('items', []))
+
+            last_videos = all_videos[-video_count:]
+
+            affected_rows = ReviewVideo.objects.all().delete()
+
+            for video in last_videos:
+                if (video['snippet']['title'] != 'Private video'):
+                    id_video = video['snippet']['resourceId']['videoId']
+                    video_link = f"https://www.youtube.com/watch?v={id_video}"
+                    video_title = video['snippet']['title']
+                    video_image = video['snippet']['thumbnails']['medium']['url']
+
+                    publish_datetime = datetime.datetime.fromisoformat(video['snippet']['publishedAt'][:-1])
+                    publish_date = publish_datetime.date()
+
+                    video_object = ReviewVideo.objects.create(title=video_title, link=video_link,
+                                                              preview=video_image, video_id=id_video,
+                                                              date_published=publish_date)
+    except Exception as e:
+        print(e)
 
