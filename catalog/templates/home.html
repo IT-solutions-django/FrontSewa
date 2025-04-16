@@ -735,57 +735,18 @@
             <img src="{% static 'img/logo-short.png' %}" class="img-fluid" alt="Авто">
             <h3 class="mt-2 ms-2" style="font-weight: 800; font-size: 26px;">Shorts</h3>
         </div>
-        <a href="#" class="ms-auto text-primary">Смотреть все</a>
+        <a href="https://www.youtube.com/playlist?list=PLyIn--Pv43vLnBlixvWo8RhSkCaHIfTHb" class="ms-auto text-primary" target="_blank">Смотреть все</a>
     </div>
     <div class="row mt-3 shorts-slider">
-        <div class="">
-            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
+        {% for short in shorts %}
+        <div class="me-3">
+            <a href="{{ short.link }}" target="_blank">
+            <img src="{{ short.preview_img.url }}" class="img-fluid" alt="Авто" style="border-radius: 12px;">
+            <p style="line-clamp: 2; font-size: 14px; width: 150px;">{{ short.title }}</p>
+            </a>
         </div>
-        <div class="">
-            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
-        </div>
-        <div class="">
-            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
-        </div>
-        <div class="">
-            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
-        </div>
-        <div class="">
-            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
-        </div>
-        <div class="">
-            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
-        </div>
-        <div class="">
-            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
-        </div>
-        <div class="">
-            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
-        </div>
-        <div class="">
-            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
-        </div>
-        <div class="">
-            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
-        </div>
-        <div class="">
-            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
-        </div>
-        <div class="">
-            <img src="{% static 'img/Rectangle.png' %}" class="img-fluid" alt="Авто">
-            <p style="line-clamp: 2; font-size: 14px; width: 150px;">АВТО ДЛЯ НАСТОЯЩЕЙ ЦАРИЦЫ</p>
-        </div>
+        {% endfor %}
+
     </div>
 
 </section>
@@ -1064,7 +1025,7 @@
 <script>
     $(document).ready(function(){
         $('.shorts-slider').slick({
-            slidesToShow: 7.1,
+            slidesToShow: 6.1,
             slidesToScroll: 1,
             dots: false,
             infinite: true,

@@ -112,9 +112,20 @@
     <div class="swiper thumbnail-slider mt-3">
         <div class="swiper-wrapper">
             {% for photo in car.photos %}
+            {% if forloop.counter <= 4 %}
             <div class="swiper-slide">
                 <img src="{% if car.auction == 'encar' %} {{ photo|filter_photo_card_car }} {% else %} {{ photo }} {% endif %}" class="thumbnail" onclick="mainSwiper.slideTo({{ forloop.counter0 }})" alt="Миниатюра 1">
             </div>
+            {% elif forloop.counter == 5 %}
+                <div class="swiper-slide show-more-thumbnail" onclick="toggleMoreThumbnails()">
+                    <div class="thumbnail show-more-btn">+ {{ car.photos|length|add:"-5" }}</div>
+                </div>
+            {% else %}
+            <div class="swiper-slide more-thumbnails d-none">
+                    <img src="{% if car.auction == 'encar' %}{{ photo|filter_photo_card_car }}{% else %}{{ photo }}{% endif %}"
+                         class="thumbnail" onclick="mainSwiper.slideTo({{ forloop.counter0 }})" alt="Миниатюра">
+                </div>
+            {% endif %}
             {% endfor %}
             </div>
         </div>
@@ -620,7 +631,7 @@
             <div class="currency">
                     Актуальный курс валют:
                 <div class="curr">
-                    <span>1€ - {{ details_price_car.currency.EUR }}(ЦБ)</span> <span>1$ - {{ details_price_car.currency.USD }}(ЦБ)</span>
+                    <span>1€ - {{ details_price_car.currency.EUR }} (ЦБ)</span> <span>1$ - {{ details_price_car.currency.USD }} (ЦБ)</span>
 
                     <span class="CN"> 1KR₩ - {{ details_price_car.currency.KRW|truncate_decimal:3 }}</span>
 
@@ -1003,6 +1014,23 @@ document.addEventListener('DOMContentLoaded', () => {
         lastScroll = currentScroll;
     });
 });
+</script>
+
+<script>
+    function toggleMoreThumbnails() {
+        document.querySelectorAll(".more-thumbnails").forEach(el => {
+            el.classList.toggle("d-none");
+        });
+        document.querySelector(".show-more-thumbnail").classList.add("d-none");
+        thumbSwiper.update(); // Обновить swiper после изменения DOM
+    }
+
+    // Инициализация миниатюрного слайдера
+    var thumbSwiper = new Swiper(".thumbnail-slider", {
+        slidesPerView: 'auto',
+        spaceBetween: 10,
+        freeMode: true,
+    });
 </script>
 
 </body>

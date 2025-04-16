@@ -3,7 +3,7 @@ from collections import defaultdict
 import requests
 from django.http import JsonResponse
 import json
-from youtube.models import Video
+from youtube.models import Video, ShortVideo
 from delivery.models import City, DeliveryBody, Delivery
 from information.models import MainBlock, StagesOfWork, Contact
 from .models import CarPromoBlock, ExclusiveOfferCar
@@ -51,6 +51,7 @@ def get_main_cars(params):
 
 def home(request):
     videos = Video.objects.all()
+    shorts = ShortVideo.objects.all()
     city_delivery = City.objects.all()
     body_delivery = DeliveryBody.objects.all()
 
@@ -68,6 +69,7 @@ def home(request):
 
     return render(request, 'home.html', {
         'videos': videos,
+        'shorts': shorts,
         'city_delivery': city_delivery,
         'body_delivery': body_delivery,
         'info_main': info_main,
@@ -337,7 +339,7 @@ def catalog(request, country=None):
 
     seven_days_ago = timezone.now().date() - timedelta(days=7)
 
-    promo_car = ExclusiveOfferCar.objects.prefetch_related('images').filter(is_active=True, date__gte=seven_days_ago)
+    promo_car = ExclusiveOfferCar.objects.prefetch_related('images').filter(is_active=True)
     if promo_car:
         promo_car_list = list(promo_car)
         random.shuffle(promo_car_list)
