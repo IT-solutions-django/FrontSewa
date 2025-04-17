@@ -3,7 +3,7 @@ from collections import defaultdict
 import requests
 from django.http import JsonResponse
 import json
-from youtube.models import Video, ShortVideo
+from youtube.models import Video, ShortVideo, ReviewVideo
 from delivery.models import City, DeliveryBody, Delivery
 from information.models import MainBlock, StagesOfWork, Contact
 from .models import CarPromoBlock, ExclusiveOfferCar
@@ -52,6 +52,7 @@ def get_main_cars(params):
 def home(request):
     videos = Video.objects.all()
     shorts = ShortVideo.objects.all()
+    videos_review = ReviewVideo.objects.all()
     city_delivery = City.objects.all()
     body_delivery = DeliveryBody.objects.all()
 
@@ -70,6 +71,7 @@ def home(request):
     return render(request, 'home.html', {
         'videos': videos,
         'shorts': shorts,
+        'videos_review': videos_review,
         'city_delivery': city_delivery,
         'body_delivery': body_delivery,
         'info_main': info_main,
@@ -85,11 +87,13 @@ def home(request):
 def about(request):
     videos = Video.objects.all()
 
+    shorts = ShortVideo.objects.all()
+
     info_main = MainBlock.objects.all().first()
 
     contact = Contact.objects.all().first()
 
-    return render(request, 'about.html', {'videos': videos, 'info_main': info_main, 'contact': contact})
+    return render(request, 'about.html', {'videos': videos, 'info_main': info_main, 'contact': contact, 'shorts': shorts})
 
 
 def get_brands_from_api(params):

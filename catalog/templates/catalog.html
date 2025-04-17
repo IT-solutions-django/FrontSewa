@@ -716,6 +716,25 @@
   </div>
 </div>
 
+
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-success modal-dialog-centered">
+    <div class="modal-content modal-content-success">
+        <div class="modal-header modal-header-success">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body modal-body-success">
+          <div style="text-align: center;">
+              <img src="{% static 'img/Success-Icon.png' %}" style="margin-bottom: 16px;">
+              <span style="font-size: 16px; font-weight: 700; text-align: center; display: flex; justify-content: center;">Заявка отправлена</span>
+              <span style="font-size: 14px; color: #333333;">Мы ответим Вам в ближайшее время</span>
+          </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <script>
 function formatPrice(input) {
     let value = input.value.replace(/[^\d]/g, '');
@@ -1147,7 +1166,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            alert('Форма успешно отправлена!');
+            var myModal = new bootstrap.Modal(document.getElementById('successModal'), {});
+            myModal.show();
             document.getElementById('contact-feedback').reset();
         })
         .catch(error => {
@@ -1191,7 +1211,11 @@ function getCookie(name) {
             return response.json();
         })
         .then(data => {
-            alert('Форма успешно отправлена!');
+            var modalElement = document.getElementById('costModal');
+            var myModal = bootstrap.Modal.getInstance(modalElement);
+            myModal.hide();
+            var myModal = new bootstrap.Modal(document.getElementById('successModal'), {});
+            myModal.show();
             document.getElementById('feedback-modal').reset();
         })
         .catch(error => {

@@ -512,6 +512,134 @@ a {
     display: block;
 }
 
+.custom-dropdown-q {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.dropdown-button-q {
+    background-color: white;
+    border: 1px solid #FFFFFF;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dropdown-button-q::after {
+    content: "";
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M3.03998 6.25483C3.33288 5.96193 3.80775 5.96193 4.10064 6.25483L10.0003 12.1545L15.8989 6.25487C16.1918 5.96195 16.6667 5.96191 16.9596 6.25478C17.2525 6.54766 17.2526 7.02253 16.9597 7.31545L10.5307 13.7454C10.39 13.8861 10.1993 13.9651 10.0003 13.9652C9.80142 13.9652 9.61064 13.8861 9.46998 13.7455L3.03998 7.31549C2.74709 7.02259 2.74709 6.54772 3.03998 6.25483Z' fill='%23B4B4B4'/%3E%3C/svg%3E");
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    margin-left: auto;
+    transition: transform 0.3s ease;
+}
+
+.dropdown-list-q {
+    position: absolute;
+    background: white;
+    border: 1px solid #FFFFFF;
+    border-radius: 8px;
+    margin-top: 5px;
+    width: 100%;
+    display: none;
+    list-style: none;
+    padding: 10px;
+    z-index: 1000;
+    max-height: 250px;
+    overflow-y: auto;
+
+}
+
+.dropdown-list-q li {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-list-q li:hover {
+    background: #F8F8F8;
+    color: black;
+    border-radius: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-list-q.show {
+    display: block;
+}
+
+.custom-dropdown-cost {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.dropdown-button-cost {
+    background-color: white;
+    border: 1px solid #FFFFFF;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dropdown-button-cost::after {
+    content: "";
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M3.03998 6.25483C3.33288 5.96193 3.80775 5.96193 4.10064 6.25483L10.0003 12.1545L15.8989 6.25487C16.1918 5.96195 16.6667 5.96191 16.9596 6.25478C17.2525 6.54766 17.2526 7.02253 16.9597 7.31545L10.5307 13.7454C10.39 13.8861 10.1993 13.9651 10.0003 13.9652C9.80142 13.9652 9.61064 13.8861 9.46998 13.7455L3.03998 7.31549C2.74709 7.02259 2.74709 6.54772 3.03998 6.25483Z' fill='%23B4B4B4'/%3E%3C/svg%3E");
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    margin-left: auto;
+    transition: transform 0.3s ease;
+}
+
+.dropdown-list-cost {
+    position: absolute;
+    background: white;
+    border: 1px solid #FFFFFF;
+    border-radius: 8px;
+    margin-top: 5px;
+    width: 100%;
+    display: none;
+    list-style: none;
+    padding: 10px;
+    z-index: 1000;
+    max-height: 250px;
+    overflow-y: auto;
+
+}
+
+.dropdown-list-cost li {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-list-cost li:hover {
+    background: #F8F8F8;
+    color: black;
+    border-radius: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-list-cost.show {
+    display: block;
+}
+
 .dropdown-list-color {
     width: 242px!important;
 }
@@ -675,17 +803,15 @@ footer {
     background-color: #F8F8F8;
     border-radius: 20px;
     padding: 36px;
-    margin-left: 50px;
 }
 
 .thumbnail-slider .swiper-wrapper {
     display: grid;
     grid-template-columns: repeat(5, 120px);
-    gap: 13px;
 }
 
 .thumbnail {
-    width: 130px;
+    width: 120px;
     height: 90px;
     object-fit: cover;
     cursor: pointer;
@@ -939,10 +1065,23 @@ footer {
 .block-form-car-questions {
     margin-top: 80px;
     border-radius: 20px;
-    background: linear-gradient(rgba(98, 0, 15, 0.81), rgba(98, 0, 15, 0.81)), url('/static/img/image-form-modal.png') left/cover no-repeat !important;
-    background-size: cover !important;
-    padding: 24px;
     color: white;
+}
+
+.left-block-q {
+     background: linear-gradient(rgba(98, 0, 15, 0.81), rgba(98, 0, 15, 0.81)), url('/static/img/image-form-modal.png') left/cover no-repeat !important;
+     background-size: cover !important;
+     padding: 24px;
+     border-top-left-radius: 20px;
+     border-bottom-left-radius: 20px;
+}
+
+.right-block-q {
+    padding: 24px;
+    background-color: #F8F8F8;
+    color: black!important;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 .block-btn-form-questions {
@@ -1011,7 +1150,7 @@ footer {
 
 .currency {
     font-size: 14px;
-    padding-top: 40px;
+    padding-top: 20px;
     padding-inline: 5px;
     display: flex;
     justify-content: space-between;
@@ -1051,6 +1190,88 @@ footer {
     justify-content: center;
     background-color: #eee;
     font-weight: bold;
+}
+
+.modal-body-success {
+    padding-left: 28px;
+    padding-right: 28px;
+    padding-bottom: 28px;
+}
+
+.modal-content-success {
+    border-radius: 24px;
+}
+
+.modal-dialog-success {
+    width: 360px;
+}
+
+.modal-header-success {
+  border-bottom: none !important;
+}
+
+.dop-text-delivery {
+    border: 1px solid rgba(15, 154, 239, 0.2);
+    background-color: rgba(15, 154, 239, 0.2);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 24px;
+}
+
+.dop-text-delivery span {
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.dop-block-img-about {
+    border: 1px solid rgba(15, 154, 239, 0.2);
+    background-color: rgba(15, 154, 239, 0.2);
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    margin-top: 0;
+    padding: 16px;
+}
+
+.dop-block-img-about img {
+    margin-top: -17px;
+    margin-right: -17px;
+}
+
+.dop-block-img-about span {
+    font-size: 13px;
+}
+
+.dop-block-img-car {
+    border: 1px solid rgba(15, 154, 239, 0.2);
+    background-color: rgba(15, 154, 239, 0.2);
+    border-radius: 16px;
+    margin-top: 20px;
+    padding: 16px;
+}
+
+.dop-block-img-car img {
+    margin-top: -17px;
+}
+
+.dop-block-img-car span {
+    font-size: 14px;
+}
+
+.car-social a {
+    padding: 8px;
+    border-radius: 12px;
+    background-color: rgba(0, 0, 0, 0.28);
+}
+
+.teh-list-btn {
+    border: 1px solid rgba(15, 154, 239, 0.6);
+    background-color: rgba(15, 154, 239, 0.6);
+    border-radius: 12px;
+    padding: 12px;
+    color: white;
+    font-size: 13px;
+    justify-content: center;
+    align-items: center;
 }
 
 @media only screen and (min-width: 1100px) {

@@ -63,7 +63,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="promo-h1">Авто из Японии, Кореи,<br>Китая и Европы </h1>
-                    <p class="" style="font-size: 15px; line-height: 28px; margin-top: 24px;">Высокий сервис и качество, стоимость автомобилей до 30% ниже рынка</p>
+                    <p class="" style="font-size: 15px; line-height: 28px; margin-top: 24px;">Экономия с первого шага! Мы не берем комиссию за подбор авто, в отличие <br>от большинства компаний</p>
                     <button class="btn-cost-promo" id="btn-cost" style="margin-top: 48px;">Рассчитать стоимость</button>
 
                     <div class="row promo-end-desc" style="margin-top: 61px;">
@@ -386,6 +386,9 @@
                         <button class="btn-delivery" id="btn-delivery">Оставить заявку</button>
                     </div>
                 </div>
+                <div class="dop-text-delivery">
+                <span>Cроки и стоимость указаны для доставки из Владивостока до Вашего города. Время ожидания к отправке из Владивостока: от 1 до 20 дней</span>
+            </div>
             </div>
         </div>
         <div class="col-7">
@@ -409,14 +412,15 @@
     <h1 style="font-size: 48px; font-weight: 800;">О компании SEWA</h1>
     <div class="row">
         <div class="col-md-8">
-            <p class="" style="font-size: 15px; line-height: 26px; padding-top: 16px;">Мы — ведущая экспортная компания из Южной Кореи, специализирующаяся на поставке автомобилей в страны по всему миру. Наша компания предлагает выгодные условия сотрудничества с возможностью с возможностью приобрести авто выгоднее на 30%. Мы гордимся тем, что предоставляем нашим клиентам не только высококачественные автомобили, но и первоклассный сервис. С нами вы получите надежные решения и максимальную выгоду  от каждой сделки.</p>
+            <p class="" style="font-size: 15px; line-height: 26px; padding-top: 16px;">SEWA MOTORS — компания, которая занимается экспортом автомобилей и запчастей из Южной Кореи.<br>Мы не посредники, все автомобили мы выкупаем напрямую у дилеров / заводов или с аукционов и привозим их под ключ за 2-4 недели. Компания SEWA MOTORS на рынке уже более 10 лет и обладает заслуженной репутацией.</p>
+            <p class="" style="font-size: 15px; line-height: 26px; padding-top: 16px;">Мы работаем с партнерами в России и странах СНГ, ОАЭ, Европе. В том числе, наша компания получила две золотых статуэтки - награду от президента Южной Кореи за оборот более 20.000.000$ / год и 25.000.000$ / год. Экспортная компания SEWA MOTORS одна из крупнейших в Южной Корее.</p>
             <h4 class="" style="font-weight: 700; font-size: 18px; margin-top: 36px;">Почему мы - это лучший выбор</h4>
             <p style="font-size: 14px;">Работаем напрямую, поэтому не берем никаких комиссий за наши услуги</p>
             <div class="row" style="margin-top: 32px;">
                 <div class="col-md-4">
                     <img src="{% static 'img/Icon Container.png' %}" class="img-fluid" alt="Авто">
-                    <h4 style="font-size: 16px; font-weight: 700;" class="mt-3">Таможенное оформление</h4>
-                    <p style="font-size: 14px;">Поможем растоможить автомобиль  и оформить все необходимые документы. </p>
+                    <h4 style="font-size: 16px; font-weight: 700;" class="mt-3">Отчётность</h4>
+                    <p style="font-size: 14px;">Предоставляем вам подробный фото <br>и видео-отчет по выбранному автомобилю.</p>
                 </div>
                 <div class="col-md-4">
                     <img src="{% static 'img/Icon Container2.png' %}" class="img-fluid" alt="Авто">
@@ -424,58 +428,42 @@
                     <p style="font-size: 14px;">Мы работаем быстро и эффективно,  осмотр авто за 24 часа с момента подачи заявки клиентом.</p>
                 </div>
                 <div class="col-md-4">
-                    <img src="{% static 'img/Icon Container3.png' %}" class="img-fluid" alt="Авто">
-                    <h4 style="font-size: 16px; font-weight: 700;" class="mt-3">Персональный менеджер</h4>
-                    <p style="font-size: 14px;">Каждому клиенту назначается персональный менеджер-ассистент, который окажет профессиональную помощь в выборе автомобиля.</p>
+                    <img src="{% static 'img/Icon Container-pig.png' %}" class="img-fluid" alt="Авто">
+                    <h4 style="font-size: 16px; font-weight: 700;" class="mt-3">Выгодные условия</h4>
+                    <p style="font-size: 14px;">SEWA MOTORS уверены в том, что предоставляют самые выгодные условия и самые низкие цены на рынке.</p>
                 </div>
                 <div class="col-md-4">
-                    <img src="{% static 'img/Icon Container4.png' %}" class="img-fluid" alt="Авто">
-                    <h4 style="font-size: 16px; font-weight: 700;" class="mt-3">Тщательный отбор</h4>
-                    <p style="font-size: 14px;">Наши профессионалы тщательно отбирают автомобили, обеспечивая  их отличное состояние и соответствие самым высоким стандартам.</p>
+                    <img src="{% static 'img/Icon Container-official.png' %}" class="img-fluid" alt="Авто">
+                    <h4 style="font-size: 16px; font-weight: 700;" class="mt-3">Официально</h4>
+                    <p style="font-size: 14px;">Наши профессионалы тщательно отбирают автомобили, обеспечивая <br>их отличное состояние и соответствие самым высоким стандартам.</p>
                 </div>
                 <div class="col-md-4">
                     <img src="{% static 'img/Icon Container5.png' %}" class="img-fluid" alt="Авто">
-                    <h4 style="font-size: 16px; font-weight: 700;" class="mt-3">Проверенные аукционы</h4>
-                    <p style="font-size: 14px;">Мы работаем со всеми крупными торговыми площадками и аукционами Кореи.</p>
+                    <h4 style="font-size: 16px; font-weight: 700;" class="mt-3">Честно</h4>
+                    <p style="font-size: 14px;">Наша команда подберет для вас самый выгодный вариант авто, с выездом на осмотр, проверит историю страхования и предоставит все документы на авто.</p>
                 </div>
                 <div class="col-md-4">
-                    <img src="{% static 'img/Icon Container6.png' %}" class="img-fluid" alt="Авто">
-                    <h4 style="font-size: 16px; font-weight: 700;" class="mt-3">Экспорт санкционных авто</h4>
-                    <p style="font-size: 14px;">Наша команда успешно отработала схемы перевозок санкционных авто и оперативно решает поступающие проблемы</p>
+                    <img src="{% static 'img/Icon Container3.png' %}" class="img-fluid" alt="Авто">
+                    <h4 style="font-size: 16px; font-weight: 700;" class="mt-3">Без посредников</h4>
+                    <p style="font-size: 14px;">Мы работаем напрямую с дилерами, заводами и аукционами ЮК и осуществляем полный контроль на всех этапах: от подбора автомобиля до его доставки из Южной Кореи.</p>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <img src="{% static 'img/Image-about.png' %}" class="img-fluid" alt="Авто">
-            <div class="row mt-3 promo-end-desc">
-                        <div class="col-md-4 align-items-center">
-                            <div class="d-flex align-items-center">
-                                <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="20" height="19">
-                                <p class="fw-bold mb-0 ms-2">{{ info_main.rate_clients }}</p>
-                            </div>
-                            <div>
-                                <small style="color: #333333!important; font-size: 14px!important; text-wrap: nowrap;">рейтинг клиентов</small>
-                            </div>
+            <img src="{% static 'img/Image-about-company.png' %}" class="img-fluid" alt="Авто">
+            <div class="dop-block-img-about">
+                <div class="d-flex">
+                    <span>Экономия с первого шага! Мы не берем комиссию за подбор авто, <br>в отличие от большинства компаний</span>
+                    <img src="{% static 'img/Image-commision-0.png' %}" class="img-fluid" alt="Авто">
+                </div>
+            </div>
 
-                        </div>
-
-                        <div class="col-md-4 text-center">
-                            <p class="fw-bold mb-0">{{ info_main.year }}</p>
-                            <small style="color: #333333!important; font-size: 14px!important; text-wrap: nowrap;">лет на рынке</small>
-                        </div>
-
-                        <div class="col-md-4 text-center">
-                            <p class="fw-bold mb-0">{{ info_main.cnt_car }}</p>
-                            <small style="color: #333333!important; font-size: 14px!important; text-wrap: nowrap;">авто привезли</small>
-                        </div>
-                    </div>
-        </div>
     </div>
 
     <h1 class="" style="font-size: 48px; font-weight: 800; margin-top: 105px!important;">Что говорят наши клиенты</h1>
     <div class="row" style="margin-top: 60px;">
         <div class="col-md-3">
-            <img src="{% static 'img/Шаг.png' %}" class="img-fluid" alt="Авто">
+            <img src="{% static 'img/step-google.png' %}" class="img-fluid" alt="Авто">
             <div class="one-step-card" style="position: relative">
                 <div class="row">
                     <div class="col-md-3">
@@ -493,7 +481,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-10">
-                        <a href="#" style="color: #007DE3!important;">Мы на vl.ru справочник</a>
+                        <a href="#" style="color: #007DE3!important;">Мы в Google</a>
                     </div>
                     <div class="col-md-2">
                         <a href="#">
@@ -711,6 +699,26 @@
         </div>
 
     </div>
+
+        <div class="d-flex align-items-center justify-content-between" style="margin-top: 62px;">
+        <div class="d-flex align-items-center">
+            <img src="{% static 'img/YouTube Icon.png' %}" class="img-fluid" alt="Авто">
+            <h3 class="mt-2 ms-2" style="font-weight: 800; font-size: 26px;">Видео отзывы</h3>
+        </div>
+        <a href="https://www.youtube.com/playlist?list=PLyIn--Pv43vJHvBSKN8smOecBgz5ARY_B" class="ms-auto text-primary" target="_blank">Смотреть все</a>
+    </div>
+
+    <div class="row mt-3 video-slider">
+        {% for video in videos_review %}
+        <div class="col-md-3 me-3">
+            <a href="{{ video.link }}" target="_blank">
+            <img src="{{ video.preview_img.url }}" class="img-fluid" alt="Авто" style="border-radius: 12px;">
+            </a>
+        </div>
+        {% endfor %}
+
+    </div>
+
     <div class="d-flex align-items-center justify-content-between" style="margin-top: 62px;">
         <div class="d-flex align-items-center">
             <img src="{% static 'img/YouTube Icon.png' %}" class="img-fluid" alt="Авто">
@@ -911,6 +919,25 @@
   </div>
 </div>
 
+
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-success modal-dialog-centered">
+    <div class="modal-content modal-content-success">
+        <div class="modal-header modal-header-success">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body modal-body-success">
+          <div style="text-align: center;">
+              <img src="{% static 'img/Success-Icon.png' %}" style="margin-bottom: 16px;">
+              <span style="font-size: 16px; font-weight: 700; text-align: center; display: flex; justify-content: center;">Заявка отправлена</span>
+              <span style="font-size: 14px; color: #333333;">Мы ответим Вам в ближайшее время</span>
+          </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
     const dropdowns = document.querySelectorAll(".custom-dropdown");
@@ -1025,8 +1052,8 @@
 <script>
     $(document).ready(function(){
         $('.shorts-slider').slick({
-            slidesToShow: 6.1,
-            slidesToScroll: 1,
+            slidesToShow: 6,
+            slidesToScroll: 2,
             dots: false,
             infinite: true,
             arrows: false,
@@ -1145,7 +1172,8 @@
             return response.json();
         })
         .then(data => {
-            alert('Форма успешно отправлена!');
+            var myModal = new bootstrap.Modal(document.getElementById('successModal'), {});
+            myModal.show();
             document.getElementById('contact-feedback').reset();
         })
         .catch(error => {
@@ -1189,7 +1217,11 @@ function getCookie() {
             return response.json();
         })
         .then(data => {
-            alert('Форма успешно отправлена!');
+            var modalElement = document.getElementById('costModal');
+            var myModal = bootstrap.Modal.getInstance(modalElement);
+            myModal.hide();
+            var myModal = new bootstrap.Modal(document.getElementById('successModal'), {});
+            myModal.show();
             document.getElementById('feedback-modal').reset();
         })
         .catch(error => {

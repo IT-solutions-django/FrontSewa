@@ -108,9 +108,20 @@
     <div class="swiper thumbnail-slider mt-3">
         <div class="swiper-wrapper">
             {% for photo in car.images.all %}
+            {% if forloop.counter <= 4 %}
             <div class="swiper-slide">
                 <img src="{{ photo.image.url }}" class="thumbnail" onclick="mainSwiper.slideTo({{ forloop.counter0 }})" alt="Миниатюра 1">
             </div>
+            {% elif forloop.counter == 5 %}
+            <div class="swiper-slide show-more-thumbnail" onclick="toggleMoreThumbnails()">
+                    <div class="thumbnail show-more-btn">+ {{ car.photos|length|add:"-5" }}</div>
+                </div>
+            {% else %}
+            <div class="swiper-slide more-thumbnails d-none">
+                    <img src="{{ photo.image.url }}"
+                         class="thumbnail" onclick="mainSwiper.slideTo({{ forloop.counter0 }})" alt="Миниатюра">
+                </div>
+            {% endif %}
             {% endfor %}
             </div>
         </div>
@@ -444,6 +455,25 @@
 </div>
 
 
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-success modal-dialog-centered">
+    <div class="modal-content modal-content-success">
+        <div class="modal-header modal-header-success">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body modal-body-success">
+          <div style="text-align: center;">
+              <img src="{% static 'img/Success-Icon.png' %}" style="margin-bottom: 16px;">
+              <span style="font-size: 16px; font-weight: 700; text-align: center; display: flex; justify-content: center;">Заявка отправлена</span>
+              <span style="font-size: 14px; color: #333333;">Мы ответим Вам в ближайшее время</span>
+          </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
 
 
 <!-- Bootstrap JS (для модального окна) -->
@@ -664,7 +694,8 @@
             return response.json();
         })
         .then(data => {
-            alert('Форма успешно отправлена!');
+            var myModal = new bootstrap.Modal(document.getElementById('successModal'), {});
+            myModal.show();
             document.getElementById('contact-feedback').reset();
         })
         .catch(error => {
@@ -708,7 +739,11 @@ function getCookie(name) {
             return response.json();
         })
         .then(data => {
-            alert('Форма успешно отправлена!');
+            var modalElement = document.getElementById('costModal');
+            var myModal = bootstrap.Modal.getInstance(modalElement);
+            myModal.hide();
+            var myModal = new bootstrap.Modal(document.getElementById('successModal'), {});
+            myModal.show();
             document.getElementById('feedback-modal').reset();
         })
         .catch(error => {
@@ -750,7 +785,8 @@ function getCookie(name) {
             return response.json();
         })
         .then(data => {
-            alert('Форма успешно отправлена!');
+            var myModal = new bootstrap.Modal(document.getElementById('successModal'), {});
+            myModal.show();
             document.getElementById('feedback-block-car').reset();
         })
         .catch(error => {
@@ -810,6 +846,23 @@ document.addEventListener('DOMContentLoaded', () => {
         lastScroll = currentScroll;
     });
 });
+</script>
+
+<script>
+    function toggleMoreThumbnails() {
+        document.querySelectorAll(".more-thumbnails").forEach(el => {
+            el.classList.toggle("d-none");
+        });
+        document.querySelector(".show-more-thumbnail").classList.add("d-none");
+        thumbSwiper.update(); // Обновить swiper после изменения DOM
+    }
+
+    // Инициализация миниатюрного слайдера
+    var thumbSwiper = new Swiper(".thumbnail-slider", {
+        slidesPerView: 'auto',
+        spaceBetween: 10,
+        freeMode: true,
+    });
 </script>
 
 </body>

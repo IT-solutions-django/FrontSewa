@@ -112,21 +112,23 @@
     <div class="swiper thumbnail-slider mt-3">
         <div class="swiper-wrapper">
             {% for photo in car.photos %}
-            {% if forloop.counter <= 4 %}
-            <div class="swiper-slide">
-                <img src="{% if car.auction == 'encar' %} {{ photo|filter_photo_card_car }} {% else %} {{ photo }} {% endif %}" class="thumbnail" onclick="mainSwiper.slideTo({{ forloop.counter0 }})" alt="Миниатюра 1">
+    {% if forloop.counter <= 5 %}
+        <div class="swiper-slide{% if forloop.counter > 4 %} more-thumbnails d-none{% endif %}">
+            <img src="{% if car.auction == 'encar' %}{{ photo|filter_photo_card_car }}{% else %}{{ photo }}{% endif %}"
+                 class="thumbnail" onclick="mainSwiper.slideTo({{ forloop.counter0 }})" alt="Миниатюра {{ forloop.counter }}">
+        </div>
+        {% if forloop.counter == 5 and car.photos|length >= 5 %}
+            <div class="swiper-slide show-more-thumbnail" onclick="toggleMoreThumbnails()">
+                <div class="thumbnail show-more-btn">+ {{ car.photos|length|add:"-4" }}</div>
             </div>
-            {% elif forloop.counter == 5 %}
-                <div class="swiper-slide show-more-thumbnail" onclick="toggleMoreThumbnails()">
-                    <div class="thumbnail show-more-btn">+ {{ car.photos|length|add:"-5" }}</div>
-                </div>
-            {% else %}
-            <div class="swiper-slide more-thumbnails d-none">
-                    <img src="{% if car.auction == 'encar' %}{{ photo|filter_photo_card_car }}{% else %}{{ photo }}{% endif %}"
-                         class="thumbnail" onclick="mainSwiper.slideTo({{ forloop.counter0 }})" alt="Миниатюра">
-                </div>
-            {% endif %}
-            {% endfor %}
+        {% endif %}
+    {% else %}
+        <div class="swiper-slide more-thumbnails d-none">
+            <img src="{% if car.auction == 'encar' %}{{ photo|filter_photo_card_car }}{% else %}{{ photo }}{% endif %}"
+                 class="thumbnail" onclick="mainSwiper.slideTo({{ forloop.counter0 }})" alt="Миниатюра {{ forloop.counter }}">
+        </div>
+    {% endif %}
+{% endfor %}
             </div>
         </div>
 
@@ -137,7 +139,14 @@
 
         <div class="col-md-6">
             <div class="card-info-car">
-                <h1 style="font-size: 36px; font-weight: 800;">{{ car.ru_brand }} {{ car.ru_model }}{% if car.year %}, {{ car.year }} {% endif %}</h1>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h1 style="font-size: 36px; font-weight: 800; margin: 0;">
+                        {{ car.ru_brand }} {{ car.ru_model }}{% if car.year %}, {{ car.year }} {% endif %}
+                    </h1>
+                    <a href="{% if country_path == '#' %}/{% else %}{% url 'catalog:'|add:country_path %}?brand={{ car.brand }}&model={{ car.model }}{% endif %}" style="color: #007DE3!important;">Показать похожие <svg xmlns="http://www.w3.org/2000/svg" width="11" height="12" viewBox="0 0 11 12" fill="none">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0.55724 10.0365C0.366337 9.84561 0.366337 9.53609 0.55724 9.34519L4.40254 5.49989L0.557268 1.65522C0.366349 1.46433 0.366325 1.15481 0.557214 0.963891C0.748103 0.772972 1.05762 0.772947 1.24854 0.963837L5.43952 5.15417C5.53121 5.24585 5.58272 5.37019 5.58273 5.49984C5.58273 5.6295 5.53123 5.75384 5.43955 5.84552L1.24856 10.0365C1.05766 10.2274 0.748144 10.2274 0.55724 10.0365Z" fill="#007DE3"/>
+</svg></a>
+                </div>
                 <p class="fw-bold mt-4" style="font-size: 28px;">
                     {% if car.toll and car.toll != -1 %}
                     {{ car.toll|format_price }} <span style="font-size: 30px;">₽</span>
@@ -169,6 +178,8 @@
                     <img src="{% static 'img/tg-card-car.png' %}" class="img-fluid" alt="Авто">
                 </div>
                 </div>
+
+                <p class="mt-3" style="font-size: 15px;">Стоимость является ориентировочной. Оставьте заявку и наш менеджер свяжется с Вами для уточнения деталей.</p>
 
                 <div class="row mt-5">
                     <div class="col-md-6">
@@ -215,40 +226,59 @@
                         {% endif %}
                     </div>
                 </div>
-                <p class="mt-3" style="font-size: 15px;">Стоимость является ориентировочной. Оставьте заявку и наш менеджер свяжется с Вами для уточнения деталей.</p>
+                <button class="teh-list-btn d-flex mt-3">
+                    <img src="{% static 'img/description-teh.png' %}" class="img-fluid me-2" alt="Авто">
+                    <span>Смотреть тех. лист</span>
+                </button>
+            </div>
+            <div class="dop-block-img-car">
+                <div class="d-flex">
+                    <span>Экономия с первого шага! Мы не берем комиссию за подбор авто, в отличие от большинства компаний</span>
+                    <img src="{% static 'img/Image-commision-0.png' %}" class="img-fluid" alt="Авто">
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="block-form-car-questions d-flex align-items-center justify-content-between">
-        <div>
-        <span style="font-weight: 800; font-size: 28px;">Остались вопросы</span>
-        <p>Оставьте заявку и наши специалисты подберут Вам автомобиль под Ваши требования<p>
-        <form method="post" id="feedback-block-car">
-            {% csrf_token %}
-        <div class="d-flex gap-3">
-            <div>
-            <label for="name-questions" class="form-label" style="font-size: 14px;">Имя</label>
-            <input type="text" id="name-questions" class="form-control" placeholder="Введите имя" required>
+    <div class="block-form-car-questions d-flex">
+        <div class="row">
+            <div class="col-md-7 left-block-q">
+                <p style="font-size: 28px; font-weight: 700; color: white;">Рассчитай стоимость авто в своём городе!</p>
+                <p>Cроки и стоимость указаны для доставки из Владивостока до Вашего города.  Время ожидания к отправке из Владивостока: от 1 до 20 дней</p>
+                <div style="margin-top: 21px;">
+                        <span style="color: white; display: block; margin-bottom: 12px; font-size: 14px;">Мы в соцсетях</span>
+                        <div class="d-flex align-items-center car-social">
+                            <a href="#" class="me-2"><img src="{% static 'img/Social Media Icon.png' %}" alt="Wa" width="28"></a>
+                            <a href="#" class="me-2"><img src="{% static 'img/Artboard.png' %}" alt="Telegram" width="28"></a>
+                            <a href="#" class="me-2"><img src="{% static 'img/Social Media Icon-youtube.png' %}" alt="YouTube" width="28"></a>
+                        </div>
+                    </div>
             </div>
-            <div>
-            <label for="phone-questions" class="form-label" style="font-size: 14px;">Телефон</label>
-            <input type="tel" id="phone-questions" class="form-control" placeholder="+7 (___) ___-__-__" required>
+            <div class="col-md-5 right-block-q">
+                <div class="col-md-12">
+                  <div class="custom-dropdown-q">
+                        <div class="dropdown-button-q">Куда доставляем?</div>
+                        <ul class="dropdown-list-q">
+                            {% for city in city_delivery %}
+                            <li data-value="{{ city }}">{{ city }}</li>
+                            {% endfor %}
+                        </ul>
+                        <input type="hidden" name="city-q" id="city-q">
+                    </div>
+                  </div>
+                <div class="d-flex justify-content-between mt-2">
+                    <span style="font-size: 14px;">Доставка: <span style="font-weight: 700;">200 000 <span style="font-size: 15px;">₽</span></span></span>
+                    <span style="font-size: 14px;">Итого в г. Москва: <span style="font-weight: 700;">21 000 000 <span style="font-size: 15px;">₽</span></span></span>
+                </div>
+                <div class="d-flex row mt-5">
+                    <div class="col-md-7">
+                    <span style="font-size: 14px;">Если вашего города нет в списке,свяжитесь с нами. Возможно, мы сможем организовать доставку.</span>
+                        </div>
+                    <div class="col-md-5 d-flex" style="justify-content: right; align-items: center;">
+                    <button class="btn-delivery me-2" style="padding: 12px!important;" id="call">Заказать звонок</button>
+                        </div>
+                </div>
             </div>
-            <div class="block-btn-form-questions">
-            <button type="submit" class="contact-from-bnt" style="padding-top: 10px; padding-bottom: 10px;">Отправить</button>
-            </div>
-        </div>
-        <div class="form-check mt-4">
-            <input class="form-check-input" type="checkbox" id="agree-questions" required checked>
-            <label class="form-check-label ms-3" for="agree-questions" style="font-size: 13px;">
-                С правилами политики конфиденциальности ознакомлен
-            </label>
-        </div>
-        </form>
-        </div>
-        <div>
-        <img src="{% static 'img/Image-logo-questions.png' %}" class="img-fluid">
         </div>
     </div>
 
@@ -366,6 +396,9 @@
                         <button class="btn-delivery" id="btn-delivery">Оставить заявку</button>
                     </div>
                 </div>
+                <div class="dop-text-delivery">
+                <span>Cроки и стоимость указаны для доставки из Владивостока до Вашего города. Время ожидания к отправке из Владивостока: от 1 до 20 дней</span>
+            </div>
             </div>
         </div>
         <div class="col-7">
@@ -543,104 +576,210 @@
 
       <div class="modal-body modal-body-calc">
           {% if details_price_car %}
-            <div class="calculator-result__block">
-                <h3 style="font-weight: 800; font-size: 18px;">Полная стоимость авто</h3>
-
-            <div class="row align-items-center mx-0">
-                <div class="col-md col-12 px-0">
-                    Стоимость авто
+          <div class="row">
+              <div class="col-md-6 right-block-q" style="border-radius: 16px;">
+                <div class="col-md-12">
+                  <div class="custom-dropdown-cost">
+                        <div class="dropdown-button-cost">Куда доставляем?</div>
+                        <ul class="dropdown-list-cost">
+                            {% for city in city_delivery %}
+                            <li data-value="{{ city }}">{{ city }}</li>
+                            {% endfor %}
+                        </ul>
+                        <input type="hidden" name="city-cost" id="city-cost">
+                    </div>
+                  </div>
+                <div class="d-flex justify-content-between mt-2">
+                    <span style="font-size: 14px;">Доставка: <span style="font-weight: 700;">200 000 <span style="font-size: 15px;">₽</span></span></span>
                 </div>
-                <div class="col-md mt-3 mt-md-0 col-6 d-flex justify-content-center">
-                    <div class="price-country-top d-flex justify-content-center">
+                <div class="d-flex mt-2">
 
-                        <span class="CN">KR₩</span>
+                    <span class="d-flex" style="font-size: 14px; align-items: center;">Cроки и стоимость указаны для доставки из Владивостока до Вашего города. Время ожидания  к отправке из Владивостока:  от 1 до 20 дней</span>
+                    <img src="{% static 'img/Image-calc-price.png' %}" class="img-fluid" alt="Авто" style="margin-bottom: -23px; margin-right: -23px; border-radius: 16px;">
 
-                    <div class="calculator-result__price">
-                        {% if car.auction != 'encar' %}
-                            {{ car.price|filter_price_korea|format_price }}
+
+                </div>
+
+            </div>
+              <div class="col-md-6">
+                  <div class="d-flex justify-content-between" style="font-size: 15px;">
+                      <span>Стоимость авто:</span>
+                      <span>
+                          {% if car.auction != 'encar' %}
+                            {{ car.price|filter_price_korea|format_price }} ₩ ({{ details_price_car.car_price_rus|format_price }} <span style="font-size: 18px;">₽</span>)
                         {% else %}
-                        {{ car.price|format_price }}
+                        {{ car.price|format_price }} ₩ ({{ details_price_car.car_price_rus|format_price }} <span style="font-size: 16px;">₽</span>)
                         {% endif %}
-                    </div>
-                    </div>
+                      </span>
+                  </div>
+                  <div class="d-flex justify-content-between mt-2" style="font-size: 15px;">
+                      <span>Доставка до Владивостока:</span>
+                      <span>
+                          {{ details_price_car.delivery|format_price }} ₩ ({{ details_price_car.delivery_rus|format_price }} <span style="font-size: 16px;">₽</span>)
+                      </span>
+                  </div>
+                  <div class="d-flex justify-content-between mt-2" style="font-size: 15px;">
+                      <span>Таможенный брокер:</span>
+                      <span>
+                          {{ details_price_car.broker|format_price }} <span style="font-size: 16px;">₽</span>
+                      </span>
+                  </div>
+                  <hr>
+                  <div class="d-flex justify-content-between mt-2" style="font-size: 15px;">
+                      <span>Пошлина:</span>
+                      <span>
+                          {{ details_price_car.toll|format_price }} <span style="font-size: 16px;">₽</span>
+                      </span>
+                  </div>
+                  <div class="d-flex justify-content-between mt-2" style="font-size: 15px;">
+                      <span>Таможенный сбор:</span>
+                      <span>
+                          {{ details_price_car.tof|format_price }} <span style="font-size: 16px;">₽</span>
+                      </span>
+                  </div>
+                  <div class="d-flex justify-content-between mt-2" style="font-size: 15px;">
+                      <span>Утилизационный сбор:</span>
+                      <span>
+                          {{ details_price_car.yts|format_price }} <span style="font-size: 16px;">₽</span>
+                      </span>
+                  </div>
+                  <hr>
+                  <div class="d-flex justify-content-between mt-2" style="font-weight: 800; font-size: 18px;">
+                      <span>Итого:</span>
+                      <span>
+                          {{ details_price_car.total|format_price }} <span style="font-size: 19px;">₽</span>
+                      </span>
+                  </div>
 
-                </div>
-                <div class="col-md mt-3 mt-md-0 col-6 calculator-result-rus__price">
-                    {{ details_price_car.car_price_rus|format_price }} <span style="font-size: 18px;">₽</span>
-                </div>
-            </div>
-            <div class="total-price">
-                <div class="text-center">
-                    Итого ~ <span>{{ details_price_car.total|format_price }}</span> <span style="font-size: 22px;">₽</span>
-                </div>
-            </div>
-            <div class="row mx-0">
-                <div class="col-lg col-12 px-0 me-lg-4">
-
-                    <div class="toll_price row mt-4 mx-0">
-                        <div class="col text px-0">
-                            Таможенные платежи:
-                        </div>
-                        <div class="col-3 price text-end px-0">
-                            <div class="price_rus px-0">
-                                {{ poshlina|format_price }} <span style="font-size: 18px;">₽</span>
-                            </div>
-                        </div>
-                        <div class="tof">
-                            Пошлина: <span>{{ details_price_car.toll|format_price }} <span style="font-size: 15px;">₽</span></span>
-                        </div>
-                        <div class="duty">
-                            Таможенный сбор: <span>{{ details_price_car.tof|format_price }} <span style="font-size: 15px;">₽</span></span>
-                        </div>
-                        <div class="yts">
-                            Утилизационный сбор: <span>{{ details_price_car.yts|format_price }} <span style="font-size: 15px;">₽</span></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg col-12 px-0">
-                    <div class="delivery_modal_price row mt-4 mx-0">
-                        <div class="col text px-0">
-                            Доставка до Владивостока:
-                        </div>
-                        <div class="col-3 price text-end px-0">
-                            <div class="price_rus">
-                               {{ details_price_car.delivery_rus|format_price }} <span style="font-size: 18px;">₽</span>
-                            </div>
-                            <div class="price_country">{{ details_price_car.delivery|format_price }}
-
-                                    KR₩
-                                    </div>
-
-                        </div>
-                    </div>
-                    <div class="broker row mt-4 mx-0">
-                        <div class="col text px-0">
-                            Таможенный брокер:
-                        </div>
-                        <div class="col-3 price text-end px-0">
-                            <div class="price_rus">
-                                {{ details_price_car.broker|format_price }} <span style="font-size: 18px;">₽</span>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-            <div class="currency">
-                    Актуальный курс валют:
-                <div class="curr">
+              </div>
+              <div class="col-6">
+                  <div class="currency">
+                  <div class="curr">
                     <span>1€ - {{ details_price_car.currency.EUR }} (ЦБ)</span> <span>1$ - {{ details_price_car.currency.USD }} (ЦБ)</span>
 
-                    <span class="CN"> 1KR₩ - {{ details_price_car.currency.KRW|truncate_decimal:3 }}</span>
+                    <span class="CN"> 1₩ - {{ details_price_car.currency.KRW|truncate_decimal:3 }}</span>
 
                 </div>
-            </div>
-            </div>
+                      </div>
+              </div>
+          </div>
+<!--            <div class="calculator-result__block">-->
+<!--                <h3 style="font-weight: 800; font-size: 18px;">Полная стоимость авто</h3>-->
+
+<!--            <div class="row align-items-center mx-0">-->
+<!--                <div class="col-md col-12 px-0">-->
+<!--                    Стоимость авто-->
+<!--                </div>-->
+<!--                <div class="col-md mt-3 mt-md-0 col-6 d-flex justify-content-center">-->
+<!--                    <div class="price-country-top d-flex justify-content-center">-->
+
+<!--                        <span class="CN">KR₩</span>-->
+
+<!--                    <div class="calculator-result__price">-->
+<!--                        {% if car.auction != 'encar' %}-->
+<!--                            {{ car.price|filter_price_korea|format_price }}-->
+<!--                        {% else %}-->
+<!--                        {{ car.price|format_price }}-->
+<!--                        {% endif %}-->
+<!--                    </div>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+<!--                <div class="col-md mt-3 mt-md-0 col-6 calculator-result-rus__price">-->
+<!--                    {{ details_price_car.car_price_rus|format_price }} <span style="font-size: 18px;">₽</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="total-price">-->
+<!--                <div class="text-center">-->
+<!--                    Итого ~ <span>{{ details_price_car.total|format_price }}</span> <span style="font-size: 22px;">₽</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row mx-0">-->
+<!--                <div class="col-lg col-12 px-0 me-lg-4">-->
+
+<!--                    <div class="toll_price row mt-4 mx-0">-->
+<!--                        <div class="col text px-0">-->
+<!--                            Таможенные платежи:-->
+<!--                        </div>-->
+<!--                        <div class="col-3 price text-end px-0">-->
+<!--                            <div class="price_rus px-0">-->
+<!--                                {{ poshlina|format_price }} <span style="font-size: 18px;">₽</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="tof">-->
+<!--                            Пошлина: <span>{{ details_price_car.toll|format_price }} <span style="font-size: 15px;">₽</span></span>-->
+<!--                        </div>-->
+<!--                        <div class="duty">-->
+<!--                            Таможенный сбор: <span>{{ details_price_car.tof|format_price }} <span style="font-size: 15px;">₽</span></span>-->
+<!--                        </div>-->
+<!--                        <div class="yts">-->
+<!--                            Утилизационный сбор: <span>{{ details_price_car.yts|format_price }} <span style="font-size: 15px;">₽</span></span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="col-lg col-12 px-0">-->
+<!--                    <div class="delivery_modal_price row mt-4 mx-0">-->
+<!--                        <div class="col text px-0">-->
+<!--                            Доставка до Владивостока:-->
+<!--                        </div>-->
+<!--                        <div class="col-3 price text-end px-0">-->
+<!--                            <div class="price_rus">-->
+<!--                               {{ details_price_car.delivery_rus|format_price }} <span style="font-size: 18px;">₽</span>-->
+<!--                            </div>-->
+<!--                            <div class="price_country">{{ details_price_car.delivery|format_price }}-->
+
+<!--                                    KR₩-->
+<!--                                    </div>-->
+
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="broker row mt-4 mx-0">-->
+<!--                        <div class="col text px-0">-->
+<!--                            Таможенный брокер:-->
+<!--                        </div>-->
+<!--                        <div class="col-3 price text-end px-0">-->
+<!--                            <div class="price_rus">-->
+<!--                                {{ details_price_car.broker|format_price }} <span style="font-size: 18px;">₽</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="currency">-->
+<!--                    Актуальный курс валют:-->
+<!--                <div class="curr">-->
+<!--                    <span>1€ - {{ details_price_car.currency.EUR }} (ЦБ)</span> <span>1$ - {{ details_price_car.currency.USD }} (ЦБ)</span>-->
+
+<!--                    <span class="CN"> 1KR₩ - {{ details_price_car.currency.KRW|truncate_decimal:3 }}</span>-->
+
+<!--                </div>-->
+<!--            </div>-->
+<!--            </div>-->
           {% else %}
           <h1 style="font-weight: 800; font-size: 22px;" class="text-center">Пожалуйста, уточните стоимость у менеджера, оставив заявку.</h1>
           {% endif %}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-success modal-dialog-centered">
+    <div class="modal-content modal-content-success">
+        <div class="modal-header modal-header-success">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body modal-body-success">
+          <div style="text-align: center;">
+              <img src="{% static 'img/Success-Icon.png' %}" style="margin-bottom: 16px;">
+              <span style="font-size: 16px; font-weight: 700; text-align: center; display: flex; justify-content: center;">Заявка отправлена</span>
+              <span style="font-size: 14px; color: #333333;">Мы ответим Вам в ближайшее время</span>
+          </div>
       </div>
 
     </div>
@@ -755,7 +894,8 @@
 
     // Инициализация миниатюрного слайдера
     var thumbSwiper = new Swiper(".thumbnail-slider", {
-
+        slidesPerView: 5,
+        spaceBetween: 10,
     });
 
 
@@ -768,6 +908,76 @@
     dropdowns.forEach(dropdown => {
         const button = dropdown.querySelector(".dropdown-button-modal");
         const list = dropdown.querySelector(".dropdown-list-modal");
+        const hiddenInput = dropdown.querySelector("input");
+
+        button.addEventListener("click", function () {
+            list.classList.toggle("show");
+        });
+
+        list.querySelectorAll("li").forEach(item => {
+            item.addEventListener("click", function () {
+                button.textContent = this.textContent;
+                button.style.color = 'black';
+                hiddenInput.value = this.dataset.value;
+                list.classList.remove("show");
+                button.classList.remove("error");
+            });
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!dropdown.contains(event.target)) {
+                list.classList.remove("show");
+            }
+        });
+    });
+
+});
+
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const dropdowns = document.querySelectorAll(".custom-dropdown-q");
+
+    dropdowns.forEach(dropdown => {
+        const button = dropdown.querySelector(".dropdown-button-q");
+        const list = dropdown.querySelector(".dropdown-list-q");
+        const hiddenInput = dropdown.querySelector("input");
+
+        button.addEventListener("click", function () {
+            list.classList.toggle("show");
+        });
+
+        list.querySelectorAll("li").forEach(item => {
+            item.addEventListener("click", function () {
+                button.textContent = this.textContent;
+                button.style.color = 'black';
+                hiddenInput.value = this.dataset.value;
+                list.classList.remove("show");
+                button.classList.remove("error");
+            });
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!dropdown.contains(event.target)) {
+                list.classList.remove("show");
+            }
+        });
+    });
+
+});
+
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const dropdowns = document.querySelectorAll(".custom-dropdown-cost");
+
+    dropdowns.forEach(dropdown => {
+        const button = dropdown.querySelector(".dropdown-button-cost");
+        const list = dropdown.querySelector(".dropdown-list-cost");
         const hiddenInput = dropdown.querySelector("input");
 
         button.addEventListener("click", function () {
@@ -820,6 +1030,11 @@
         myModal.show();
     });
 
+    document.getElementById('call').addEventListener('click', function() {
+        var myModal = new bootstrap.Modal(document.getElementById('costModal'), {});
+        myModal.show();
+    });
+
 </script>
 
 <script>
@@ -868,7 +1083,8 @@
             return response.json();
         })
         .then(data => {
-            alert('Форма успешно отправлена!');
+            var myModal = new bootstrap.Modal(document.getElementById('successModal'), {});
+            myModal.show();
             document.getElementById('contact-feedback').reset();
         })
         .catch(error => {
@@ -912,7 +1128,11 @@ function getCookie(name) {
             return response.json();
         })
         .then(data => {
-            alert('Форма успешно отправлена!');
+            var modalElement = document.getElementById('costModal');
+            var myModal = bootstrap.Modal.getInstance(modalElement);
+            myModal.hide();
+            var myModal = new bootstrap.Modal(document.getElementById('successModal'), {});
+            myModal.show();
             document.getElementById('feedback-modal').reset();
         })
         .catch(error => {
@@ -926,47 +1146,6 @@ function getCookie(name) {
 }
 </script>
 
-<script>
-    document.getElementById('feedback-block-car').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const formData = {
-        name: document.getElementById('name-questions').value,
-        phone: document.getElementById('phone-questions').value,
-    };
-
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie()
-        },
-        body: JSON.stringify(formData)
-    };
-
-    const url = 'http://94.241.142.204/feedback/';
-
-    fetch(url, options)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Ошибка при заполнении формы');
-            }
-            return response.json();
-        })
-        .then(data => {
-            alert('Форма успешно отправлена!');
-            document.getElementById('feedback-block-car').reset();
-        })
-        .catch(error => {
-            alert('Произошла ошибка при отправке формы.');
-        });
-});
-
-function getCookie(name) {
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
-    return csrfToken;
-}
-</script>
 
 <script defer>
 document.addEventListener('DOMContentLoaded', () => {
@@ -1027,7 +1206,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Инициализация миниатюрного слайдера
     var thumbSwiper = new Swiper(".thumbnail-slider", {
-        slidesPerView: 'auto',
+        slidesPerView: 5,
         spaceBetween: 10,
         freeMode: true,
     });
