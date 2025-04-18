@@ -72,372 +72,86 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="13" viewBox="0 0 7 10" fill="none" class="ms-1 me-1">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M0.982384 0.359337C1.17765 0.164075 1.49423 0.164075 1.68949 0.359337L5.97616 4.646C6.06993 4.73977 6.1226 4.86695 6.1226 4.99956C6.1226 5.13217 6.06993 5.25934 5.97616 5.35311L1.68949 9.63978C1.49423 9.83504 1.17765 9.83504 0.982384 9.63978C0.787122 9.44452 0.787122 9.12793 0.982384 8.93267L4.9155 4.99956L0.982384 1.06644C0.787122 0.871182 0.787122 0.554599 0.982384 0.359337Z" fill="#D5D5D5" fill-opacity="0.5"/>
                         </svg>
-                        <a href="{% if country_path == '#' %}/{% else %}{% url 'catalog:'|add:country_path %}{% endif %}" style="color: #757575!important; font-size: 13px;">Авто из {{ country_temp }}</a>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="13" viewBox="0 0 7 10" fill="none" class="ms-1 me-1">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.982384 0.359337C1.17765 0.164075 1.49423 0.164075 1.68949 0.359337L5.97616 4.646C6.06993 4.73977 6.1226 4.86695 6.1226 4.99956C6.1226 5.13217 6.06993 5.25934 5.97616 5.35311L1.68949 9.63978C1.49423 9.83504 1.17765 9.83504 0.982384 9.63978C0.787122 9.44452 0.787122 9.12793 0.982384 8.93267L4.9155 4.99956L0.982384 1.06644C0.787122 0.871182 0.787122 0.554599 0.982384 0.359337Z" fill="#D5D5D5" fill-opacity="0.5"/>
-                        </svg>
-                        <a href="{{ request.path }}" style="color: white!important; font-size: 13px;">{{ car.ru_brand }} {{ car.ru_model }}{% if car.year %}, {{ car.year }} {% endif %}</a>
+                        <a href="{{ request.path }}" style="color: white!important; font-size: 13px;">Калькулятор</a>
                     </span>
                 </div>
             </div>
         </div>
     </section>
 
-<section class="container popular-cars">
-    <div class="row mt-3">
+<section class="container container-calculator">
+    <form method="post">
+        {% csrf_token %}
 
-        <div class="col-md-6">
-    <!-- Главный слайдер с изображениями -->
-    <div class="swiper main-slider">
-        <div class="swiper-wrapper">
-            {% if car.auction == 'encar' and images_encar %}
-            {% for photo in images_encar %}
-            <div class="swiper-slide">
-                <a href="{% if car.auction == 'encar' %}{{ photo|filter_photo_card_car }}{% else %}{{ photo }}{% endif %}"
-                   data-fancybox="gallery"
-                   data-thumb="{% if car.auction == 'encar' %}{{ photo|filter_photo_card_car }}{% else %}{{ photo }}{% endif %}">
-                    <img src="{% if car.auction == 'encar' %}{{ photo|filter_photo_card_car }}{% else %}{{ photo }}{% endif %}"
-                         class="car-img-card"
-                         alt="Авто">
-                </a>
-            </div>
-            {% endfor %}
-            {% else %}
-            {% for photo in car.photos %}
-            <div class="swiper-slide">
-                <a href="{% if car.auction == 'encar' %}{{ photo|filter_photo_card_car }}{% else %}{{ photo }}{% endif %}"
-                   data-fancybox="gallery"
-                   data-thumb="{% if car.auction == 'encar' %}{{ photo|filter_photo_card_car }}{% else %}{{ photo }}{% endif %}">
-                    <img src="{% if car.auction == 'encar' %}{{ photo|filter_photo_card_car }}{% else %}{{ photo }}{% endif %}"
-                         class="car-img-card"
-                         alt="Авто">
-                </a>
-            </div>
-            {% endfor %}
-            {% endif %}
-
-        </div>
-        <!-- Стрелки для навигации -->
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-    </div>
-
-    <!-- Галерея миниатюр -->
-    <div class="swiper thumbnail-slider mt-3">
-        <div class="swiper-wrapper">
-            {% if car.auction == 'encar' and images_encar %}
-            {% for photo in images_encar %}
-    {% if forloop.counter <= 5 %}
-        <div class="swiper-slide{% if forloop.counter > 4 %} more-thumbnails d-none{% endif %}">
-            <img src="{% if car.auction == 'encar' %}{{ photo|filter_photo_card_car }}{% else %}{{ photo }}{% endif %}"
-                 class="thumbnail" onclick="mainSwiper.slideTo({{ forloop.counter0 }})" alt="Миниатюра {{ forloop.counter }}">
-        </div>
-        {% if forloop.counter == 5 and car.photos|length >= 5 %}
-            <div class="swiper-slide show-more-thumbnail" onclick="toggleMoreThumbnails()">
-                <div class="thumbnail show-more-btn">+ {{ car.photos|length|add:"-4" }}</div>
-            </div>
-        {% endif %}
-    {% else %}
-        <div class="swiper-slide more-thumbnails d-none">
-            <img src="{% if car.auction == 'encar' %}{{ photo|filter_photo_card_car }}{% else %}{{ photo }}{% endif %}"
-                 class="thumbnail" onclick="mainSwiper.slideTo({{ forloop.counter0 }})" alt="Миниатюра {{ forloop.counter }}">
-        </div>
-    {% endif %}
-{% endfor %}
-            {% else %}
-            {% for photo in car.photos %}
-    {% if forloop.counter <= 5 %}
-        <div class="swiper-slide{% if forloop.counter > 4 %} more-thumbnails d-none{% endif %}">
-            <img src="{% if car.auction == 'encar' %}{{ photo|filter_photo_card_car }}{% else %}{{ photo }}{% endif %}"
-                 class="thumbnail" onclick="mainSwiper.slideTo({{ forloop.counter0 }})" alt="Миниатюра {{ forloop.counter }}">
-        </div>
-        {% if forloop.counter == 5 and car.photos|length >= 5 %}
-            <div class="swiper-slide show-more-thumbnail" onclick="toggleMoreThumbnails()">
-                <div class="thumbnail show-more-btn">+ {{ car.photos|length|add:"-4" }}</div>
-            </div>
-        {% endif %}
-    {% else %}
-        <div class="swiper-slide more-thumbnails d-none">
-            <img src="{% if car.auction == 'encar' %}{{ photo|filter_photo_card_car }}{% else %}{{ photo }}{% endif %}"
-                 class="thumbnail" onclick="mainSwiper.slideTo({{ forloop.counter0 }})" alt="Миниатюра {{ forloop.counter }}">
-        </div>
-    {% endif %}
-{% endfor %}
-            {% endif %}
-            </div>
-        </div>
-
-</div>
-
-<!-- Модальное окно -->
-
-
-        <div class="col-md-6">
-            <div class="card-info-car">
-                <div style="">
-                    <h1 style="font-size: 36px; font-weight: 800; margin: 0;">
-                        {{ car.ru_brand }} {{ car.ru_model }}{% if car.year %}, {{ car.year }} {% endif %}
-                    </h1>
-                    <a href="{% if country_path == '#' %}/{% else %}{% url 'catalog:'|add:country_path %}?brand={{ car.brand }}&model={{ car.model }}{% endif %}" style="color: #007DE3!important;">Показать похожие <svg xmlns="http://www.w3.org/2000/svg" width="11" height="12" viewBox="0 0 11 12" fill="none">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M0.55724 10.0365C0.366337 9.84561 0.366337 9.53609 0.55724 9.34519L4.40254 5.49989L0.557268 1.65522C0.366349 1.46433 0.366325 1.15481 0.557214 0.963891C0.748103 0.772972 1.05762 0.772947 1.24854 0.963837L5.43952 5.15417C5.53121 5.24585 5.58272 5.37019 5.58273 5.49984C5.58273 5.6295 5.53123 5.75384 5.43955 5.84552L1.24856 10.0365C1.05766 10.2274 0.748144 10.2274 0.55724 10.0365Z" fill="#007DE3"/>
-</svg></a>
-                </div>
-                <p class="fw-bold mt-4" style="font-size: 28px;">
-                    {% if car.toll and car.toll != -1 %}
-                    {{ car.toll|format_price }} <span style="font-size: 30px;">₽</span>
-                    {% else %}
-                    Уточнить
-                    {% endif %}
-                <p>
-                <div class="row">
-                <div class="col-md-6">
-                    <span style="color: #555252; font-size: 14px;">Стомость авто: </span><span class="fw-bold" style="font-size: 14px;">
-                    {% if car.auction != 'encar' %}
-                    {{ car.price|filter_price_korea|format_price }} ₩
-                    {% else %}
-                    {{ car.price|format_price }} ₩
-                    {% endif %}
-                </span>
-                    <p class="mt-2"><span style="color: #555252; font-size: 14px;">Полная пошлина: </span><span class="fw-bold" style="font-size: 14px;">{{ poshlina|format_price }} <span style="font-size: 16px;">₽</span></span></p>
-                </div>
-                <div class="col-md-6">
-                    <span style="color: #555252; font-size: 14px;">Производитель: </span><span class="fw-bold" style="font-size: 14px;">{{ car.country }}</span>
-                    <p class="mt-2"><span style="color: #555252; font-size: 14px;">Экспортер: </span><span class="fw-bold" style="font-size: 14px;">Корея</span></p>
-                </div>
-            </div>
-
-                <div class="row mt-2">
-                    <div class="col-md-12 d-flex">
-                    <button class="btn-delivery me-2" style="padding: 12px!important;" id="btn-feedback-car">Оставить заявку</button>
-                    <button class="contact-from-bnt me-2" id="btn-calc-price-car">Подробный расчет</button>
-                    <img src="{% static 'img/tg-card-car.png' %}" class="img-fluid" alt="Авто">
-                </div>
-                </div>
-
-                <p class="mt-3" style="font-size: 15px;">Стоимость является ориентировочной. Оставьте заявку и наш менеджер свяжется с Вами для уточнения деталей.</p>
-
-                <div class="row mt-5">
-                    <div class="col-md-6">
-                        {% if car.transmission and car.transmission != 'Не определено' %}
-                        <p style="font-size: 15px;"><span style="color: #555252;">Тип КПП: </span><span>
-                            {{ car.transmission|translate_transmission }}
-                        </span></p>
-                        {% endif %}
-                        {% if car.color %}
-                        <p style="font-size: 15px;"><span style="color: #555252;">Цвет: </span><span>{{ car.color }}</span></p>
-                        {% endif %}
-                        {% if car.body_type %}
-                        <p style="font-size: 15px;"><span style="color: #555252;">Кузов: </span><span>{{ car.body_type|translate_body_type }}</span></p>
-                        {% endif %}
-                        {% if car.engine %}
-                        <p style="font-size: 15px;"><span style="color: #555252;">Тип топлива: </span><span>{{ car.engine|translate_engine }}</span></p>
-                        {% endif %}
-                        {% if car.power_volume and car.power_volume != '0' %}
-                        <p style="font-size: 15px;"><span style="color: #555252;">Мощность двигателя: </span><span>{{ car.power_volume }}</span></p>
-                        {% endif %}
-                        {% if car.body_brand %}
-                        <p style="font-size: 15px;"><span style="color: #555252;">Бренд кузова: </span><span>{{ car.body_brand }}</span></p>
-                        {% endif %}
-
-                    </div>
-                    <div class="col-md-6">
-                        {% if car.auction %}
-                        <p style="font-size: 15px;"><span style="color: #555252;">Аукцион: </span><span>{{ car.auction }}</span></p>
-                        {% endif %}
-                        {% if car.mileage %}
-                        <p style="font-size: 15px;"><span style="color: #555252;">Пробег: </span><span>{{ car.mileage|format_number }} км</span></p>
-                        {% endif %}
-                        {% if car.engine_volume and car.engine_volume != '0' %}
-                        <p style="font-size: 15px;"><span style="color: #555252;">Объем двигателя: </span><span>{{ car.engine_volume|cc_to_liters }} л</span></p>
-                        {% endif %}
-                        {% if car.drive and car.drive != 'Не определено' %}
-                        <p style="font-size: 15px;"><span style="color: #555252;">Привод: </span><span>{{ car.drive|translate_drive }}</span></p>
-                        {% endif %}
-                        {% if car.grade and car.auction == 'encar' %}
-                        <p style="font-size: 15px;"><span style="color: #555252;">Комплектация: </span><span>{{ car.grade }}</span></p>
-                        {% endif %}
-                        {% if car.rate and car.rate != 'Нет' %}
-                        <p style="font-size: 15px;"><span style="color: #555252;">Оценка: </span><span>{{ car.rate }}</span></p>
-                        {% endif %}
-                    </div>
-                </div>
-                <button class="teh-list-btn d-flex mt-3">
-                    <img src="{% static 'img/description-teh.png' %}" class="img-fluid me-2" alt="Авто">
-                    <span>Смотреть тех. лист</span>
-                </button>
-            </div>
-            <div class="dop-block-img-car">
-                <div class="d-flex">
-                    <span>Экономия с первого шага! Мы не берем комиссию за подбор авто, в отличие от большинства компаний</span>
-                    <img src="{% static 'img/Image-commision-0.png' %}" class="img-fluid" alt="Авто">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="block-form-car-questions d-flex">
         <div class="row">
-            <div class="col-md-7 left-block-q">
-                <p style="font-size: 28px; font-weight: 700; color: white;">Рассчитай стоимость авто в своём городе!</p>
-                <p>Cроки и стоимость указаны для доставки из Владивостока до Вашего города.  Время ожидания к отправке из Владивостока: от 1 до 20 дней</p>
-                <div style="margin-top: 21px;">
-                        <span style="color: white; display: block; margin-bottom: 12px; font-size: 14px;">Мы в соцсетях</span>
-                        <div class="d-flex align-items-center car-social">
-                            <a href="#" class="me-2"><img src="{% static 'img/Social Media Icon.png' %}" alt="Wa" width="28"></a>
-                            <a href="#" class="me-2"><img src="{% static 'img/Artboard.png' %}" alt="Telegram" width="28"></a>
-                            <a href="#" class="me-2"><img src="{% static 'img/Social Media Icon-youtube.png' %}" alt="YouTube" width="28"></a>
-                        </div>
+            {% for field in form %}
+                <div class="col-md-4 mb-3">
+                    <div class="form-group">
+                        <div style="margin-bottom: 7px;">
+                        {{ field.label_tag }}
+                            </div>
+                        {{ field }}
                     </div>
-            </div>
-            <div class="col-md-5 right-block-q">
-                <div class="col-md-12">
-                  <div class="custom-dropdown-q">
-                        <div class="dropdown-button-q">Куда доставляем?</div>
-                        <ul class="dropdown-list-q">
-                            {% for city in city_delivery %}
-                            <li data-value="{{ city }}">{{ city }}</li>
-                            {% endfor %}
-                        </ul>
-                        <input type="hidden" name="city-q" id="city-q">
-                    </div>
-                  </div>
-                <div class="d-flex justify-content-between mt-2">
-                    <span style="font-size: 14px;">Доставка: <span style="font-weight: 700;">200 000 <span style="font-size: 15px;">₽</span></span></span>
-                    <span style="font-size: 14px;">Итого в г. Москва: <span style="font-weight: 700;">21 000 000 <span style="font-size: 15px;">₽</span></span></span>
                 </div>
-                <div class="d-flex row mt-5">
-                    <div class="col-md-7">
-                    <span style="font-size: 14px;">Если вашего города нет в списке,свяжитесь с нами. Возможно, мы сможем организовать доставку.</span>
-                        </div>
-                    <div class="col-md-5 d-flex" style="justify-content: right; align-items: center;">
-                    <button class="btn-delivery me-2" style="padding: 12px!important;" id="call">Заказать звонок</button>
-                        </div>
-                </div>
+
+                {% if forloop.counter|divisibleby:3 and not forloop.last %}
+                    </div><div class="row">
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12">
+                <button type="submit" class="btn-page-calculation">Рассчитать стоимость</button>
             </div>
         </div>
-    </div>
+    </form>
 
-    <h1 style="font-size: 48px; font-weight: 800; margin-top: 120px;">Похожие авто</h1>
-
-    <div class="row mt-3">
-        {% for car in popular_cars %}
-        <div class="col-12 col-md-3">
-            <div class="card card-car">
-                    <div class="position-relative">
-                        <a href="{% url 'catalog:car' car.id %}">
-                        <img src="{% if car.auction == 'encar' %} {{ car.photo|filter_photo }} {% else %} {{ car.photo }} {% endif %}" class="card-img-top" alt="Авто">
-                        </a>
-                        <div class="position-absolute bottom-0 px-3 py-3">
-                            {% if car.rule %}
-                            <small class="me-1 rule-img-car">{{ car.rule }}</small>
-                            {% endif %}
-                            <small class="me-1 param-img-car">{{ car.mileage|format_number }} км</small>
-                            {% if car.rate %}
-                            <small class="me-1 param-img-car">{{ car.rate }}</small>
-                            {% endif %}
-                            {% if car.engine_volume != 'Не определено' and car.engine_volume != '0' %}
-                            <small class="param-img-car me-1">{{ car.engine_volume|cc_to_liters }} л</small>
-                            {% endif %}
+    <div id="calculationResult" class="mt-4" style="display: none;">
+        <div class="card">
+            <div class="card-header bg-primary text-white" style="background-color: #D91033!important;">
+                <h5 class="mb-0">Результаты расчета</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between" style="font-size: 15px;">
+                            <span>Стоимость авто:</span>
+                            <span id="resultCarPrice"></span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2" style="font-size: 15px;">
+                            <span>Доставка до Владивостока:</span>
+                            <span id="resultDelivery"></span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2" style="font-size: 15px;">
+                            <span>Таможенный брокер:</span>
+                            <span id="resultBroker"></span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mt-2" style="font-size: 15px;">
+                            <span>Пошлина:</span>
+                            <span id="resultToll"></span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2" style="font-size: 15px;">
+                            <span>Таможенный сбор:</span>
+                            <span id="resultTof"></span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2" style="font-size: 15px;">
+                            <span>Утилизационный сбор:</span>
+                            <span id="resultYts"></span>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold" style="line-clamp: 1;">
-                             {{ car.ru_brand }} {{ car.ru_model }}
-                        </h5>
-                        <p class="card-text text-muted">
-                            {% if car.year %}
-                            {{ car.year }} &bull;
-                            {% endif %}
-                            {% if car.drive and car.drive != 'Не определено' %}
-                            {{ car.drive|translate_drive }} &bull;
-                            {% endif %}
-                            {% if car.car_fuel and car.car_fuel != 'Не определено' %}
-                            {{ car.car_fuel|translate_engine }} &bull;
-                            {% endif %}
-                            {% if car.transmission and car.transmission != 'Не определено' %}
-                            {{ car.transmission|translate_transmission }}
-                            {% endif %}
-                        </p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="fw-bold price-car-card">
-                                {% if car.toll and car.toll != -1 %}
-                                {{ car.toll|format_price }} <span class="logo-rub">₽</span>
-                                {% else %}
-                                Уточнить
-                                {% endif %}
-                            </span>
-                            <a class="btn-feedback-card-car" id="btn-feedback-card-car">Оставить заявку</a>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between mt-2" style="font-weight: 800; font-size: 18px;">
+                            <span>Итого:</span>
+                            <span id="resultTotal"></span>
+                        </div>
+                        <div class="currency mt-3">
+                            <div class="curr" id="resultCurrency"></div>
                         </div>
                     </div>
                 </div>
-        </div>
-        {% endfor %}
-
-
-
-    </div>
-
-    <h1 class="" style="font-size: 48px; font-weight: 800; margin-top: 120px!important;">Этапы работы</h1>
-    <p style="font-size: 15px; padding-top: 8px;">Полное сопровождение сделки и поддержка связи с клиентом 24/7.</p>
-    <div class="row" style="margin-top: 48px;">
-        {% for stage in stages_work %}
-        <div class="col-md-3">
-            <div class="one-step">
-                <span class="one-num">0{{ forloop.counter }}</span>
             </div>
-            <div class="one-step-card">
-                <h5 style="font-weight: 700;">{{ stage.name }}</h5>
-                <p style="font-size: 14px;" class="mt-3">{{ stage.description }}</p>
-            </div>
-
-        </div>
-        {% endfor %}
-
-    </div>
-
-    <div class="row" style="margin-top: 40px!important;">
-        <div class="col-md-5">
-            <div class="form-cost-delivery">
-                <h4 class="fw-bold" style="font-weight: 800!important; font-size: 24px;">Стомость доставки</h4>
-                <span style="font-size: 14px;">Минимальный срок доставки {{ info_main.min_day_delivery }}</span>
-                <div class="mt-4">
-                    <div class="custom-dropdown">
-                        <div class="dropdown-button" style="padding: 6px;">Куда доставляем?</div>
-                        <ul class="dropdown-list">
-                            {% for city in city_delivery %}
-                            <li data-value="{{ city }}">{{ city }}</li>
-                            {% endfor %}
-                        </ul>
-                        <input type="hidden" name="city">
-                    </div>
-                </div>
-                <div class="mt-3">
-                    <div class="custom-dropdown">
-                        <div class="dropdown-button" style="padding: 6px;">Выберите кузов</div>
-                        <ul class="dropdown-list">
-                            {% for body in body_delivery %}
-                            <li data-value="{{ body }}">{{ body }}</li>
-                            {% endfor %}
-                        </ul>
-                        <input type="hidden" name="car_type">
-                    </div>
-                </div>
-                <div class="row d-flex mt-5 justify-content-between">
-                    <div class="col-md-7">
-                        <span style="font-size: 14px;">Стоимость доставки:</span>
-                        <p class="fw-bold price-delivery">от <span id="price_delivery">0</span> <span class="logo-rub">₽</span></p>
-                    </div>
-                    <div class="col-md-5">
-                        <button class="btn-delivery" id="btn-delivery">Оставить заявку</button>
-                    </div>
-                </div>
-                <div class="dop-text-delivery">
-                <span>Cроки и стоимость указаны для доставки из Владивостока до Вашего города. Время ожидания к отправке из Владивостока: от 1 до 20 дней</span>
-            </div>
-            </div>
-        </div>
-        <div class="col-7">
-            <img src="{% static 'img/car-img-delivery.png' %}" class="img-fluid" alt="Авто" style="border-radius: 16px;">
         </div>
     </div>
 </section>
@@ -1245,6 +959,81 @@ document.addEventListener('DOMContentLoaded', () => {
         spaceBetween: 10,
         freeMode: true,
     });
+</script>
+
+
+<script>
+    document.querySelector('.container-calculator form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton.textContent;
+
+    fetch('http://94.241.142.204/calc_price/', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(function(response) {
+        if (!response.ok) {
+            throw new Error('Ошибка сети');
+        }
+        return response.json();
+    })
+    .then(function(result) {
+        if (result) {
+            const formatPrice = (value, currency = '₽', size = '16px') => {
+                return `${value} <span style="font-size: ${size};">${currency}</span>`;
+            };
+
+            // Заполняем результаты
+            document.getElementById('resultCarPrice').innerHTML =
+                `${form.querySelector('[name=vehicle_price]').value} ₩ (${formatPrice(result.data.detailed_calculation.car_price_rus)})`;
+
+            document.getElementById('resultDelivery').innerHTML =
+                `${result.data.detailed_calculation.delivery} ₩ (${formatPrice(result.data.detailed_calculation.delivery_rus)})`;
+
+            document.getElementById('resultBroker').innerHTML =
+                formatPrice(result.data.detailed_calculation.broker);
+
+            document.getElementById('resultToll').innerHTML =
+                formatPrice(result.data.detailed_calculation.toll);
+
+            document.getElementById('resultTof').innerHTML =
+                formatPrice(result.data.detailed_calculation.tof);
+
+            document.getElementById('resultYts').innerHTML =
+                formatPrice(result.data.detailed_calculation.yts);
+
+            document.getElementById('resultTotal').innerHTML =
+                formatPrice(result.data.detailed_calculation.total, '₽', '19px');
+
+            document.getElementById('resultCurrency').innerHTML = `
+                <span>1€ - ${result.data.detailed_calculation.currency.EUR} (ЦБ)</span>
+                <span>1$ - ${result.data.detailed_calculation.currency.USD} (ЦБ)</span>
+                <span class="CN">1₩ - ${result.data.detailed_calculation.currency.KRW}</span>
+            `;
+
+            // Показываем блок с результатами
+            document.getElementById('calculationResult').style.display = 'block';
+
+            // Прокручиваем к результатам
+            document.getElementById('calculationResult').scrollIntoView({
+                behavior: 'smooth'
+            });
+        } else {
+            throw new Error(result.message || 'Ошибка сервера');
+        }
+    })
+    .catch(function(error) {
+        console.error('Ошибка:', error);
+        alert('Ошибка при расчете: ' + error.message);
+    })
+});
 </script>
 
 </body>

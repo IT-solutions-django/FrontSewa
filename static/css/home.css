@@ -134,6 +134,12 @@ a {
     padding: 100px;
 }
 
+.container-calculator {
+    border: 1px solid white;
+    background-color: white;
+    padding: 100px;
+}
+
 .popular-card-brand {
     border: 1px solid #F8F8F8;
     border-radius: 16px;
@@ -748,6 +754,25 @@ a {
     transition: background-color 0.3s ease;
 }
 
+.btn-page-calculation {
+    border: 1px solid #2E2E2E;
+    background-color: #2E2E2E;
+    border-radius: 16px;
+    color: white;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-page-calculation:hover {
+    background-color: #D91033;
+    border-color: #D91033;
+    transition: background-color 0.3s ease;
+}
+
 .contact-form input::placeholder {
     color: #8D8D8D!important;
 }
@@ -1010,7 +1035,7 @@ footer {
 .left-col-modal {
     margin: 0 !important;
     padding: 0 !important;
-    background: linear-gradient(rgba(98, 0, 15, 0.81), rgba(98, 0, 15, 0.81)), url('/static/img/image-form-modal.png') left/cover no-repeat !important;
+    background: url('/static/img/Image-car-red-modal.png') left/cover no-repeat !important;
     background-size: cover !important;
     background-position: center center !important;
     border-top-left-radius: 16px;

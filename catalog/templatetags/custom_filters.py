@@ -152,3 +152,12 @@ def add_percent(value, percent):
         return int(value * (1 + percent / 100))
     except (ValueError, TypeError):
         return value
+
+
+@register.filter
+def cnt_start(value, cnt):
+    try:
+        cnt = int(round(float(cnt)))
+        return [i for i in range(cnt)]
+    except Exception:
+        return [1, 2, 3, 4]

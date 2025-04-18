@@ -11,6 +11,9 @@ from urllib.parse import unquote
 import random
 from django.utils import timezone
 from datetime import timedelta
+from xml.etree import ElementTree as ET
+from lxml import etree
+from .forms import CalculatorForm
 
 
 def send_order(request):
@@ -49,7 +52,65 @@ def get_main_cars(params):
         return None
 
 
+def get_reviews_yandex():
+    params = {
+        'company': 'Батарейка25',
+        'cnt': 5
+    }
+
+    url = 'http://195.133.27.193/api/yandex-reviews/'
+
+    response = requests.get(url, params=params)
+
+    return response
+
+
+def get_data_yandex():
+    params = {
+        'company': 'Батарейка25'
+    }
+
+    url = 'http://195.133.27.193/api/yandex-data/'
+
+    response = requests.get(url, params=params)
+
+    return response
+
+
+def get_data_gis():
+    params = {
+        'company': 'Батарейка25'
+    }
+
+    url = 'http://195.133.27.193/api/twoGis-data/'
+
+    response = requests.get(url, params=params)
+
+    return response
+
+
 def home(request):
+    response_review_yandex = get_reviews_yandex()
+
+    if response_review_yandex.status_code == 200:
+        reviews_yandex = response_review_yandex.json()['reviews']
+    else:
+        reviews_yandex = []
+
+    response_data_yandex = get_data_yandex()
+
+    if response_data_yandex.status_code == 200:
+        data_yandex = response_data_yandex.json()
+    else:
+        data_yandex = {}
+
+    response_data_gis = get_data_gis()
+
+    if response_data_gis.status_code == 200:
+        data_gis = response_data_gis.json()
+    else:
+        data_gis = {}
+
     videos = Video.objects.all()
     shorts = ShortVideo.objects.all()
     videos_review = ReviewVideo.objects.all()
@@ -80,7 +141,10 @@ def home(request):
         'popular_korea': popular_korea,
         'popular_japan': popular_japan,
         'popular_china': popular_china,
-        'popular_europe': popular_europe
+        'popular_europe': popular_europe,
+        'reviews_yandex': reviews_yandex,
+        'data_yandex': data_yandex,
+        'data_gis': data_gis
     })
 
 
@@ -437,6 +501,27 @@ def translate_model_car_card(car_model):
         return None
 
 
+def generate_random_ip():
+    return ".".join(str(random.randint(0, 255)) for _ in range(4))
+
+
+def get_img_encar(api_id='5vfsLV7NMNLv0a'):
+    ip = generate_random_ip()
+
+    url = f'http://78.46.90.228/api/?ip={ip}&code=TDAjhTr53Sd9&sql=select+*+from+korea+WHERE+1+=+1+and+id+=+%27{api_id}%27'
+
+    response = requests.get(url)
+    if response.status_code == 200:
+        parser = etree.XMLParser(recover=True, encoding='windows-1251')
+        root = etree.fromstring(response.content, parser=parser)
+
+        images = root.xpath('//IMAGES/text()')[0].split('#')
+    else:
+        images = None
+
+    return images
+
+
 def car(request, id_car):
     data_car, popular_cars, details_price_car = get_car_from_api(id_car)
 
@@ -472,7 +557,12 @@ def car(request, id_car):
     else:
         poshlina = 0
 
-    return render(request, 'card.html', {'car': data_car, 'city_delivery': city_delivery, 'body_delivery': body_delivery, 'popular_cars': popular_cars, 'country_temp': country_temp, 'country_path': country_path, 'details_price_car': details_price_car, 'info_main': info_main, 'stages_work': stages_work, 'contact': contact, 'poshlina': poshlina})
+    if data_car['auction'] == 'encar':
+        images_encar = get_img_encar(api_id=data_car['api_id'])
+    else:
+        images_encar = None
+
+    return render(request, 'card.html', {'car': data_car, 'city_delivery': city_delivery, 'body_delivery': body_delivery, 'popular_cars': popular_cars, 'country_temp': country_temp, 'country_path': country_path, 'details_price_car': details_price_car, 'info_main': info_main, 'stages_work': stages_work, 'contact': contact, 'poshlina': poshlina, 'images_encar': images_encar})
 
 
 def get_promo_car_card(request, id_car):
@@ -496,3 +586,43 @@ def get_promo_car_card(request, id_car):
         'contact': contact,
     })
 
+
+def post_calculator_page(request):
+    price = int(request.POST['vehicle_price'])
+
+    if request.POST['manufacture_year'] == '<3':
+        year = 2
+    elif request.POST['manufacture_year'] == '3-5':
+        year = 3
+    else:
+        year = 6
+
+    eng_v = int(request.POST['engine_volume'])
+
+    power = int(request.POST['engine_power'])
+
+    engine = request.POST['engine_type']
+
+    params = {
+        'ip': '94.241.142.204',
+        'price': price,
+        'year': year,
+        'eng_v': eng_v,
+        'power': power,
+        'engine': engine
+    }
+
+    url = "http://193.164.149.51/cars/detailed_calculation/"
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+
+        data = response.json()
+        return JsonResponse({'data': data})
+    except Exception:
+        return JsonResponse({'data': []})
+
+
+def calculator_page(request):
+    form = CalculatorForm()
+    return render(request, 'calculator.html', {'form': form})

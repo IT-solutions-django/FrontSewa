@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from catalog.views import home, send_order, about
+from catalog.views import home, send_order, about, calculator_page, post_calculator_page
 from django.conf import settings
 from django.conf.urls.static import static
 from feedback.views import feedback
@@ -27,7 +27,9 @@ urlpatterns = [
     path('catalog/', include('catalog.urls', namespace='catalog')),
     path('send_order/', send_order, name='send-order'),
     path('about/', about, name='about'),
-    path('feedback/', feedback, name='feedback')
+    path('feedback/', feedback, name='feedback'),
+    path('calculator_page/', calculator_page, name='calculator_page'),
+    path('calc_price/', post_calculator_page, name='calc_price')
 ]
 
 if settings.DEBUG:

@@ -76,7 +76,7 @@ def get_shorts_videos_data():
                     id_video = video['snippet']['resourceId']['videoId']
                     video_link = f"https://www.youtube.com/watch?v={id_video}"
                     video_title = video['snippet']['title']
-                    video_image = video['snippet']['thumbnails']['medium']['url']
+                    video_image = video['snippet']['thumbnails']['standard']['url']
 
                     publish_datetime = datetime.datetime.fromisoformat(video['snippet']['publishedAt'][:-1])
                     publish_date = publish_datetime.date()
@@ -115,7 +115,7 @@ def get_review_videos_data():
                     id_video = video['snippet']['resourceId']['videoId']
                     video_link = f"https://www.youtube.com/watch?v={id_video}"
                     video_title = video['snippet']['title']
-                    video_image = video['snippet']['thumbnails']['medium']['url']
+                    video_image = video['snippet']['thumbnails']['standard']['url']
 
                     publish_datetime = datetime.datetime.fromisoformat(video['snippet']['publishedAt'][:-1])
                     publish_date = publish_datetime.date()
