@@ -301,7 +301,7 @@
         {% for review in reviews_yandex %}
         <div class="col-md-3">
             <div class="card card-car me-3" style="height: fit-content!important;">
-                    <img src="{{ review.photos.0 }}" class="card-img-top" alt="Авто">
+                    <img src="{{ review.photos.0|fixed_img }}" class="card-img-top" alt="Авто">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-10">

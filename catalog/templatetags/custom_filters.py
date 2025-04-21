@@ -161,3 +161,12 @@ def cnt_start(value, cnt):
         return [i for i in range(cnt)]
     except Exception:
         return [1, 2, 3, 4]
+
+
+@register.filter
+def fixed_img(value):
+    try:
+        new_img = value[:-1] + 'XL'
+        return new_img
+    except Exception:
+        return value
