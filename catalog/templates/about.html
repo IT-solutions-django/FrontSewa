@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_filters %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -221,17 +222,27 @@
             <div class="one-step-card" style="position: relative">
                 <div class="row">
                     <div class="col-md-3">
-                        <h4 style="font-size: 36px; font-weight: 700;">4.9</h4>
+                        <h4 style="font-size: 36px; font-weight: 700;">
+                            {% if data_gis.average_rating %}
+                            {{ data_gis.average_rating }}
+                            {% else %}
+                            4.7
+                            {% endif %}
+                        </h4>
                     </div>
                     <div class="col-md-5 mt-2">
                         <div class="d-flex mb-1">
-                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13">
-                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-3">
-                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-3">
-                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-3">
-                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-3">
+                            {% for i in "x"|cnt_start:data_gis.average_rating %}
+                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="me-3">
+                            {% endfor %}
                         </div>
-                        <p style="font-size: 13px;">51 оценок</p>
+                        <p style="font-size: 13px;">
+                            {% if data_gis.reviews_count %}
+                            {{ data_gis.reviews_count }} оценок
+                            {% else %}
+                            57 оценок
+                            {% endif %}
+                        </p>
                     </div>
                 </div>
                 <div class="row">
@@ -249,17 +260,27 @@
             <div class="one-step-card" style="position: relative">
                 <div class="row">
                     <div class="col-md-3">
-                        <h4 style="font-size: 36px; font-weight: 700;">4.9</h4>
+                        <h4 style="font-size: 36px; font-weight: 700;">
+                            {% if data_yandex.average_rating %}
+                            {{ data_yandex.average_rating }}
+                            {% else %}
+                            4.7
+                            {% endif %}
+                        </h4>
                     </div>
                     <div class="col-md-5 mt-2">
                         <div class="d-flex mb-1">
-                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13">
-                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-3">
-                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-3">
-                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-3">
-                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-3">
+                            {% for i in "x"|cnt_start:data_yandex.average_rating %}
+                            <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="me-3">
+                            {% endfor %}
                         </div>
-                        <p style="font-size: 13px;">37 оценок</p>
+                        <p style="font-size: 13px;">
+                            {% if data_yandex.reviews_count %}
+                            {{ data_yandex.reviews_count }} оценок
+                            {% else %}
+                            57 оценок
+                            {% endif %}
+                        </p>
                     </div>
                 </div>
                 <div class="row">
@@ -276,19 +297,19 @@
     <div class="d-flex align-items-center justify-content-between" style="margin-top: 28px;">
     </div>
     <div class="row mt-2 review-slider">
+        {% if reviews_yandex %}
+        {% for review in reviews_yandex %}
         <div class="col-md-3">
             <div class="card card-car me-3" style="height: fit-content!important;">
-                    <img src="{% static 'img/Image-review.png' %}" class="card-img-top" alt="Авто">
+                    <img src="{{ review.photos.0 }}" class="card-img-top" alt="Авто">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-10">
-                                <h5 style="font-weight: 700; font-size: 16px;">Сергей Б.</h5>
+                                <h5 style="font-weight: 700; font-size: 16px;">{{ review.author_name }}</h5>
                                 <div class="d-flex">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
+                                    {% for i in "x"|ljust:review.rating %}
+                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="me-2">
+                                    {% endfor %}
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -296,127 +317,22 @@
                             </div>
                         </div>
                         <div class="mt-3">
-                            <p style="font-size: 14px;">Хочу оставить большущую благодарность компании батарейка! Начали работу с ними в июле месяце. До Владивостока машину из Кореи доставили за месяц. Все четко на каждом из этапов. Дольше ждал транспортную компанию с доставкой авто.</p>
+                            <p style="font-size: 14px;
+                                      display: -webkit-box;
+                                      -webkit-line-clamp: 8;  /* Число строк */
+                                      -webkit-box-orient: vertical;
+                                      overflow: hidden;">
+                                {{ review.review_text }}
+                            </p>
                         </div>
                         <div class="mt-2">
-                            <span style="color: #555252; font-size: 13px;">20.02.2025</span>
+                            <span style="color: #555252; font-size: 13px;">{{ review.created_at }}</span>
                         </div>
                     </div>
                 </div>
         </div>
-        <div class="col-md-3">
-            <div class="card card-car me-3" style="height: fit-content!important;">
-                    <img src="{% static 'img/Image-review.png' %}" class="card-img-top" alt="Авто">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h5 style="font-weight: 700; font-size: 16px;">Сергей Б.</h5>
-                                <div class="d-flex">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <img src="{% static 'img/Logo-review.png' %}" class="img-fluid" alt="Авто">
-                            </div>
-                        </div>
-                        <div class="mt-3">
-                            <p style="font-size: 14px;">Хочу оставить большущую благодарность компании батарейка! Начали работу с ними в июле месяце. До Владивостока машину из Кореи доставили за месяц. Все четко на каждом из этапов. Дольше ждал транспортную компанию с доставкой авто.</p>
-                        </div>
-                        <div class="mt-2">
-                            <span style="color: #555252; font-size: 13px;">20.02.2025</span>
-                        </div>
-                    </div>
-                </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card card-car me-3" style="height: fit-content!important;">
-                    <img src="{% static 'img/Image-review.png' %}" class="card-img-top" alt="Авто">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h5 style="font-weight: 700; font-size: 16px;">Сергей Б.</h5>
-                                <div class="d-flex">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <img src="{% static 'img/Logo-review.png' %}" class="img-fluid" alt="Авто">
-                            </div>
-                        </div>
-                        <div class="mt-3">
-                            <p style="font-size: 14px;">Хочу оставить большущую благодарность компании батарейка! Начали работу с ними в июле месяце. До Владивостока машину из Кореи доставили за месяц. Все четко на каждом из этапов. Дольше ждал транспортную компанию с доставкой авто.</p>
-                        </div>
-                        <div class="mt-2">
-                            <span style="color: #555252; font-size: 13px;">20.02.2025</span>
-                        </div>
-                    </div>
-                </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card card-car me-3" style="height: fit-content!important;">
-                    <img src="{% static 'img/Image-review.png' %}" class="card-img-top" alt="Авто">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h5 style="font-weight: 700; font-size: 16px;">Сергей Б.</h5>
-                                <div class="d-flex">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <img src="{% static 'img/Logo-review.png' %}" class="img-fluid" alt="Авто">
-                            </div>
-                        </div>
-                        <div class="mt-3">
-                            <p style="font-size: 14px;">Хочу оставить большущую благодарность компании батарейка! Начали работу с ними в июле месяце. До Владивостока машину из Кореи доставили за месяц. Все четко на каждом из этапов. Дольше ждал транспортную компанию с доставкой авто.</p>
-                        </div>
-                        <div class="mt-2">
-                            <span style="color: #555252; font-size: 13px;">20.02.2025</span>
-                        </div>
-                    </div>
-                </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card card-car me-3" style="height: fit-content!important;">
-                    <img src="{% static 'img/Image-review.png' %}" class="card-img-top" alt="Авто">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h5 style="font-weight: 700; font-size: 16px;">Сергей Б.</h5>
-                                <div class="d-flex">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
-                                    <img src="{% static 'img/Vector.png' %}" alt="Рейтинг" width="14" height="13" class="ms-2">
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <img src="{% static 'img/Logo-review.png' %}" class="img-fluid" alt="Авто">
-                            </div>
-                        </div>
-                        <div class="mt-3">
-                            <p style="font-size: 14px;">Хочу оставить большущую благодарность компании батарейка! Начали работу с ними в июле месяце. До Владивостока машину из Кореи доставили за месяц. Все четко на каждом из этапов. Дольше ждал транспортную компанию с доставкой авто.</p>
-                        </div>
-                        <div class="mt-2">
-                            <span style="color: #555252; font-size: 13px;">20.02.2025</span>
-                        </div>
-                    </div>
-                </div>
-        </div>
+        {% endfor %}
+        {% endif %}
 
     </div>
     <div class="d-flex align-items-center justify-content-between" style="margin-top: 42px;">
@@ -449,7 +365,7 @@
         {% for short in shorts %}
         <div class="me-3">
             <a href="{{ short.link }}" target="_blank">
-            <img src="{{ short.preview_img.url }}" class="img-fluid" alt="Авто" style="border-radius: 12px;">
+            <img src="{{ short.preview_img.url }}" class="img-fluid" alt="Авто" style="border-radius: 12px; height: 264px; width: 149px; object-fit: cover;">
             <p style="line-clamp: 2; font-size: 14px; width: 150px;">{{ short.title }}</p>
             </a>
         </div>
@@ -601,7 +517,7 @@
 <script>
     $(document).ready(function(){
         $('.shorts-slider').slick({
-            slidesToShow: 6,
+            slidesToShow: 7,
             slidesToScroll: 2,
             dots: false,
             infinite: true,

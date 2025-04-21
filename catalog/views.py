@@ -149,6 +149,27 @@ def home(request):
 
 
 def about(request):
+    response_review_yandex = get_reviews_yandex()
+
+    if response_review_yandex.status_code == 200:
+        reviews_yandex = response_review_yandex.json()['reviews']
+    else:
+        reviews_yandex = []
+
+    response_data_yandex = get_data_yandex()
+
+    if response_data_yandex.status_code == 200:
+        data_yandex = response_data_yandex.json()
+    else:
+        data_yandex = {}
+
+    response_data_gis = get_data_gis()
+
+    if response_data_gis.status_code == 200:
+        data_gis = response_data_gis.json()
+    else:
+        data_gis = {}
+
     videos = Video.objects.all()
 
     shorts = ShortVideo.objects.all()
@@ -157,7 +178,9 @@ def about(request):
 
     contact = Contact.objects.all().first()
 
-    return render(request, 'about.html', {'videos': videos, 'info_main': info_main, 'contact': contact, 'shorts': shorts})
+    return render(request, 'about.html', {'videos': videos, 'info_main': info_main, 'contact': contact, 'shorts': shorts, 'reviews_yandex': reviews_yandex,
+        'data_yandex': data_yandex,
+        'data_gis': data_gis})
 
 
 def get_brands_from_api(params):
@@ -624,5 +647,8 @@ def post_calculator_page(request):
 
 
 def calculator_page(request):
+    info_main = MainBlock.objects.all().first()
+    contact = Contact.objects.all().first()
+
     form = CalculatorForm()
-    return render(request, 'calculator.html', {'form': form})
+    return render(request, 'calculator.html', {'form': form, 'info_main': info_main, 'contact': contact})
