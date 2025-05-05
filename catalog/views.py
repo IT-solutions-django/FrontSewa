@@ -14,6 +14,7 @@ from datetime import timedelta
 from xml.etree import ElementTree as ET
 from lxml import etree
 from .forms import CalculatorForm
+from catalog.utils.insurance import main, car_inspection
 
 
 def send_order(request):
@@ -652,3 +653,21 @@ def calculator_page(request):
 
     form = CalculatorForm()
     return render(request, 'calculator.html', {'form': form, 'info_main': info_main, 'contact': contact})
+
+
+def get_insurance(request):
+    body = json.loads(request.body)
+    lot = body['lot']
+
+    res_main = main(lot)
+
+    return JsonResponse({'data': res_main})
+
+
+def get_inspection(request):
+    body = json.loads(request.body)
+    lot = body['lot']
+
+    res_car_inspection = car_inspection(lot)
+
+    return JsonResponse({'data': res_car_inspection})

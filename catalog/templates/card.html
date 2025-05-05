@@ -261,10 +261,24 @@
                         {% endif %}
                     </div>
                 </div>
+                <div class="d-flex" style="gap: 10px;">
                 <button class="teh-list-btn d-flex mt-3">
                     <img src="{% static 'img/description-teh.png' %}" class="img-fluid me-2" alt="Авто">
                     <span>Смотреть тех. лист</span>
                 </button>
+                    {% if car.auction == 'encar' %}
+                <button class="insurance-btn d-flex mt-3" id="insurance-btn">
+                    <img src="{% static 'img/description-teh.png' %}" class="img-fluid me-2" alt="Авто">
+                    <span>Отчёт страховой компании</span>
+                </button>
+                    {% endif %}
+                    </div>
+                {% if car.auction == 'encar' %}
+                <button class="inspection-btn d-flex mt-3" id="inspection-btn">
+                    <img src="{% static 'img/description-teh.png' %}" class="img-fluid me-2" alt="Авто">
+                    <span>Отчёт осмотра авто</span>
+                </button>
+                {% endif %}
             </div>
             <div class="dop-block-img-car">
                 <div class="d-flex">
@@ -821,6 +835,116 @@
   </div>
 </div>
 
+<div class="modal fade" id="insuranceModal" tabindex="-1" aria-labelledby="insuranceModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-insurance modal-dialog-centered">
+    <div class="modal-content modal-content-insurance">
+        <div class="modal-header modal-header-insurance">
+            <span style="font-size: 22px; font-weight: 700;">Отчёт страховой компании для авто <span id="car-header-insurance"></span></span>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body modal-body-insurance">
+         <div class="card card-insurance">
+             <div class="d-flex row">
+                 <div class="col-md-6">
+                     <div class="d-flex align-items-center justify-content-between">
+                         <span>Производитель:</span>
+                         <span></span>
+                     </div>
+                     <div class="d-flex align-items-center justify-content-between">
+                         <span>Версия:</span>
+                         <span></span>
+                     </div>
+                     <div class="d-flex align-items-center justify-content-between">
+                         <span>Месяц и год производства:</span>
+                         <span></span>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="d-flex align-items-center justify-content-between">
+                         <span>Производитель:</span>
+                         <span></span>
+                     </div>
+                     <div class="d-flex align-items-center justify-content-between">
+                         <span>Версия:</span>
+                         <span></span>
+                     </div>
+                     <div class="d-flex align-items-center justify-content-between">
+                         <span>Месяц и год производства:</span>
+                         <span></span>
+                     </div>
+                 </div>
+             </div>
+         </div>
+          <div style="margin-top: 30px;">
+              <p style="font-size: 20px; font-weight: 700;">Иные происшествия</p>
+              <p style="color: #868687;">Повреждения, которые не классифицируются страховой компанией как авария</p>
+                  <div class="card card-insurance-more">
+                  <div class="d-flex align-items-center justify-content-between">
+                         <span style="color: #868687;">Дата:</span>
+                         <span style="color: #868687;">Стоимость ремонта:</span>
+                     </div>
+                  <div class="d-flex align-items-center justify-content-between">
+                         <span style="font-weight: 700;">04.08.2021</span>
+                         <span style="font-weight: 700;">0 ₩</span>
+                     </div>
+                    <hr>
+                      <div class="d-flex align-items-center justify-content-between" style="margin-top: 30px;">
+                         <span><span style="color: #868687;">Запчасти</span> <span style="font-weight: 700;">0 ₩</span></span>
+                         <span><span style="color: #868687;">Покраска</span> <span style="font-weight: 700;">0 ₩</span></span>
+                         <span><span style="color: #868687;">Работа</span> <span style="font-weight: 700;">0 ₩</span></span>
+
+                     </div>
+              </div>
+              <p><span style="color: #868687;">Страховая выплата:</span> <span style="font-weight: 700;">280 000 ₩</span></p>
+          </div>
+
+          <div style="margin-top: 30px;" class="insurance-accidents-container">
+
+          </div>
+          <hr style="margin-top: 40px;">
+          <p style="font-size: 15px; color: #555252;">Обращаем Ваше внимание, что информация, представленная в этом отчёте, не всегда является полной и достаточной в силу её возможного частичного отсутствия в периоды, когда владелец авто не приобретал страховку, кроме того в списке аварий содержатся только те события, о которых было заявлено в страховую любым из участников происшествия. Таким образом, данный отчёт не может являться гарантией отсутствия повреждения автомобиля.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="inspectionModal" tabindex="-1" aria-labelledby="inspectionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-inspection modal-dialog-centered">
+    <div class="modal-content modal-content-inspection">
+        <div class="modal-header modal-header-inspection">
+            <span style="font-size: 22px; font-weight: 700;">Отчёт инспекции авто</span>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body modal-body-inspection">
+          <p style="font-size: 22px; font-weight: 700;">Осмотр внешних компонентов</p>
+          <div class="symbol-inspection">
+              <div class="d-flex align-items-center" style="gap: 40px;">
+                    <div class="d-flex align-items-center">
+                        <img src="{% static 'img/Frame 2087325808.png' %}" width="31" height="31" style="margin-right: 15px;">
+                        <span style="font-size: 15px;">Замена</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <img src="{% static 'img/Frame 2087325809.png' %}" width="31" height="31" style="margin-right: 15px;">
+                        <span style="font-size: 15px;">Листовой металл/сварка</span>
+                    </div>
+              </div>
+          </div>
+          <div class="d-flex justify-content-center" style="gap: 10px; margin-top: 30px;">
+              <img src="{% static 'img/map_inspect_front.png' %}" class="img-fluid img-inspection">
+              <img src="{% static 'img/map_inspect_back.png' %}" class="img-fluid img-inspection">
+          </div>
+          <p style="margin-top: 30px; font-size: 22px; font-weight: 700;">Осмотр внутренних компонентов</p>
+          <div class="d-flex row inspection-container" style="margin-top: 30px;">
+
+          </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
 <!-- Bootstrap JS (для модального окна) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -1068,6 +1192,241 @@
     document.getElementById('call').addEventListener('click', function() {
         var myModal = new bootstrap.Modal(document.getElementById('costModal'), {});
         myModal.show();
+    });
+
+
+    function renderAccidents(data) {
+    const accidentsContainer = document.querySelector('.insurance-accidents-container');
+
+    const carHeaderAccidents = document.getElementById('car-header-insurance');
+    carHeaderAccidents.textContent = `${data.vehicle_no || ''}`;
+
+    const carInfoCard = document.querySelector('.card.card-insurance');
+
+    carInfoCard.innerHTML = `
+        <div class="d-flex row">
+            <div class="col-md-6">
+                <div class="d-flex align-items-center justify-content-between">
+                    <span>Производитель:</span>
+                    <span style='font-weight: 700;'>{{ car.ru_brand }}</span>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <span>Месяц и год производства:</span>
+                    <span style='font-weight: 700;'>${data.year_month || '—'}</span>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <span>Объём двигателя:</span>
+                    <span style='font-weight: 700;'>{{ car.engine_volume|format_price }}</span>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <span>Угоны:</span>
+                    <span style='font-weight: 700;'>${data.robber_cnt || 'Нет'}</span>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <span>Использовался бизнесом:</span>
+                    <span style='font-weight: 700;'>${data.business || 'Нет'}</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex align-items-center justify-content-between">
+                    <span>Модель:</span>
+                    <span style='font-weight: 700;'>{{ car.ru_model }}</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <span>Двигатель:</span>
+                    <span style='font-weight: 700;'>{{ car.engine }}</span>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <span>Номер авто:</span>
+                    <span style='font-weight: 700;'>${data.vehicle_no || '—'}</span>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <span>Использовался правительством:</span>
+                    <span style='font-weight: 700;'>${data.government || 'Нет'}</span>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <span>Находился в залоге:</span>
+                    <span style='font-weight: 700;'>${data.loan || 'Нет'}</span>
+                </div>
+
+            </div>
+        </div>
+    `;
+
+
+    accidentsContainer.innerHTML = `
+        <p style='font-weight: 700; font-size: 20px;'>Аварии по вине владельца этого авто</p>
+        <p style='color: #868687;'>Список аварий, стоимость которых компенсировала страховка этого автомобиля.
+           Обращаем Ваше внимание, что в данном отчёте отображаются только те аварии,
+           о которых было заявлено в страховую компанию.</p>
+    `;
+
+    const formatMoney = (amount) => {
+        return amount ? new Intl.NumberFormat('ru-RU').format(amount) + ' ₩' : '0 ₩';
+    };
+
+    const ownerAccidents = data.accidents.filter(accident => accident.type === "1");
+
+    ownerAccidents.forEach(accident => {
+        const accidentCard = document.createElement('div');
+        accidentCard.className = 'card card-insurance-more';
+        accidentCard.style = 'margin-top: 30px;';
+        accidentCard.innerHTML = `
+            <div class="d-flex align-items-center justify-content-between">
+                <span style='color: #868687;'>Дата:</span>
+                <span style='color: #868687;'>Стоимость ремонта:</span>
+            </div>
+            <div class="d-flex align-items-center justify-content-between">
+                <span style='font-weight: 700;'>${accident.date.split('-').reverse().join('.')}</span>
+                <span style='font-weight: 700;'>${formatMoney(accident.partCost + accident.laborCost + accident.paintingCost)}</span>
+            </div>
+            <hr>
+            <div class="d-flex align-items-center justify-content-between" style="margin-top: 30px;">
+                <span><span style='color: #868687;'>Запчасти</span> <span style='font-weight: 700;'>${formatMoney(accident.partCost)}</span></span>
+                <span><span style='color: #868687;'>Покраска</span> <span style='font-weight: 700;'>${formatMoney(accident.paintingCost)}</span></span>
+                <span><span style='color: #868687;'>Работа</span> <span style='font-weight: 700;'>${formatMoney(accident.laborCost)}</span></span>
+            </div>
+        `;
+
+        accidentsContainer.appendChild(accidentCard);
+
+
+        const insurancePayment = document.createElement('p');
+        insurancePayment.innerHTML = `<span style='color: #868687;'>Страховая выплата:</span> <span style='font-weight: 700;'>${formatMoney(accident.insuranceBenefit)}</span>`;
+        accidentsContainer.appendChild(insurancePayment);
+    });
+    }
+
+    document.getElementById('insurance-btn').addEventListener('click', function() {
+
+    fetch('http://94.241.142.204/catalog/car_insurance/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+        },
+        body: JSON.stringify({
+            lot: '{{car.lot}}'
+         })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Ошибка при запросе к ЕП');
+        }
+        return response.json();
+    })
+    .then(data => {
+        renderAccidents(data.data);
+        var myModal = new bootstrap.Modal(document.getElementById('insuranceModal'), {});
+        myModal.show();
+
+
+    })
+    .catch(error => {
+        console.error('Ошибка:', error);
+
+        alert('Не удалось выполнить запрос к ЕП: ' + error.message);
+    });
+    });
+
+    function renderInspection(data) {
+    const inspectionContainer = document.querySelector('.inspection-container');
+
+    inspectionContainer.innerHTML = `
+        <div class="col-md-6">
+                <div class="d-flex align-items-center justify-content-between">
+                    <span>Двигатель:</span>
+                    <span style='font-weight: 700; color: rgba(37, 198, 96, 1);'>${data.Двигатель || '-'}</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <span>Рабочее состояние (холостой ход)</span>
+                    <span style='font-weight: 700; color: rgba(37, 198, 96, 1);'>${data['Рабочее состояние (холостой ход)'] || '-'}</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <span>Утечка масла</span>
+                    <span style='font-weight: 700; color: rgba(37, 198, 96, 1);'>${data['Утечка масла'] || '-'}</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <span>Утечка масла ГУР</span>
+                    <span style='font-weight: 700; color: rgba(37, 198, 96, 1);'>${data['Утечка масла ГУР'] || '-'}</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <span>Утечка масла главного тормозного цилиндра</span>
+                    <span style='font-weight: 700; color: rgba(37, 198, 96, 1);'>${data['Утечка масла главного тормозного цилиндра'] || '-'}</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <span>Стартер</span>
+                    <span style='font-weight: 700; color: rgba(37, 198, 96, 1);'>${data['Стартер'] || '-'}</span>
+                </div>
+        </div>
+
+        <div class="col-md-6">
+                <div class="d-flex align-items-center justify-content-between">
+                    <span>Мотор стеклоподъемника:</span>
+                    <span style='font-weight: 700; color: rgba(37, 198, 96, 1);'>${data['Мотор стеклоподъемника'] || '-'}</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <span>Утечка тормозной жидкости</span>
+                    <span style='font-weight: 700; color: rgba(37, 198, 96, 1);'>${data['Утечка тормозной жидкости'] || '-'}</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <span>Выход генератора</span>
+                    <span style='font-weight: 700; color: rgba(37, 198, 96, 1);'>${data['Выход генератора'] || '-'}</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <span>Работа моторчика стеклоочистителя</span>
+                    <span style='font-weight: 700; color: rgba(37, 198, 96, 1);'>${data['Работа моторчика стеклоочистителя'] || '-'}</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <span>Мотор вентилятора радиатора</span>
+                    <span style='font-weight: 700; color: rgba(37, 198, 96, 1);'>${data['Мотор вентилятора радиатора'] || '-'}</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <span>Утечка топлива (включая газ)</span>
+                    <span style='font-weight: 700; color: rgba(37, 198, 96, 1);'>${data['Утечка топлива (включая газ)'] || '-'}</span>
+                </div>
+        </div>
+    `;
+    }
+
+    document.getElementById('inspection-btn').addEventListener('click', function() {
+        fetch('http://94.241.142.204/catalog/car_inspection/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+        },
+        body: JSON.stringify({
+            lot: '{{car.lot}}'
+         })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Ошибка при запросе к ЕП');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.data) {
+            renderInspection(data.data);
+        }
+        var myModal = new bootstrap.Modal(document.getElementById('inspectionModal'), {});
+        myModal.show();
+
+
+    })
+    .catch(error => {
+        console.error('Ошибка:', error);
+
+        alert('Не удалось выполнить запрос к ЕП: ' + error.message);
+    });
     });
 
 </script>

@@ -1223,7 +1223,31 @@ footer {
     padding-bottom: 28px;
 }
 
+.modal-body-insurance {
+    padding-left: 28px;
+    padding-right: 28px;
+    padding-bottom: 28px;
+    margin-top: 30px;
+    display: block;
+}
+
+.modal-body-inspection {
+    padding-left: 28px;
+    padding-right: 28px;
+    padding-bottom: 28px;
+    margin-top: 30px;
+    display: block;
+}
+
 .modal-content-success {
+    border-radius: 24px;
+}
+
+.modal-content-insurance {
+    border-radius: 24px;
+}
+
+.modal-content-inspection {
     border-radius: 24px;
 }
 
@@ -1233,6 +1257,28 @@ footer {
 
 .modal-header-success {
   border-bottom: none !important;
+}
+
+.modal-header-insurance {
+  border-bottom: none !important;
+  padding-left: 28px;
+  padding-right: 28px;
+}
+
+.modal-dialog-insurance {
+    width: 100%;
+    max-width: 1200px;
+}
+
+.modal-header-inspection {
+  border-bottom: none !important;
+  padding-left: 28px;
+  padding-right: 28px;
+}
+
+.modal-dialog-inspection {
+    width: 100%;
+    max-width: 1200px;
 }
 
 .dop-text-delivery {
@@ -1297,6 +1343,69 @@ footer {
     font-size: 13px;
     justify-content: center;
     align-items: center;
+}
+
+.insurance-btn {
+    border: 1px solid rgba(15, 154, 239, 0.6);
+    background-color: rgba(15, 154, 239, 0.6);
+    border-radius: 12px;
+    padding: 12px;
+    color: white;
+    font-size: 13px;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-insurance {
+    border: 1px solid #F8F8F8;
+    background-color: #F8F8F8;
+    padding: 20px;
+    border-radius: 15px;
+    width: 100%;
+}
+
+.inspection-container {
+    border: 1px solid #F8F8F8;
+    background-color: #F8F8F8;
+    border-radius: 20px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    padding-right: 36px;
+    padding-left: 36px;
+}
+
+.symbol-inspection {
+    border: 1px solid #F8F8F8;
+    background-color: #F8F8F8;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 40px;
+    padding-left: 40px;
+}
+
+.card-insurance-more {
+    border: 1px solid #e5e7eb;
+    padding: 20px;
+    border-radius: 15px;
+    width: 100%;
+}
+
+.inspection-btn {
+    border: 1px solid rgba(15, 154, 239, 0.6);
+    background-color: rgba(15, 154, 239, 0.6);
+    border-radius: 12px;
+    padding: 12px;
+    color: white;
+    font-size: 13px;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-inspection {
+    width: 400px;
+    height: 379px;
 }
 
 @media only screen and (min-width: 1100px) {
