@@ -31,7 +31,7 @@
 
 </head>
 <body>
-<header class="container-fluid py-3 bg-light">
+<header class="container-fluid py-3 bg-light header-desk">
         <div class="container d-flex justify-content-between align-items-center">
             <a href="{% url 'home' %}">
             <div>
@@ -63,6 +63,55 @@
         </div>
     </header>
 
+
+<header class="container-fluid py-3 bg-light header-mob">
+        <div class="container d-flex justify-content-between align-items-center">
+
+
+            <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+    <!-- Логотип слева -->
+    <a href="/" style="z-index: 1000;">
+        <div>
+            <img src="{% static 'img/Logo.png' %}" alt="Логотип" width="51" height="37">
+        </div>
+    </a>
+
+                <div class="burger-container">
+                    <input type="checkbox" id="burger-checkbox" class="burger-checkbox">
+                    <label class="burger" for="burger-checkbox"></label>
+
+                    <nav class="mobile-nav">
+                        <ul>
+                            <img src="{% static 'img/Logo.png' %}" alt="Логотип" width="51" height="37">
+                            <li class=""><a class="nav-link" href="{% url 'catalog:japan' %}">Японские авто</a></li>
+                    <li class=""><a class="nav-link" href="{% url 'catalog:korea' %}">Корейские авто</a></li>
+                    <li class=""><a class="nav-link" href="{% url 'catalog:china' %}">Китайские авто</a></li>
+                    <li class=""><a class="nav-link" href="{% url 'catalog:europe' %}">Европейские авто</a></li>
+                    <li class=""><a class="nav-link" href="{% url 'about' %}">О компании</a></li>
+                        </ul>
+
+                        <div class="d-flex align-items-center justify-content-between mt-5">
+                    <div class="">
+                    <a href="#" class="me-2"><img src="{% static 'img/tg.png' %}" alt="Telegram" width="28"></a>
+                    <a href="#" class="me-2"><img src="{% static 'img/Youtube.png' %}" alt="Youtube" width="28"></a>
+                    <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
+                </div>
+                            <div class="">
+                    <a href="#" class="mb-0 fw-bold header-phone">{{ contact.phone }}</a>
+
+                </div>
+                        </div>
+
+
+                </nav>
+                </div>
+
+
+
+</div>
+    </div>
+    </header>
+
 <section class="container text-white text-start container-main container-main-card">
         <div class="container">
             <div class="row">
@@ -84,7 +133,7 @@
     </section>
 
 <section class="container popular-cars">
-    <div class="row mt-3">
+    <div class="row mt-3" style="row-gap: 20px;">
 
         <div class="col-md-6">
     <!-- Главный слайдер с изображениями -->
@@ -173,14 +222,14 @@
 
 
         <div class="col-md-6">
-            <div class="card-info-car">
+            <div class="card-info-car card-info-car-mob">
                 <div style="">
-                    <h1 style="font-size: 36px; font-weight: 800; margin: 0;">
+                    <h1 style="font-size: 36px; font-weight: 800; margin: 0;" class="zag-car-mob">
                         {{ car.ru_brand }} {{ car.ru_model }}{% if car.year %}, {{ car.year }} {% endif %}
                     </h1>
-                    <a href="{% if country_path == '#' %}/{% else %}{% url 'catalog:'|add:country_path %}?brand={{ car.brand }}&model={{ car.model }}{% endif %}" style="color: #007DE3!important;">Показать похожие <svg xmlns="http://www.w3.org/2000/svg" width="11" height="12" viewBox="0 0 11 12" fill="none">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M0.55724 10.0365C0.366337 9.84561 0.366337 9.53609 0.55724 9.34519L4.40254 5.49989L0.557268 1.65522C0.366349 1.46433 0.366325 1.15481 0.557214 0.963891C0.748103 0.772972 1.05762 0.772947 1.24854 0.963837L5.43952 5.15417C5.53121 5.24585 5.58272 5.37019 5.58273 5.49984C5.58273 5.6295 5.53123 5.75384 5.43955 5.84552L1.24856 10.0365C1.05766 10.2274 0.748144 10.2274 0.55724 10.0365Z" fill="#007DE3"/>
-</svg></a>
+<!--                    <a href="{% if country_path == '#' %}/{% else %}{% url 'catalog:'|add:country_path %}?brand={{ car.brand }}&model={{ car.model }}{% endif %}" style="color: #007DE3!important;">Показать похожие <svg xmlns="http://www.w3.org/2000/svg" width="11" height="12" viewBox="0 0 11 12" fill="none">-->
+<!--<path fill-rule="evenodd" clip-rule="evenodd" d="M0.55724 10.0365C0.366337 9.84561 0.366337 9.53609 0.55724 9.34519L4.40254 5.49989L0.557268 1.65522C0.366349 1.46433 0.366325 1.15481 0.557214 0.963891C0.748103 0.772972 1.05762 0.772947 1.24854 0.963837L5.43952 5.15417C5.53121 5.24585 5.58272 5.37019 5.58273 5.49984C5.58273 5.6295 5.53123 5.75384 5.43955 5.84552L1.24856 10.0365C1.05766 10.2274 0.748144 10.2274 0.55724 10.0365Z" fill="#007DE3"/>-->
+<!--</svg></a>-->
                 </div>
                 <p class="fw-bold mt-4" style="font-size: 28px;">
                     {% if car.toll and car.toll != -1 %}
@@ -190,7 +239,7 @@
                     {% endif %}
                 <p>
                 <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <span style="color: #555252; font-size: 14px;">Стомость авто: </span><span class="fw-bold" style="font-size: 14px;">
                     {% if car.auction != 'encar' %}
                     {{ car.price|filter_price_korea|format_price }} ₩
@@ -200,19 +249,20 @@
                 </span>
                     <p class="mt-2"><span style="color: #555252; font-size: 14px;">Полная пошлина: </span><span class="fw-bold" style="font-size: 14px;">{{ poshlina|format_price }} <span style="font-size: 16px;">₽</span></span></p>
                 </div>
-                <div class="col-md-6">
-                    <span style="color: #555252; font-size: 14px;">Производитель: </span><span class="fw-bold" style="font-size: 14px;">{{ car.country }}</span>
-                    <p class="mt-2"><span style="color: #555252; font-size: 14px;">Экспортер: </span><span class="fw-bold" style="font-size: 14px;">Корея</span></p>
+                <div class="col-md-7 d-flex align-items-center">
+                    <div class="d-flex">
+                    <button class="btn-delivery me-2 btn-car-feed-mob" style="padding: 12px; font-size: 13px;" id="btn-feedback-car">Оставить заявку</button>
+                    <button class="contact-from-bnt me-2 btn-car-feed-mob" id="btn-calc-price-car" style="padding: 12px; font-size: 13px;">Подробный расчет</button>
+                        </div>
                 </div>
             </div>
 
-                <div class="row mt-2">
-                    <div class="col-md-12 d-flex">
-                    <button class="btn-delivery me-2" style="padding: 12px!important;" id="btn-feedback-car">Оставить заявку</button>
-                    <button class="contact-from-bnt me-2" id="btn-calc-price-car">Подробный расчет</button>
-                    <img src="{% static 'img/tg-card-car.png' %}" class="img-fluid" alt="Авто">
-                </div>
-                </div>
+<!--                <div class="row mt-2">-->
+<!--                    <div class="col-md-12 d-flex">-->
+<!--                    <button class="btn-delivery me-2" style="padding: 12px!important;" id="btn-feedback-car">Оставить заявку</button>-->
+<!--                    <button class="contact-from-bnt me-2" id="btn-calc-price-car">Подробный расчет</button>-->
+<!--                </div>-->
+<!--                </div>-->
 
                 <p class="mt-3" style="font-size: 15px;">Стоимость является ориентировочной. Оставьте заявку и наш менеджер свяжется с Вами для уточнения деталей.</p>
 
@@ -238,6 +288,9 @@
                         {% if car.body_brand %}
                         <p style="font-size: 15px;"><span style="color: #555252;">Бренд кузова: </span><span>{{ car.body_brand }}</span></p>
                         {% endif %}
+                        <p style="font-size: 15px;"><span style="color: #555252;">Производитель: </span><span>{{ car.country }}</span></p>
+                        <p style="font-size: 15px;"><span style="color: #555252;">Экспортер: </span><span>Корея</span></p>
+
 
                     </div>
                     <div class="col-md-6">
@@ -261,7 +314,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="d-flex" style="gap: 10px;">
+                <div class="d-flex" style="gap: 10px; flex-wrap: wrap;">
                 <button class="teh-list-btn d-flex mt-3">
                     <img src="{% static 'img/description-teh.png' %}" class="img-fluid me-2" alt="Авто">
                     <span>Смотреть тех. лист</span>
@@ -272,17 +325,18 @@
                     <span>Отчёт страховой компании</span>
                 </button>
                     {% endif %}
-                    </div>
-                {% if car.auction == 'encar' %}
+                    {% if car.auction == 'encar' %}
                 <button class="inspection-btn d-flex mt-3" id="inspection-btn">
                     <img src="{% static 'img/description-teh.png' %}" class="img-fluid me-2" alt="Авто">
                     <span>Отчёт осмотра авто</span>
                 </button>
                 {% endif %}
+                    </div>
+
             </div>
             <div class="dop-block-img-car">
                 <div class="d-flex">
-                    <span>Экономия с первого шага! Мы не берем комиссию за подбор авто, в отличие от большинства компаний</span>
+                    <span style="padding-top: 16px;">Экономия с первого шага! Мы не берем комиссию за подбор авто, в отличие от большинства компаний</span>
                     <img src="{% static 'img/Image-commision-0.png' %}" class="img-fluid" alt="Авто">
                 </div>
             </div>
@@ -315,7 +369,7 @@
                         <input type="hidden" name="city-q" id="city-q">
                     </div>
                   </div>
-                <div class="d-flex justify-content-between mt-2">
+                <div class="d-flex justify-content-between mt-2" style="flex-wrap: wrap;">
                     <span style="font-size: 14px;">Доставка: <span style="font-weight: 700;">200 000 <span style="font-size: 15px;">₽</span></span></span>
                     <span style="font-size: 14px;">Итого в г. Москва: <span style="font-weight: 700;">21 000 000 <span style="font-size: 15px;">₽</span></span></span>
                 </div>
@@ -323,15 +377,15 @@
                     <div class="col-md-7">
                     <span style="font-size: 14px;">Если вашего города нет в списке,свяжитесь с нами. Возможно, мы сможем организовать доставку.</span>
                         </div>
-                    <div class="col-md-5 d-flex" style="justify-content: right; align-items: center;">
-                    <button class="btn-delivery me-2" style="padding: 12px!important;" id="call">Заказать звонок</button>
+                    <div class="col-md-5 d-flex div-btn-car-call-mob" style="justify-content: right; align-items: center;">
+                    <button class="btn-delivery me-2 btn-car-call-mob" style="padding: 12px!important;" id="call">Заказать звонок</button>
                         </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <h1 style="font-size: 48px; font-weight: 800; margin-top: 120px;">Похожие авто</h1>
+    <h1 style="font-size: 48px; font-weight: 800; margin-top: 120px;" class="zag-pohozie-car-mob">Похожие авто</h1>
 
     <div class="row mt-3">
         {% for car in popular_cars %}
@@ -391,9 +445,9 @@
 
     </div>
 
-    <h1 class="" style="font-size: 48px; font-weight: 800; margin-top: 120px!important;">Этапы работы</h1>
+    <h1 class="zag-pohozie-car-mob" style="font-size: 48px; font-weight: 800; margin-top: 120px!important;">Этапы работы</h1>
     <p style="font-size: 15px; padding-top: 8px;">Полное сопровождение сделки и поддержка связи с клиентом 24/7.</p>
-    <div class="row" style="margin-top: 48px;">
+    <div class="row" style="margin-top: 48px; row-gap: 30px;">
         {% for stage in stages_work %}
         <div class="col-md-3">
             <div class="one-step">
@@ -416,7 +470,7 @@
                 <span style="font-size: 14px;">Минимальный срок доставки {{ info_main.min_day_delivery }}</span>
                 <div class="mt-4">
                     <div class="custom-dropdown">
-                        <div class="dropdown-button" style="padding: 6px;">Куда доставляем?</div>
+                        <div class="dropdown-button" style="padding: 16px;">Куда доставляем?</div>
                         <ul class="dropdown-list">
                             {% for city in city_delivery %}
                             <li data-value="{{ city }}">{{ city }}</li>
@@ -427,7 +481,7 @@
                 </div>
                 <div class="mt-3">
                     <div class="custom-dropdown">
-                        <div class="dropdown-button" style="padding: 6px;">Выберите кузов</div>
+                        <div class="dropdown-button" style="padding: 16px;">Выберите кузов</div>
                         <ul class="dropdown-list">
                             {% for body in body_delivery %}
                             <li data-value="{{ body }}">{{ body }}</li>
@@ -436,13 +490,13 @@
                         <input type="hidden" name="car_type">
                     </div>
                 </div>
-                <div class="row d-flex mt-5 justify-content-between">
+                <div class="row d-flex justify-content-between" style="margin-top: 26px;">
                     <div class="col-md-7">
                         <span style="font-size: 14px;">Стоимость доставки:</span>
                         <p class="fw-bold price-delivery">от <span id="price_delivery">0</span> <span class="logo-rub">₽</span></p>
                     </div>
                     <div class="col-md-5">
-                        <button class="btn-delivery" id="btn-delivery">Оставить заявку</button>
+                        <button class="btn-delivery btn-feed-calc-mob" id="btn-delivery">Оставить заявку</button>
                     </div>
                 </div>
                 <div class="dop-text-delivery">
@@ -450,7 +504,7 @@
             </div>
             </div>
         </div>
-        <div class="col-7">
+        <div class="col-md-7">
             <img src="{% static 'img/car-img-delivery.png' %}" class="img-fluid" alt="Авто" style="border-radius: 16px;">
         </div>
     </div>
@@ -491,7 +545,7 @@
                 <h3 style="font-weight: 800; font-size: 24px;">Оставить заявку</h3>
                 <form method="post" id="contact-feedback">
                     {% csrf_token %}
-                    <div class="row mb-3 mt-4">
+                    <div class="row mb-3 mt-4" style="row-gap: 20px;">
                         <div class="col-md-6">
                             <label for="name" class="form-label" style="font-size: 14px;">Имя</label>
                             <input type="text" id="name" class="form-control" placeholder="Введите имя" required>
@@ -505,7 +559,7 @@
                         <label for="message" class="form-label" style="font-size: 14px;">Уточните свой вопрос</label>
                         <textarea id="message" class="form-control" rows="4" placeholder="Введите текст сообщения"></textarea>
                     </div>
-                    <div class="d-flex justify-content-between align-items-center mt-5">
+                    <div class="d-flex justify-content-between align-items-center mt-5" style="flex-wrap: wrap;">
                         <div class="form-check d-flex justify-content-between align-items-center">
                             <input class="form-check-input" type="checkbox" id="agree" required checked>
                             <label class="form-check-label ms-3" for="agree" style="font-size: 13px;">
@@ -513,7 +567,7 @@
                             </label>
                         </div>
 
-                        <button type="submit" class="contact-from-bnt">Отправить</button>
+                        <button type="submit" class="contact-from-bnt contact-from-bnt-mob">Отправить</button>
                     </div>
                 </form>
             </div>
@@ -521,7 +575,7 @@
     </div>
 </section>
 
-<footer class="container py-3 bg-light px-5">
+<footer class="container py-3 bg-light px-5 footer-desk">
     <div class="container d-flex justify-content-between align-items-center">
             <a href="{% url 'home' %}">
             <div>
@@ -554,15 +608,52 @@
     </div>
 </footer>
 
+<footer class="container py-3 bg-light px-5 footer-mob">
+    <div class="container d-flex justify-content-between align-items-center">
+            <a href="{% url 'home' %}">
+            <div>
+                <img src="{% static 'img/Logo.png' %}" alt="Логотип" height="69" width="70">
+            </div>
+            </a>
+
+            <div class="d-flex align-items-center">
+                <div>
+                    <a href="#" class="me-2"><img src="{% static 'img/tg.png' %}" alt="Telegram" width="28"></a>
+                    <a href="#" class="me-2"><img src="{% static 'img/Youtube.png' %}" alt="Youtube" width="28"></a>
+                    <a href="#" class="me-2"><img src="{% static 'img/vk.png' %}" alt="vk" width="28"></a>
+                </div>
+            </div>
+        </div>
+    <div class="d-flex justify-content-center mt-4">
+        <nav>
+                <ul class="ul-footer-mob">
+                    <li class=""><a class="nav-link" href="{% url 'catalog:japan' %}">Японские авто</a></li>
+                    <li class=""><a class="nav-link" href="{% url 'catalog:korea' %}">Корейские авто</a></li>
+                    <li class=""><a class="nav-link" href="{% url 'catalog:china' %}">Китайские авто</a></li>
+                    <li class=""><a class="nav-link" href="{% url 'catalog:europe' %}">Европейские авто</a></li>
+                    <li class=""><a class="nav-link" href="{% url 'about' %}">О компании</a></li>
+                </ul>
+            </nav>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between align-items-center">
+        <span style="color: #555252; font-size: 12px;"> Все права зарегистрированы.</span>
+        <span style="color: #555252; font-size: 12px;">© 2021 Sewa Motors</span>
+    </div>
+</footer>
+
 <!-- Модальное окно -->
 <div class="modal fade" id="costModal" tabindex="-1" aria-labelledby="costModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-feedback modal-dialog-centered">
     <div class="modal-content modal-content-feedback">
+        <div class="modal-header modal-header-success modal-header-mob">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
 
       <div class="modal-body modal-body-feedback">
           <form method="post" style="width: 1181px;" id="feedback-modal">
               {% csrf_token %}
-          <div class="row" style="width: 1181px;">
+          <div class="row row-mob-width" style="width: 1181px;">
               <div class="col-md-7 left-col-modal" >
                   <h1 style="color: white; font-size: 28px; font-weight: 700; padding: 28px; line-height: 150%;">Оставьте заявку и наши специалисты подберут лучшие варианты под ваш бюджет</h1>
                   <div style="padding: 28px;">
@@ -574,7 +665,7 @@
                         </div>
                     </div>
               </div>
-              <div class="col-md-5" style="padding: 28px;">
+              <div class="col-md-5 col-mob-background" style="padding: 28px;">
               <div class="col-md-12">
         <label for="name-modal" class="form-label" style="font-size: 14px;">Имя</label>
         <input type="text" id="name-modal" class="form-control" placeholder="Введите имя" required style="background-color: #F6F6F6;">
@@ -599,7 +690,7 @@
                   <label for="message-modal" class="form-label" style="font-size: 14px;">Какой автомобиль ищите?</label>
                   <textarea id="message-modal" class="form-control" rows="4" placeholder="Введите текст сообщения" style="background-color: #F6F6F6;"></textarea>
               </div>
-              <div class="d-flex justify-content-between align-items-center mt-5">
+              <div class="d-flex justify-content-between align-items-center mt-5 btn-wrap-modal-feed-mob" style="row-gap: 20px;">
                         <div class="form-check d-flex justify-content-between align-items-center">
                             <input class="form-check-input form-check-input-modal" type="checkbox" id="agree-modal" required checked>
                             <label class="form-check-label ms-3" for="agree" style="font-size: 13px;">
@@ -625,7 +716,7 @@
 
       <div class="modal-body modal-body-calc">
           {% if details_price_car %}
-          <div class="row">
+          <div class="row" style="row-gap: 20px;">
               <div class="col-md-6 right-block-q" style="border-radius: 16px;">
                 <div class="col-md-12">
                   <div class="custom-dropdown-cost">
@@ -643,7 +734,7 @@
                 </div>
                 <div class="d-flex mt-2">
 
-                    <span class="d-flex" style="font-size: 14px; align-items: center;">Cроки и стоимость указаны для доставки из Владивостока до Вашего города. Время ожидания  к отправке из Владивостока:  от 1 до 20 дней</span>
+                    <span class="d-flex mob-modal-podr-calc-text-1" style="font-size: 14px; align-items: center;">Cроки и стоимость указаны для доставки из Владивостока до Вашего города. Время ожидания к отправке из Владивостока: от 1 до 20 дней</span>
                     <img src="{% static 'img/Image-calc-price.png' %}" class="img-fluid" alt="Авто" style="margin-bottom: -23px; margin-right: -23px; border-radius: 16px;">
 
 
@@ -651,45 +742,45 @@
 
             </div>
               <div class="col-md-6">
-                  <div class="d-flex justify-content-between" style="font-size: 15px;">
+                  <div class="d-flex justify-content-between mob-modal-podr-calc-text-1" style="font-size: 15px;">
                       <span>Стоимость авто:</span>
                       <span>
                           {% if car.auction != 'encar' %}
-                            {{ car.price|filter_price_korea|format_price }} ₩ ({{ details_price_car.car_price_rus|format_price }} <span style="font-size: 18px;">₽</span>)
+                            {{ car.price|filter_price_korea|format_price }} ₩ ({{ details_price_car.car_price_rus|format_price }} <span style="font-size: 18px;" class="mob-modal-podr-calc-text-1">₽</span>)
                         {% else %}
-                        {{ car.price|format_price }} ₩ ({{ details_price_car.car_price_rus|format_price }} <span style="font-size: 16px;">₽</span>)
+                        {{ car.price|format_price }} ₩ ({{ details_price_car.car_price_rus|format_price }} <span style="font-size: 16px;" class="mob-modal-podr-calc-text-1">₽</span>)
                         {% endif %}
                       </span>
                   </div>
-                  <div class="d-flex justify-content-between mt-2" style="font-size: 15px;">
+                  <div class="d-flex justify-content-between mt-2 mob-modal-podr-calc-text-1" style="font-size: 15px;">
                       <span>Доставка до Владивостока:</span>
                       <span>
-                          {{ details_price_car.delivery|format_price }} ₩ ({{ details_price_car.delivery_rus|format_price }} <span style="font-size: 16px;">₽</span>)
+                          {{ details_price_car.delivery|format_price }} ₩ ({{ details_price_car.delivery_rus|format_price }} <span style="font-size: 16px;" class="mob-modal-podr-calc-text-1">₽</span>)
                       </span>
                   </div>
-                  <div class="d-flex justify-content-between mt-2" style="font-size: 15px;">
+                  <div class="d-flex justify-content-between mt-2 mob-modal-podr-calc-text-1" style="font-size: 15px;">
                       <span>Таможенный брокер:</span>
                       <span>
-                          {{ details_price_car.broker|format_price }} <span style="font-size: 16px;">₽</span>
+                          {{ details_price_car.broker|format_price }} <span style="font-size: 16px;" class="mob-modal-podr-calc-text-1">₽</span>
                       </span>
                   </div>
                   <hr>
-                  <div class="d-flex justify-content-between mt-2" style="font-size: 15px;">
+                  <div class="d-flex justify-content-between mt-2 mob-modal-podr-calc-text-1" style="font-size: 15px;">
                       <span>Пошлина:</span>
                       <span>
-                          {{ details_price_car.toll|format_price }} <span style="font-size: 16px;">₽</span>
+                          {{ details_price_car.toll|format_price }} <span style="font-size: 16px;" class="mob-modal-podr-calc-text-1">₽</span>
                       </span>
                   </div>
-                  <div class="d-flex justify-content-between mt-2" style="font-size: 15px;">
+                  <div class="d-flex justify-content-between mt-2 mob-modal-podr-calc-text-1" style="font-size: 15px;">
                       <span>Таможенный сбор:</span>
                       <span>
-                          {{ details_price_car.tof|format_price }} <span style="font-size: 16px;">₽</span>
+                          {{ details_price_car.tof|format_price }} <span style="font-size: 16px;" class="mob-modal-podr-calc-text-1">₽</span>
                       </span>
                   </div>
-                  <div class="d-flex justify-content-between mt-2" style="font-size: 15px;">
+                  <div class="d-flex justify-content-between mt-2 mob-modal-podr-calc-text-1" style="font-size: 15px;">
                       <span>Утилизационный сбор:</span>
                       <span>
-                          {{ details_price_car.yts|format_price }} <span style="font-size: 16px;">₽</span>
+                          {{ details_price_car.yts|format_price }} <span style="font-size: 16px;" class="mob-modal-podr-calc-text-1">₽</span>
                       </span>
                   </div>
                   <hr>
@@ -701,7 +792,7 @@
                   </div>
 
               </div>
-              <div class="col-6">
+              <div class="col-md-6">
                   <div class="currency">
                   <div class="curr">
                     <span>1€ - {{ details_price_car.currency.EUR }} (ЦБ)</span> <span>1$ - {{ details_price_car.currency.USD }} (ЦБ)</span>
@@ -932,7 +1023,10 @@
               </div>
           </div>
           <div class="d-flex justify-content-center" style="gap: 10px; margin-top: 30px;">
-              <img src="{% static 'img/map_inspect_front.png' %}" class="img-fluid img-inspection">
+              <div id="front-image-container" style="position: relative;">
+                <img src="{% static 'img/map_inspect_front.png' %}" class="img-fluid img-inspection" id="front-image">
+                <!-- Метки будут добавляться сюда динамически -->
+            </div>
               <img src="{% static 'img/map_inspect_back.png' %}" class="img-fluid img-inspection">
           </div>
           <p style="margin-top: 30px; font-size: 22px; font-weight: 700;">Осмотр внутренних компонентов</p>
@@ -1419,7 +1513,7 @@
         }
         var myModal = new bootstrap.Modal(document.getElementById('inspectionModal'), {});
         myModal.show();
-
+        fetchMarkers();
 
     })
     .catch(error => {
@@ -1428,6 +1522,60 @@
         alert('Не удалось выполнить запрос к ЕП: ' + error.message);
     });
     });
+
+    // Функция для добавления метки
+function addMarker(containerId, x, y, imageUrl, tooltip = '') {
+    const container = document.getElementById(containerId);
+    const marker = document.createElement('img');
+
+    marker.src = imageUrl;
+    marker.style.position = 'absolute';
+    marker.style.left = `${x}px`;
+    marker.style.top = `${y}px`;
+    marker.style.width = '31px';
+    marker.style.height = '31px';
+    marker.style.transform = 'translate(-50%, -50%)'; // Центрирование метки
+
+
+
+    container.appendChild(marker);
+};
+
+function fetchMarkers() {
+
+    const mockResponse = {
+        markers: [
+            { position: 'front', x: 185, y: 50, type: 'change' },
+            { position: 'front', x: 330, y: 160, type: 'welding' },
+
+        ]
+    };
+
+    const frontImage = document.getElementById('front-image');
+
+
+    document.getElementById('front-image-container').innerHTML = '';
+    document.getElementById('front-image-container').appendChild(
+        frontImage
+    );
+
+    // Добавляем новые метки
+    mockResponse.markers.forEach(marker => {
+        if (marker.position === 'front') {
+            const imageUrl = marker.type === 'change'
+                ? '{% static "img/Frame 2087325808.png" %}'
+                : '{% static "img/Frame 2087325809.png" %}';
+
+            addMarker(
+                'front-image-container',
+                marker.x,
+                marker.y,
+                imageUrl,
+                `${marker.type} at (${marker.x}, ${marker.y})`
+            );
+        }
+    });
+    }
 
 </script>
 

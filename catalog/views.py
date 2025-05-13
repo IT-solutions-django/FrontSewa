@@ -539,7 +539,10 @@ def get_img_encar(api_id='5vfsLV7NMNLv0a'):
         parser = etree.XMLParser(recover=True, encoding='windows-1251')
         root = etree.fromstring(response.content, parser=parser)
 
-        images = root.xpath('//IMAGES/text()')[0].split('#')
+        try:
+            images = root.xpath('//IMAGES/text()')[0].split('#')
+        except:
+            images = None
     else:
         images = None
 

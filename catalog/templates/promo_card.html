@@ -196,37 +196,7 @@
         </div>
     </div>
 
-    <div class="block-form-car-questions d-flex align-items-center justify-content-between">
-        <div>
-        <span style="font-weight: 800; font-size: 28px;">Остались вопросы</span>
-        <p>Оставьте заявку и наши специалисты подберут Вам автомобиль под Ваши требования<p>
-        <form method="post" id="feedback-block-car">
-            {% csrf_token %}
-        <div class="d-flex gap-3">
-            <div>
-            <label for="name-questions" class="form-label" style="font-size: 14px;">Имя</label>
-            <input type="text" id="name-questions" class="form-control" placeholder="Введите имя" required>
-            </div>
-            <div>
-            <label for="phone-questions" class="form-label" style="font-size: 14px;">Телефон</label>
-            <input type="tel" id="phone-questions" class="form-control" placeholder="+7 (___) ___-__-__" required>
-            </div>
-            <div class="block-btn-form-questions">
-            <button type="submit" class="contact-from-bnt" style="padding-top: 10px; padding-bottom: 10px;">Отправить</button>
-            </div>
-        </div>
-        <div class="form-check mt-4">
-            <input class="form-check-input" type="checkbox" id="agree-questions" required checked>
-            <label class="form-check-label ms-3" for="agree-questions" style="font-size: 13px;">
-                С правилами политики конфиденциальности ознакомлен
-            </label>
-        </div>
-        </form>
-        </div>
-        <div>
-        <img src="{% static 'img/Image-logo-questions.png' %}" class="img-fluid">
-        </div>
-    </div>
+
 
 
 
@@ -255,7 +225,7 @@
                 <span style="font-size: 14px;">Минимальный срок доставки {{ info_main.min_day_delivery }}</span>
                 <div class="mt-4">
                     <div class="custom-dropdown">
-                        <div class="dropdown-button" style="padding: 6px;">Куда доставляем?</div>
+                        <div class="dropdown-button" style="padding: 16px;">Куда доставляем?</div>
                         <ul class="dropdown-list">
                             {% for city in city_delivery %}
                             <li data-value="{{ city }}">{{ city }}</li>
@@ -266,7 +236,7 @@
                 </div>
                 <div class="mt-3">
                     <div class="custom-dropdown">
-                        <div class="dropdown-button" style="padding: 6px;">Выберите кузов</div>
+                        <div class="dropdown-button" style="padding: 16px;">Выберите кузов</div>
                         <ul class="dropdown-list">
                             {% for body in body_delivery %}
                             <li data-value="{{ body }}">{{ body }}</li>
@@ -275,7 +245,7 @@
                         <input type="hidden" name="car_type">
                     </div>
                 </div>
-                <div class="row d-flex mt-5 justify-content-between">
+                <div class="row d-flex justify-content-between" style="margin-top: 26px;">
                     <div class="col-md-7">
                         <span style="font-size: 14px;">Стоимость доставки:</span>
                         <p class="fw-bold price-delivery">от <span id="price_delivery">0</span> <span class="logo-rub">₽</span></p>

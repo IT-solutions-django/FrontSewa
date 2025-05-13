@@ -288,7 +288,7 @@
 
 
             <div class="col-md-3">
-                <div style="display: flex; position: relative; width: fit-content; height: 46px;">
+                <div style="display: flex; position: relative; width: fit-content; height: 58px;">
                         <input class="form-control input-price" name="price_from" value="{% if request.GET.price_from %}{{ request.GET.price_from }}{% endif %}" placeholder="Цена от, ₽" style="border-top-right-radius: 0px!important; border-bottom-right-radius: 0px!important;" oninput="formatPrice(this)">
 
 <!--                    <div class="dropdown-button" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">-->
@@ -441,7 +441,7 @@
     </div>
 
 
-    <div class="row mt-3">
+    <div class="row mt-3" style="row-gap: 30px;">
         {% for car in cars %}
         {% if car.photo %}
         <div class="col-12 col-md-3">

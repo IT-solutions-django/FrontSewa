@@ -8,6 +8,101 @@ body.modal-open {
     padding-right: 0px!important;
 }
 
+.header-mob {
+    display: none!important;
+}
+
+.burger-checkbox {
+  position: absolute;
+  visibility: hidden;
+}
+
+.burger {
+  cursor: pointer;
+  display: block;
+  position: relative;
+  border: none;
+  background: transparent;
+  width: 30px;
+  height: 26px;
+  z-index: 9000;
+}
+
+.burger::before,
+.burger::after {
+  content: '';
+  left: 0;
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 4px;
+  border-radius: 10px;
+  background: #000;
+}
+.burger::before {
+  top: 0;
+  box-shadow: 0 11px 0 #000;
+  transition: box-shadow .3s .15s, top .3s .15s, transform .3s;
+}
+.burger::after {
+  bottom: 0;
+  transition: bottom .3s .15s, transform .3s;
+}
+.burger-checkbox:checked + .burger::before {
+  top: 11px;
+  transform: rotate(45deg);
+  box-shadow: 0 6px 0 rgba(0,0,0,0);
+  transition: box-shadow .15s, top .3s, transform .3s .15s;
+}
+.burger-checkbox:checked + .burger::after {
+  bottom: 11px;
+  transform: rotate(-45deg);
+  transition: bottom .3s, transform .3s .15s;
+}
+
+.mobile-nav {
+    position: fixed;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    z-index: 1000;
+    justify-content: left;
+    align-items: center;
+    transform: translateY(-100%);
+    transition: transform 0.5s ease;
+    padding: 20px;
+}
+
+.burger-checkbox:checked ~ .mobile-nav {
+    transform: translateY(0);
+}
+
+.mobile-nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+
+.mobile-nav li {
+    margin: 20px 0;
+}
+
+.mobile-nav a {
+    text-decoration: none;
+    color: #000;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.mobile-nav a:hover {
+    color: #555;
+}
+
+.footer-mob {
+    display: none!important;
+}
+
 header {
     background-color: white;
     position: fixed!important;
@@ -38,8 +133,8 @@ a {
     width: 1px;
     height: 16px;
     background-color: #ccc;
-    margin-left: 12px;
-    margin-right: 12px;
+    margin-left: 22px;
+    margin-right: 22px;
 }
 
 .nav-link {
@@ -279,7 +374,10 @@ a {
     border: 1px solid #F8F8F8;
     background-color: #F8F8F8;
     border-radius: 12px;
-    padding: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 16px;
+    padding-bottom: 16px;
     margin-top: -35px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
@@ -296,7 +394,10 @@ a {
 .form-cost-delivery {
     border: 1px solid #F8F8F8;
     background-color: #F8F8F8;
-    padding: 16px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 28px;
+    padding-bottom: 28px;
     border-radius: 16px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
@@ -372,8 +473,8 @@ a {
 .dropdown-button {
     background-color: white;
     border: 1px solid #FFFFFF;
-    border-radius: 8px;
-    padding: 10px;
+    border-radius: 16px;
+    padding: 16px;
     width: 100%;
     text-align: left;
     cursor: pointer;
@@ -382,6 +483,7 @@ a {
     justify-content: space-between;
     align-items: center;
     color: #757575;
+    box-shadow: 0px 2px 6px 0 rgba(0, 0, 0, 0.05);
 }
 
 .dropdown-button::after {
@@ -463,8 +565,11 @@ a {
 .dropdown-button-modal {
     background-color: white;
     border: 1px solid #FFFFFF;
-    border-radius: 8px;
-    padding: 10px;
+    border-radius: 16px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 16px;
+    padding-bottom: 16px;
     width: 100%;
     text-align: left;
     cursor: pointer;
@@ -527,8 +632,8 @@ a {
 .dropdown-button-q {
     background-color: white;
     border: 1px solid #FFFFFF;
-    border-radius: 8px;
-    padding: 10px;
+    border-radius: 16px;
+    padding: 16px;
     width: 100%;
     text-align: left;
     cursor: pointer;
@@ -536,6 +641,7 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0px 2px 6px 0 rgba(0, 0, 0, 0.05);
 }
 
 .dropdown-button-q::after {
@@ -591,8 +697,8 @@ a {
 .dropdown-button-cost {
     background-color: white;
     border: 1px solid #FFFFFF;
-    border-radius: 8px;
-    padding: 10px;
+    border-radius: 16px;
+    padding: 16px;
     width: 100%;
     text-align: left;
     cursor: pointer;
@@ -600,6 +706,7 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0px 2px 6px 0 rgba(0, 0, 0, 0.05);
 }
 
 .dropdown-button-cost::after {
@@ -664,7 +771,10 @@ a {
 
 .container-contact {
     color: white!important;
-    padding: 100px;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 60px;
+    padding-bottom: 80px;
 }
 
 .contact-form {
@@ -688,12 +798,20 @@ a {
 
 .modal-body-feedback input {
     border-radius: 16px;
-    padding: 12px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border: 1px solid #F6F6F6;
 }
 
 .modal-body-feedback textarea {
     border-radius: 16px;
-    padding: 12px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border: 1px solid #F6F6F6;
 }
 
 .form-check-input {
@@ -867,6 +985,8 @@ footer {
 
 .input-price {
     border: 1px solid white!important;
+    border-radius: 16px;
+    box-shadow: 0px 2px 6px 0 rgba(0, 0, 0, 0.05);
 }
 
 .input-price:focus {
@@ -905,6 +1025,7 @@ footer {
     padding: 12px;
     width: fit-content;
     margin: 0 auto;
+    margin-bottom: 120px;
 }
 
 .pagination-page {
@@ -1077,7 +1198,7 @@ footer {
     padding-bottom: 10px;
     padding-right: 16px;
     padding-left: 16px;
-    font-size: 15px;
+    font-size: 14px;
     transition: background-color 0.3s ease;
 }
 
@@ -1094,7 +1215,7 @@ footer {
 }
 
 .left-block-q {
-     background: linear-gradient(rgba(98, 0, 15, 0.81), rgba(98, 0, 15, 0.81)), url('/static/img/image-form-modal.png') left/cover no-repeat !important;
+     background: url('/static/img/Image-car-red-modal.png') left/cover no-repeat !important;
      background-size: cover !important;
      padding: 24px;
      border-top-left-radius: 20px;
@@ -1193,7 +1314,7 @@ footer {
 }
 
 .left-col-modal a {
-    padding: 8px;
+    padding: 12px;
     border-radius: 12px;
     background-color: rgba(0, 0, 0, 0.28);
 }
@@ -1300,11 +1421,13 @@ footer {
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
     margin-top: 0;
-    padding: 16px;
+    padding-right: 16px;
+    padding-left: 16px;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 .dop-block-img-about img {
-    margin-top: -17px;
     margin-right: -17px;
 }
 
@@ -1317,11 +1440,13 @@ footer {
     background-color: rgba(15, 154, 239, 0.2);
     border-radius: 16px;
     margin-top: 20px;
-    padding: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 .dop-block-img-car img {
-    margin-top: -17px;
 }
 
 .dop-block-img-car span {
@@ -1329,7 +1454,7 @@ footer {
 }
 
 .car-social a {
-    padding: 8px;
+    padding: 12px;
     border-radius: 12px;
     background-color: rgba(0, 0, 0, 0.28);
 }
@@ -1408,7 +1533,99 @@ footer {
     height: 379px;
 }
 
+.ul-footer-mob {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+.ul-footer-mob li {
+    padding-top: 10px;
+}
+
+.modal-header-mob {
+    display: none!important;
+}
+
 @media only screen and (min-width: 1100px) {
     max-width: 1600px;
     width: 100%;
+}
+
+@media (max-width: 792px) {
+    .header-mob {
+        display: flex!important;
+    }
+    .header-desk {
+        display: none!important;
+    }
+    .popular-cars {
+        padding: 20px;
+    }
+    .zag-car-mob {
+        font-size: 20px!important;
+    }
+    .div-btn-car-call-mob {
+        justify-content: center!important;
+    }
+    .btn-car-call-mob {
+        width: 100%;
+        margin-top: 20px;
+    }
+    .container-contact {
+        padding: 20px;
+    }
+    .contact-from-bnt-mob {
+        width: 100%;
+        margin-top: 20px;
+    }
+    .swiper-button-next, .swiper-button-prev {
+        display: none;
+    }
+    .btn-car-feed-mob {
+        font-size: 12px!important;
+        padding: 10px!important;
+    }
+    .zag-pohozie-car-mob {
+        font-size: 38px!important;
+    }
+    .btn-feed-calc-mob {
+        width: 100%;
+    }
+    .footer-mob {
+        display: block!important;
+    }
+    .footer-desk {
+        display: none!important;
+    }
+    .mob-modal-podr-calc-text-1 {
+        font-size: 12px!important;
+    }
+    .card-info-car-mob {
+        padding: 20px;
+    }
+    .modal-content-feedback {
+        width: 100%!important;
+    }
+    .modal-body-feedback form {
+        width: 100%!important;
+    }
+    .modal-header-mob {
+        display: flex!important;
+    }
+    .row-mob-width {
+        width: 100%!important;
+    }
+    .left-col-modal {
+        display: none!important;
+    }
+    .modal-dialog {
+        width: auto;
+    }
+    .currency {
+        font-size: 12px;
+    }
+    .btn-wrap-modal-feed-mob {
+        flex-wrap: wrap;
+    }
 }
